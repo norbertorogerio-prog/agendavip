@@ -4,26 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Agenda de Reuniões VIP</title>
-
   <style>
     :root{
-      --bg0:#0b0b10;
-      --bg1:#12121a;
-      --bg2:#171724;
-      --card:#1b1b2a;
-      --card2:#1f1f32;
-      --text:#eaeaf2;
-      --muted:#a7a7bf;
-      --line:rgba(255,255,255,.08);
+      --bg0:#0b0b10; --bg1:#12121a; --bg2:#171724;
+      --card:#1b1b2a; --card2:#1f1f32;
+      --text:#eaeaf2; --muted:#a7a7bf; --line:rgba(255,255,255,.08);
       --shadow: 0 12px 40px rgba(0,0,0,.55);
-      --purple:#7b2cff;
-      --purple2:#a855f7;
-      --purple3:#5b21b6;
-      --danger:#ef4444;
-      --ok:#22c55e;
-      --warn:#f59e0b;
+      --purple:#7b2cff; --purple2:#a855f7; --purple3:#5b21b6;
+      --danger:#ef4444; --ok:#22c55e; --warn:#f59e0b;
     }
-
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -35,142 +24,48 @@
         radial-gradient(1200px 600px at 95% 110%, rgba(168,85,247,.18), transparent 55%),
         linear-gradient(180deg, var(--bg0), var(--bg1) 45%, var(--bg0));
     }
-
-    /* ✅ MAIS "PAISAGEM": tela mais larga + painel direito maior */
+    /* Layout */
     .shell{
-      max-width: 1680px;
-      margin: 18px auto;
-      padding: 0 16px;
-      display:grid;
-      grid-template-columns: 260px 1fr 560px;
-      gap: 14px;
+      max-width: 1680px; margin: 18px auto; padding: 0 16px;
+      display:grid; grid-template-columns: 260px 1fr 560px; gap: 14px;
       min-height: calc(100vh - 36px);
     }
-
     .sidebar{
       background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border:1px solid var(--line);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      padding: 16px;
-      display:flex;
-      flex-direction: column;
-      gap: 14px;
+      border:1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow);
+      padding: 16px; display:flex; flex-direction: column; gap: 14px;
     }
+    .brand{ display:flex; align-items:center; gap: 10px; padding: 10px 10px; border-radius: 14px;
+      background: rgba(255,255,255,.03); border:1px solid var(--line); }
+    .logo{ width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+      background: rgba(255,255,255,.06); border:1px solid rgba(123,44,255,.35); overflow:hidden; }
+    .logo img{ max-width:100%; max-height:100%; object-fit:contain; display:block; }
+    .brand h1{ font-size: 14px; margin:0; letter-spacing: .2px; line-height: 1.1; }
+    .brand p{ margin:2px 0 0; font-size: 12px; color: var(--muted); }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      padding: 10px 10px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.03);
-      border:1px solid var(--line);
-    }
-
-    .logo{
-      width:48px;
-      height:48px;
-      border-radius:14px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(123,44,255,.35);
-      overflow:hidden;
-    }
-    .logo img{
-      max-width:100%;
-      max-height:100%;
-      object-fit:contain;
-      display:block;
-    }
-
-    .brand h1{
-      font-size: 14px;
-      margin:0;
-      letter-spacing: .2px;
-      line-height: 1.1;
-    }
-    .brand p{
-      margin:2px 0 0;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .nav{
-      margin-top: 2px;
-      display:flex;
-      flex-direction:column;
-      gap: 8px;
-    }
+    .nav{ margin-top: 2px; display:flex; flex-direction:column; gap: 8px; }
     .nav button{
-      all:unset;
-      cursor:pointer;
-      padding: 10px 12px;
-      border-radius: 12px;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      border:1px solid transparent;
-      color: var(--muted);
-      background: transparent;
-      transition: .15s ease;
-      user-select:none;
+      all:unset; cursor:pointer; padding: 10px 12px; border-radius: 12px; display:flex; align-items:center; gap:10px;
+      border:1px solid transparent; color: var(--muted); background: transparent; transition: .15s ease; user-select:none;
     }
-    .nav button:hover{
-      background: rgba(255,255,255,.03);
-      border-color: var(--line);
-      color: var(--text);
-    }
-    .nav button.active{
-      background: rgba(123,44,255,.14);
-      border-color: rgba(123,44,255,.35);
-      color: var(--text);
-    }
-    .dot{
-      width:10px;height:10px;border-radius:99px;
-      background: rgba(255,255,255,.18);
-      box-shadow: 0 0 0 3px rgba(255,255,255,.06) inset;
-    }
-    .nav button.active .dot{
-      background: var(--purple);
-      box-shadow: 0 0 0 3px rgba(123,44,255,.18) inset;
-    }
+    .nav button:hover{ background: rgba(255,255,255,.03); border-color: var(--line); color: var(--text); }
+    .nav button.active{ background: rgba(123,44,255,.14); border-color: rgba(123,44,255,.35); color: var(--text); }
+    .dot{ width:10px;height:10px;border-radius:99px; background: rgba(255,255,255,.18); box-shadow: 0 0 0 3px rgba(255,255,255,.06) inset; }
+    .nav button.active .dot{ background: var(--purple); box-shadow: 0 0 0 3px rgba(123,44,255,.18) inset; }
 
     .hint{
-      margin-top:auto;
-      padding: 12px;
-      border-radius: 14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color: #d0d0e6;
-      font-size: 12px;
-      line-height: 1.35;
+      margin-top:auto; padding: 12px; border-radius: 14px; border:1px solid var(--line);
+      background: rgba(255,255,255,.03); color: #d0d0e6; font-size: 12px; line-height: 1.35;
     }
     .hint b{color:var(--text)}
-
     .miniStatus{
-      margin-top: 6px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.18);
-      font-size: 12px;
-      color: #d0d0e6;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
+      margin-top: 6px; padding: 10px 12px; border-radius: 14px; border:1px solid var(--line);
+      background: rgba(0,0,0,.18); font-size: 12px; color: #d0d0e6;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
     .pillStatus{
-      font-size: 11px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      color: var(--text);
-      white-space:nowrap;
+      font-size: 11px; padding: 4px 8px; border-radius: 999px;
+      border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); color: var(--text); white-space:nowrap;
     }
     .pillStatus.ok{border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.12)}
     .pillStatus.warn{border-color: rgba(245,158,11,.35); background: rgba(245,158,11,.10)}
@@ -178,385 +73,96 @@
 
     .main{
       background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border:1px solid var(--line);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      padding: 14px;
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-      min-width: 0;
+      border:1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow);
+      padding: 14px; display:flex; flex-direction:column; gap: 12px; min-width: 0;
     }
-
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
-      padding: 8px 6px 0 6px;
-    }
-
-    .titleWrap h2{
-      margin:0;
-      font-size: 18px;
-      letter-spacing:.2px;
-      text-transform: capitalize;
-    }
-    .titleWrap .sub{
-      margin-top:4px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .controls{
-      display:flex;
-      gap: 8px;
-      align-items:center;
-    }
-    .pill{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color: var(--text);
-      padding: 9px 10px;
-      border-radius: 12px;
-      cursor:pointer;
-      transition:.15s ease;
-      font-size: 12px;
-      user-select:none;
-    }
+    .topbar{ display:flex; align-items:center; justify-content:space-between; gap: 12px; padding: 8px 6px 0 6px; }
+    .titleWrap h2{ margin:0; font-size: 18px; letter-spacing:.2px; text-transform: capitalize; }
+    .titleWrap .sub{ margin-top:4px; font-size: 12px; color: var(--muted); }
+    .controls{ display:flex; gap: 8px; align-items:center; }
+    .pill{ border:1px solid var(--line); background: rgba(255,255,255,.03); color: var(--text); padding: 9px 10px; border-radius: 12px; cursor:pointer; transition:.15s ease; font-size: 12px; user-select:none; }
     .pill:hover{border-color: rgba(123,44,255,.35)}
-    .pill.primary{
-      background: linear-gradient(180deg, rgba(123,44,255,.28), rgba(123,44,255,.10));
-      border-color: rgba(123,44,255,.45);
-    }
+    .pill.primary{ background: linear-gradient(180deg, rgba(123,44,255,.28), rgba(123,44,255,.10)); border-color: rgba(123,44,255,.45); }
 
-    .calendar{
-      margin-top: 6px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.18);
-      border-radius: 16px;
-      overflow:hidden;
-    }
-    .dow{
-      display:grid;
-      grid-template-columns: repeat(7, 1fr);
-      background: rgba(255,255,255,.03);
-      border-bottom:1px solid var(--line);
-    }
-    .dow div{
-      padding: 10px 10px;
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing:.5px;
-      text-transform: uppercase;
-    }
-
-    /* ✅ MENOS "RETRATO": células mais baixas */
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(7, 1fr);
-      grid-auto-rows: 92px;
-    }
-
-    .cell{
-      border-right:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-      padding: 8px;
-      position:relative;
-      overflow:hidden;
-      min-width: 0;
-    }
+    .calendar{ margin-top: 6px; border:1px solid var(--line); background: rgba(0,0,0,.18); border-radius: 16px; overflow:hidden; }
+    .dow{ display:grid; grid-template-columns: repeat(7, 1fr); background: rgba(255,255,255,.03); border-bottom:1px solid var(--line); }
+    .dow div{ padding: 10px 10px; font-size: 11px; color: var(--muted); letter-spacing:.5px; text-transform: uppercase; }
+    .grid{ display:grid; grid-template-columns: repeat(7, 1fr); grid-auto-rows: 92px; }
+    .cell{ border-right:1px solid var(--line); border-bottom:1px solid var(--line); padding: 8px; position:relative; overflow:hidden; min-width: 0; }
     .cell:nth-child(7n){border-right:none}
-    .cell .day{
-      font-size: 12px;
-      color: var(--muted);
-    }
+    .cell .day{ font-size: 12px; color: var(--muted); }
     .cell.other .day{opacity:.35}
-    .cell.today{
-      outline: 2px solid rgba(123,44,255,.45);
-      outline-offset:-2px;
-      background: linear-gradient(180deg, rgba(123,44,255,.12), transparent 55%);
-    }
+    .cell.today{ outline: 2px solid rgba(123,44,255,.45); outline-offset:-2px; background: linear-gradient(180deg, rgba(123,44,255,.12), transparent 55%); }
+    .events{ margin-top: 6px; display:flex; flex-direction: column; gap: 6px; min-width:0; }
 
-    .events{
-      margin-top: 6px;
-      display:flex;
-      flex-direction: column;
-      gap: 6px;
-      min-width:0;
-    }
-
-    /* ✅ EVENTOS MAIS "ESTICADOS": chip mais horizontal */
     .eventChip{
       --c: var(--purple);
-      display:flex;
-      align-items:center;
-      gap:8px;
-      padding: 6px 10px;
-      border-radius: 12px;
-      border:1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.03);
-      cursor:pointer;
-      transition: .15s ease;
-      min-width: 0;
+      display:flex; align-items:center; gap:8px; padding: 6px 10px; border-radius: 12px;
+      border:1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03);
+      cursor:pointer; transition: .15s ease; min-width: 0;
     }
-    .eventChip:hover{
-      border-color: rgba(255,255,255,.14);
-      transform: translateY(-1px);
-    }
-    .tag{
-      width:10px;height:10px;border-radius:99px;
-      background: var(--c);
+    .eventChip:hover{ border-color: rgba(255,255,255,.14); transform: translateY(-1px); }
+    .tag{ width:10px;height:10px;border-radius:99px; background: var(--c);
       box-shadow: 0 0 0 4px rgba(0,0,0,.18), 0 0 24px color-mix(in oklab, var(--c) 45%, transparent);
-      flex: 0 0 auto;
-    }
-    .eventChip .txt{
-      min-width:0;
-      display:flex;
-      flex-direction: column;
-      gap: 2px;
-      flex:1 1 auto;
-    }
-    .eventChip .t{
-      font-size: 12px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      color:#fff;
-      max-width: 100%;
-    }
-    .eventChip .m{
-      font-size: 11px;
-      color: #cfcfe8;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      max-width: 100%;
-    }
+      flex: 0 0 auto; }
+    .eventChip .txt{ min-width:0; display:flex; flex-direction: column; gap: 2px; flex:1 1 auto; }
+    .eventChip .t{ font-size: 12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:#fff; max-width: 100%; }
+    .eventChip .m{ font-size: 11px; color: #cfcfe8; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width: 100%; }
 
-    .panel{
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border:1px solid var(--line);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      padding: 14px;
-      display:flex;
-      flex-direction: column;
-      gap: 12px;
-      min-width: 0;
-    }
-    .panel h3{
-      margin: 4px 0 0;
-      font-size: 14px;
-      letter-spacing:.2px;
-    }
-    .panel .desc{
-      margin: 0;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .list{
-      display:flex;
-      flex-direction: column;
-      gap: 10px;
-      overflow:auto;
-      padding-right: 4px;
-      max-height: calc(100vh - 220px);
-    }
-
-    .item{
-      width: 100%;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.18);
-      border-radius: 16px;
-      padding: 12px 14px;
-      display:flex;
-      gap: 12px;
-      align-items:flex-start;
-      cursor:pointer;
-      transition:.15s ease;
-    }
+    .panel{ background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); padding: 14px; display:flex; flex-direction: column; gap: 12px; min-width: 0; }
+    .panel h3{ margin: 4px 0 0; font-size: 14px; letter-spacing:.2px; }
+    .panel .desc{ margin: 0; font-size: 12px; color: var(--muted); }
+    .list{ display:flex; flex-direction: column; gap: 10px; overflow:auto; padding-right: 4px; max-height: calc(100vh - 220px); }
+    .item{ width: 100%; border:1px solid var(--line); background: rgba(0,0,0,.18); border-radius: 16px; padding: 12px 14px; display:flex; gap: 12px; align-items:flex-start; cursor:pointer; transition:.15s ease; }
     .item:hover{border-color: rgba(123,44,255,.35)}
+    .dateBadge{ width: 52px; border-radius: 14px; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); padding: 8px 0; display:flex; flex-direction:column; align-items:center; flex: 0 0 52px; }
+    .dateBadge .d{ font-size: 15px; font-weight: 800; }
+    .dateBadge .m{ font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing:.5px; }
 
-    .dateBadge{
-      width: 52px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      padding: 8px 0;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      flex: 0 0 52px;
-    }
-    .dateBadge .d{
-      font-size: 15px;
-      font-weight: 800;
-    }
-    .dateBadge .m{
-      font-size: 10px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing:.5px;
-    }
-
-    .item .meta{
-      flex: 1 1 auto;
-      min-width:0;
-    }
-    .item .meta .name{
-      margin:0;
-      font-size: 13px;
-      color:#fff;
-      white-space: normal;
-      overflow: visible;
-      text-overflow: clip;
-    }
-    .item .meta .line{
-      margin: 6px 0 0;
-      font-size: 11px;
-      color: #cfcfe8;
-      line-height: 1.35;
-      white-space: normal;
-      overflow: visible;
-      text-overflow: clip;
-    }
-
-    .badgeRow{
-      margin-top: 10px;
-      display:flex;
-      gap: 6px;
-      flex-wrap:wrap;
-    }
-    .b{
-      font-size: 10px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      color: var(--text);
-    }
+    .item .meta{ flex: 1 1 auto; min-width:0; }
+    .item .meta .name{ margin:0; font-size: 13px; color:#fff; }
+    .item .meta .line{ margin: 6px 0 0; font-size: 11px; color: #cfcfe8; line-height: 1.35; }
+    .badgeRow{ margin-top: 10px; display:flex; gap: 6px; flex-wrap:wrap; }
+    .b{ font-size: 10px; padding: 4px 8px; border-radius: 999px; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); color: var(--text); }
     .b.p{border-color: rgba(123,44,255,.35); background: rgba(123,44,255,.12)}
     .b.t{border-color: rgba(59,130,246,.35); background: rgba(59,130,246,.12)}
     .b.o{border-color: rgba(245,158,11,.35); background: rgba(245,158,11,.10)}
     .b.g{border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.12)}
 
-    .backdrop{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.55);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 16px;
-      z-index: 99;
-    }
-
-    /* ✅ modal mais wide (paisagem) */
+    .backdrop{ position:fixed; inset:0; background: rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; padding: 16px; z-index: 99; }
     .modal{
-      width:min(1100px, 100%);
-      border-radius: 18px;
-      border:1px solid var(--line);
+      width:min(1100px, 100%); border-radius: 18px; border:1px solid var(--line);
       background: linear-gradient(180deg, rgba(18,18,26,.98), rgba(10,10,16,.98));
-      box-shadow: 0 24px 80px rgba(0,0,0,.7);
-      overflow:hidden;
-      color:#f1f1f7;
+      box-shadow: 0 24px 80px rgba(0,0,0,.7); overflow:hidden; color:#f1f1f7;
     }
-    .modalHeader{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      padding: 14px 16px;
-      border-bottom:1px solid var(--line);
-      background: rgba(255,255,255,.02);
-    }
-    .modalHeader .mh{
-      display:flex;flex-direction:column;gap:2px;
-      min-width:0;
-    }
+    .modalHeader{ display:flex; align-items:center; justify-content:space-between; gap: 10px; padding: 14px 16px; border-bottom:1px solid var(--line); background: rgba(255,255,255,.02); }
+    .modalHeader .mh{ display:flex;flex-direction:column;gap:2px; min-width:0; }
     .modalHeader .mh strong{font-size: 13px}
     .modalHeader .mh span{font-size: 11px;color:var(--muted)}
-    .x{
-      all:unset;
-      cursor:pointer;
-      padding: 8px 10px;
-      border-radius: 12px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      font-size: 12px;
-    }
+    .x{ all:unset; cursor:pointer; padding: 8px 10px; border-radius: 12px; border:1px solid var(--line); background: rgba(255,255,255,.03); font-size: 12px; }
     .x:hover{border-color: rgba(123,44,255,.35)}
-    form{
-      padding: 16px;
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
+    form{ padding: 16px; display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .full{grid-column: 1 / -1}
-    label{
-      font-size: 11px;
-      color: #d6d6e5;
-      display:block;
-      margin-bottom: 6px;
-      letter-spacing:.2px;
-      font-weight: 500;
-    }
+    label{ font-size: 11px; color: #d6d6e5; display:block; margin-bottom: 6px; letter-spacing:.2px; font-weight: 500; }
     input, select, textarea{
-      width:100%;
-      padding: 10px 10px;
-      border-radius: 12px;
-      border:1px solid rgba(255,255,255,.25);
-      background: rgba(15,15,25,.85);
-      color: #ffffff;
-      outline: none;
-      font-size: 12px;
+      width:100%; padding: 10px 10px; border-radius: 12px; border:1px solid rgba(255,255,255,.25);
+      background: rgba(15,15,25,.85); color: #ffffff; outline: none; font-size: 12px;
     }
     input::placeholder, textarea::placeholder{ color:#b9b9d6; opacity:1; }
     textarea{min-height: 70px; resize: vertical}
-    input:focus, select:focus, textarea:focus{
-      border-color: rgba(123,44,255,.45);
-      box-shadow: 0 0 0 4px rgba(123,44,255,.14);
-    }
-
-    /* ✅ FIX SELECT aberto */
+    input:focus, select:focus, textarea:focus{ border-color: rgba(123,44,255,.45); box-shadow: 0 0 0 4px rgba(123,44,255,.14); }
     select{ background-color:#0f0f1a !important; color:#fff !important; }
     select option{ background-color:#0f0f1a !important; color:#fff !important; }
     select option:checked, select option:hover{ background-color:#5b21b6 !important; color:#fff !important; }
     select option:disabled{ color:#9ca3af !important; background-color:#0f0f1a !important; }
 
-    .actions{
-      grid-column: 1 / -1;
-      display:flex;
-      gap: 10px;
-      justify-content:flex-end;
-      padding-top: 4px;
-    }
-    .btn{
-      border-radius: 12px;
-      padding: 10px 12px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color: var(--text);
-      cursor:pointer;
-      font-size: 12px;
-      transition: .15s ease;
-    }
+    .actions{ grid-column: 1 / -1; display:flex; gap: 10px; justify-content:flex-end; padding-top: 4px; }
+    .btn{ border-radius: 12px; padding: 10px 12px; border:1px solid var(--line); background: rgba(255,255,255,.03); color: var(--text); cursor:pointer; font-size: 12px; transition: .15s ease; }
     .btn:hover{border-color: rgba(123,44,255,.35)}
-    .btn.primary{
-      background: linear-gradient(180deg, rgba(123,44,255,.28), rgba(123,44,255,.10));
-      border-color: rgba(123,44,255,.45);
-    }
-    .btn.danger{
-      background: linear-gradient(180deg, rgba(239,68,68,.20), rgba(239,68,68,.06));
-      border-color: rgba(239,68,68,.35);
-    }
+    .btn.primary{ background: linear-gradient(180deg, rgba(123,44,255,.28), rgba(123,44,255,.10)); border-color: rgba(123,44,255,.45); }
+    .btn.danger{ background: linear-gradient(180deg, rgba(239,68,68,.20), rgba(239,68,68,.06)); border-color: rgba(239,68,68,.35); }
 
-    .footerNote{
-      padding: 0 16px 16px;
-      color: #d0d0e6;
-      font-size: 11px;
-    }
+    .footerNote{ padding: 0 16px 16px; color: #d0d0e6; font-size: 11px; }
 
     @media (max-width: 1120px){
       .shell{grid-template-columns: 280px 1fr}
@@ -572,7 +178,6 @@
     }
   </style>
 </head>
-
 <body>
   <div class="shell">
     <aside class="sidebar">
@@ -607,12 +212,12 @@
 
       <div class="hint">
         <b>Dica:</b> clique em um evento no calendário ou na lista para editar/abrir.<br/>
-        Os dados ficam salvos em uma <b>Lista do SharePoint</b> (compartilhado para todos).
+        Os dados ficam salvos <b>neste navegador (LocalStorage)</b>. Para backup/compartilhar, use <b>Exportar/Importar JSON</b>.
       </div>
 
       <div class="miniStatus">
-        <span id="syncMsg">Sincronizando…</span>
-        <span id="syncPill" class="pillStatus warn">SharePoint</span>
+        <span id="syncMsg">Pronto.</span>
+        <span id="syncPill" class="pillStatus ok">Local</span>
       </div>
     </aside>
 
@@ -648,6 +253,7 @@
     </aside>
   </div>
 
+  <!-- MODAL -->
   <div id="backdrop" class="backdrop" role="dialog" aria-modal="true" aria-label="Cadastro de evento">
     <div class="modal">
       <div class="modalHeader">
@@ -739,7 +345,7 @@
 
         <div class="full">
           <label>Link</label>
-	  <input id="link" placeholder="https://teams.microsoft.com/l/meetup-join/" />
+          <input id="link" placeholder="https://teams.microsoft.com/l/meetup-join/" />
         </div>
 
         <div class="full">
@@ -760,784 +366,452 @@
     </div>
   </div>
 
-<script>
-  // ===========================
-  //  SharePoint "DB" Settings
-  // ===========================
-  // >>> TROQUE ESTES 2 NA MÃO <<<
+  <script>
+    // ===========================
+    // Persistência Local (LocalStorage)
+    // ===========================
+    const LS_KEY = "AGENDA_VIP_EVENTS";
 
-  const SITE_URL  = "https://telefonicacorp.sharepoint.com/sites/ModernWorkplace.TMBNL";
-  const LIST_NAME = "AgendaVIP";
-
-  // ===========================
-  //  State
-  // ===========================
-  const palette = [
-    "#7b2cff", "#3b82f6", "#22c55e", "#f59e0b",
-    "#ec4899", "#06b6d4", "#a855f7", "#f97316",
-  ];
-
-  let viewDate = new Date();
-  viewDate.setDate(1);
-
-  let events = [];
-  let editingId = null; // SharePoint Item Id (number)
-  let listItemTypeName = null;
-  let digestCache = { value: null, expiresAt: 0 };
-
-  // ===========================
-  //  UI status
-  // ===========================
-  function setSync(status, msg){
-    const elMsg = document.getElementById("syncMsg");
-    const pill  = document.getElementById("syncPill");
-    elMsg.textContent = msg || "";
-    pill.classList.remove("ok","warn","bad");
-    if(status === "ok"){ pill.classList.add("ok"); pill.textContent = "Online"; }
-    else if(status === "bad"){ pill.classList.add("bad"); pill.textContent = "Erro"; }
-    else { pill.classList.add("warn"); pill.textContent = "SharePoint"; }
-  }
-
-  // ===========================
-  //  Helpers
-  // ===========================
-  const pad = n => String(n).padStart(2,"0");
-  const ymd = (d) => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-  const monthKey = (d) => `${d.getFullYear()}-${pad(d.getMonth()+1)}`;
-
-  function formatMonthTitle(d){
-    const fmt = new Intl.DateTimeFormat("pt-BR", { month:"long", year:"numeric" });
-    const s = fmt.format(d);
-    return s.charAt(0).toUpperCase() + s.slice(1);
-  }
-
-  function parseTimeToMinutes(t){
-    if(!t) return 0;
-    const [h,m]=t.split(":").map(Number);
-    return (h*60)+(m||0);
-  }
-
-  function safeUrl(u){
-    if(!u) return "";
-    const s = u.trim();
-    if(!s) return "";
-    if(/^javascript:/i.test(s)) return "";
-    return s;
-  }
-
-  function normalizeYMD(value){
-    if(!value) return "";
-    if(typeof value === "string"){
-      if(/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
-      if(/^\d{4}-\d{2}-\d{2}T/.test(value)) return value.slice(0,10);
-      if(/^\d{2}\/\d{2}\/\d{4}$/.test(value)){
-        const [dd,mm,yyyy] = value.split("/");
-        return `${yyyy}-${mm}-${dd}`;
-      }
-      const d = new Date(value);
-      if(!isNaN(d.getTime())) return ymd(d);
-      return value.slice(0,10);
+    function lsLoad(){
+      try{
+        const raw = localStorage.getItem(LS_KEY);
+        if(!raw) return [];
+        const arr = JSON.parse(raw);
+        return Array.isArray(arr) ? arr : [];
+      }catch(e){ return []; }
     }
-    try{
-      const d = new Date(value);
-      if(!isNaN(d.getTime())) return ymd(d);
-    }catch(e){}
-    return "";
-  }
-
-  function computeColor(ev){
-    const s = (ev.organizador+"|"+ev.reuniao).toLowerCase();
-    let h = 0;
-    for(let i=0;i<s.length;i++) h = (h*31 + s.charCodeAt(i)) >>> 0;
-    return palette[h % palette.length];
-  }
-
-  function cryptoRandomId(){
-    if(crypto && crypto.randomUUID) return crypto.randomUUID();
-    return "id_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
-  }
-
-  // ===========================
-  //  SharePoint REST Core
-  // ===========================
-  async function spGetDigest(){
-    const now = Date.now();
-    if(digestCache.value && now < digestCache.expiresAt) return digestCache.value;
-
-    const res = await fetch(`${SITE_URL}/_api/contextinfo`, {
-      method: "POST",
-      headers: {
-        "Accept": "application/json;odata=verbose"
-      },
-      credentials: "include"
-    });
-    if(!res.ok) throw new Error("Falha ao obter RequestDigest");
-    const json = await res.json();
-    const digest = json?.d?.GetContextWebInformation?.FormDigestValue;
-    const timeoutSec = json?.d?.GetContextWebInformation?.FormDigestTimeoutSeconds || 1500;
-    digestCache.value = digest;
-    digestCache.expiresAt = now + (timeoutSec * 1000) - 30000; // 30s folga
-    return digest;
-  }
-
-  async function spGetListItemType(){
-    if(listItemTypeName) return listItemTypeName;
-    const res = await fetch(`${SITE_URL}/_api/web/lists/getbytitle('${encodeURIComponent(LIST_NAME)}')?$select=ListItemEntityTypeFullName`, {
-      headers: { "Accept": "application/json;odata=verbose" },
-      credentials: "include"
-    });
-    if(!res.ok) throw new Error("Falha ao obter tipo da lista");
-    const json = await res.json();
-    listItemTypeName = json?.d?.ListItemEntityTypeFullName;
-    return listItemTypeName;
-  }
-
-  async function spRequest(url, { method="GET", headers={}, body=null } = {}){
-    const h = {
-      "Accept": "application/json;odata=verbose",
-      ...headers
-    };
-
-    const needsDigest = (method !== "GET" && method !== "HEAD");
-    if(needsDigest){
-      const digest = await spGetDigest();
-      h["X-RequestDigest"] = digest;
-      if(!h["Content-Type"]) h["Content-Type"] = "application/json;odata=verbose";
+    function lsSave(list){
+      try{ localStorage.setItem(LS_KEY, JSON.stringify(list)); }catch(e){}
     }
 
-    const res = await fetch(url, {
-      method,
-      headers: h,
-      body,
-      credentials: "include"
-    });
-
-    if(!res.ok){
-      const txt = await res.text().catch(()=> "");
-      throw new Error(`SharePoint erro (${res.status}): ${txt || res.statusText}`);
-    }
-    if(method === "DELETE") return null;
-    // MERGE/DELETE via POST podem vir sem JSON; tenta parsear
-    const ct = res.headers.get("content-type") || "";
-    if(!ct.includes("application/json")) return null;
-    return await res.json();
-  }
-
-  // ===========================
-  //  SharePoint CRUD (List Items)
-  // ===========================
-  function spItemsUrl(query=""){
-    const base = `${SITE_URL}/_api/web/lists/getbytitle('${encodeURIComponent(LIST_NAME)}')/items`;
-    return query ? `${base}?${query}` : base;
-  }
-
-  function mapFromSpItem(it){
-    // Hyperlink pode vir como objeto { Url, Description } ou string dependendo da coluna
-    const linkVal = (it.link && typeof it.link === "object") ? (it.link.Url || "") : (it.link || "");
-    const areasVal = it.areas ? String(it.areas).split("|").filter(Boolean) : [];
-
-    return {
-      id: it.Id,               // SharePoint item id
-      uid: it.Title || "",     // "id" lógico
-      reuniao: it.reuniao || "",
-      organizador: it.organizador || "",
-      data: normalizeYMD(it.data),
-      hora: it.hora || "",
-      duracao: it.duracao || "",
-      local: it.local || "",
-      modelo: it.modelo || "",
-      areas: areasVal,
-      link: linkVal || "",
-      obs: it.obs || "",
-      color: it.color || ""
-    };
-  }
-
-  async function spLoadEvents(){
-    // seleciona campos para reduzir payload
-    const select = [
-      "Id","Title","reuniao","organizador","data","hora","duracao",
-      "local","modelo","areas","link","obs","color"
-    ].join(",");
-
-    // $top alto (ajuste se necessário)
-    const json = await spRequest(spItemsUrl(`$top=5000&$select=${encodeURIComponent(select)}`));
-    const rows = json?.d?.results || [];
-    return rows.map(mapFromSpItem).map(e => ({...e, data: normalizeYMD(e.data)}));
-  }
-
-  async function spCreateEvent(ev){
-    const typeName = await spGetListItemType();
-
-    const payload = {
-      __metadata: { type: typeName },
-      Title: ev.uid,
-      reuniao: ev.reuniao,
-      organizador: ev.organizador,
-      data: ev.data,
-      hora: ev.hora,
-      duracao: ev.duracao,
-      local: ev.local,
-      modelo: ev.modelo,
-      areas: (ev.areas || []).join("|"),
-      link: { __metadata: { type: "SP.FieldUrlValue" }, Url: ev.link, Description: ev.link },
-      obs: ev.obs,
-      color: ev.color
-    };
-
-    const json = await spRequest(spItemsUrl(), {
-      method: "POST",
-      body: JSON.stringify(payload)
-    });
-
-    const created = json?.d;
-    return created?.Id;
-  }
-
-  async function spUpdateEvent(spId, ev){
-    const typeName = await spGetListItemType();
-
-    const payload = {
-      __metadata: { type: typeName },
-      Title: ev.uid,
-      reuniao: ev.reuniao,
-      organizador: ev.organizador,
-      data: ev.data,
-      hora: ev.hora,
-      duracao: ev.duracao,
-      local: ev.local,
-      modelo: ev.modelo,
-      areas: (ev.areas || []).join("|"),
-      link: ev.link,
-      obs: ev.obs,
-      color: ev.color
-    };
-
-    // MERGE (compatível SharePoint)
-    await spRequest(`${spItemsUrl() }(${spId})`, {
-      method: "POST",
-      headers: {
-        "X-HTTP-Method": "MERGE",
-        "IF-MATCH": "*"
-      },
-      body: JSON.stringify(payload)
-    });
-  }
-
-  async function spDeleteEvent(spId){
-    // DELETE (compatível SharePoint)
-    await spRequest(`${spItemsUrl()}(${spId})`, {
-      method: "POST",
-      headers: {
-        "X-HTTP-Method": "DELETE",
-        "IF-MATCH": "*"
-      }
-    });
-  }
-
-  async function spClearAll(){
-    const current = await spLoadEvents();
-    for(const ev of current){
-      await spDeleteEvent(ev.id);
-    }
-  }
-
-  async function spUpsertByUid(ev){
-    // procura por Title == uid
-    const filter = `Title eq '${String(ev.uid).replace(/'/g,"''")}'`;
-    const select = "Id,Title";
-    const json = await spRequest(spItemsUrl(`$select=${encodeURIComponent(select)}&$filter=${encodeURIComponent(filter)}&$top=1`));
-    const found = (json?.d?.results || [])[0];
-
-    if(found && found.Id){
-      await spUpdateEvent(found.Id, ev);
-      return found.Id;
-    }else{
-      const newId = await spCreateEvent(ev);
-      return newId;
-    }
-  }
-
-  // ===========================
-  //  Render
-  // ===========================
-  function render(){
-    document.getElementById("monthTitle").textContent = formatMonthTitle(viewDate);
-    document.getElementById("monthSubtitle").textContent = formatMonthTitle(viewDate);
-    renderGrid();
-    renderList();
-  }
-
-  function renderGrid(){
-    const grid = document.getElementById("grid");
-    grid.innerHTML = "";
-
-    const first = new Date(viewDate);
-    const month = first.getMonth();
-    const year = first.getFullYear();
-
-    const firstDay = new Date(year, month, 1);
-    const jsDay = firstDay.getDay(); // 0 Sun..6 Sat
-    const offset = (jsDay === 0) ? 6 : (jsDay - 1); // Monday=0
-    const start = new Date(year, month, 1 - offset);
-
-    const today = new Date();
-    const todayYMD = ymd(today);
-
-    for(let i=0;i<42;i++){
-      const d = new Date(start);
-      d.setDate(start.getDate() + i);
-
-      const cell = document.createElement("div");
-      cell.className = "cell" + (d.getMonth() !== month ? " other" : "") + (ymd(d)===todayYMD ? " today":"");
-
-      const day = document.createElement("div");
-      day.className = "day";
-      day.textContent = d.getDate();
-      cell.appendChild(day);
-
-      const chipsWrap = document.createElement("div");
-      chipsWrap.className = "events";
-
-      const dayKey = ymd(d);
-
-      const dayEvents = events
-        .map(ev => ({...ev, data: normalizeYMD(ev.data)}))
-        .filter(ev => ev.data === dayKey)
-        .sort((a,b)=> parseTimeToMinutes(a.hora)-parseTimeToMinutes(b.hora));
-
-      dayEvents.slice(0,3).forEach(ev=>{
-        const chip = document.createElement("div");
-        chip.className = "eventChip";
-        chip.style.setProperty("--c", ev.color || "#7b2cff");
-        chip.title = `${ev.reuniao} • ${ev.hora} • ${ev.modelo}`;
-        chip.onclick = ()=> openEdit(ev.id);
-
-        const tag = document.createElement("div");
-        tag.className="tag";
-
-        const txt = document.createElement("div");
-        txt.className="txt";
-
-        const t = document.createElement("div");
-        t.className="t";
-        t.textContent = ev.reuniao;
-
-        const m = document.createElement("div");
-        m.className="m";
-        m.textContent = `${ev.hora} • ${ev.modelo}`;
-
-        txt.appendChild(t); txt.appendChild(m);
-        chip.appendChild(tag); chip.appendChild(txt);
-        chipsWrap.appendChild(chip);
-      });
-
-      if(dayEvents.length>3){
-        const more = document.createElement("div");
-        more.style.marginTop="4px";
-        more.style.fontSize="11px";
-        more.style.color="var(--muted)";
-        more.textContent = `+${dayEvents.length-3} mais`;
-        chipsWrap.appendChild(more);
-      }
-
-      cell.appendChild(chipsWrap);
-
-      cell.ondblclick = ()=>{
-        openNewEvent(dayKey);
-      };
-
-      grid.appendChild(cell);
-    }
-  }
-
-  function renderList(){
-    const list = document.getElementById("list");
-    list.innerHTML = "";
-
-    const key = monthKey(viewDate); // "YYYY-MM"
-
-    const monthEvents = events
-      .map(ev => ({...ev, data: normalizeYMD(ev.data)}))
-      .filter(ev => ev.data && ev.data.slice(0,7) === key)
-      .sort((a,b)=>{
-        if(a.data!==b.data) return a.data.localeCompare(b.data);
-        return parseTimeToMinutes(a.hora)-parseTimeToMinutes(b.hora);
-      });
-
-    if(monthEvents.length === 0){
-      const empty = document.createElement("div");
-      empty.style.padding="14px";
-      empty.style.border="1px dashed var(--line)";
-      empty.style.borderRadius="14px";
-      empty.style.color="var(--muted)";
-      empty.style.background="rgba(255,255,255,.02)";
-      empty.textContent = "Nenhum evento cadastrado neste mês. Clique em “＋ Novo”.";
-      list.appendChild(empty);
-      return;
-    }
-
-    monthEvents.forEach(ev=>{
-      const item = document.createElement("div");
-      item.className = "item";
-      item.onclick = ()=> openEdit(ev.id);
-
-      const d = new Date(ev.data+"T00:00:00");
-
-      const badge = document.createElement("div");
-      badge.className="dateBadge";
-      badge.innerHTML =
-        `<div class="d">${pad(d.getDate())}</div>
-         <div class="m">${new Intl.DateTimeFormat("pt-BR",{month:"short"}).format(d).replace(".","")}</div>`;
-
-      const meta = document.createElement("div");
-      meta.className="meta";
-
-      const name = document.createElement("p");
-      name.className="name";
-      name.textContent = ev.reuniao;
-
-      const line1 = document.createElement("div");
-      line1.className="line";
-      line1.textContent = `${ev.hora} • ${ev.duracao} • ${ev.local}`;
-
-      const line2 = document.createElement("div");
-      line2.className="line";
-      line2.textContent = `Org: ${ev.organizador || "-"} • Modelo: ${ev.modelo || "-"}`;
-
-      const areasTxt = (ev.areas||[]).join(" + ") || "—";
-      const hasLink = !!(ev.link && String(ev.link).trim());
-
-      const line3 = document.createElement("div");
-      line3.className="line";
-      line3.textContent = `Áreas: ${areasTxt}${hasLink ? " • Com link" : ""}`;
-
-      let lineObs = null;
-      if(ev.obs && ev.obs.trim()){
-        lineObs = document.createElement("div");
-        lineObs.className="line";
-        lineObs.textContent = `Obs: ${ev.obs.trim()}`;
-      }
-
-      const badges = document.createElement("div");
-      badges.className="badgeRow";
-
-      if(hasLink){
-        const bLink = document.createElement("span");
-        bLink.className = "b g";
-        bLink.textContent = "🔗 Link";
-        badges.appendChild(bLink);
-      }
-
-      const b1 = document.createElement("span");
-      b1.className = "b p";
-      b1.textContent = ev.modelo || "Modelo";
-
-      const b2 = document.createElement("span");
-      b2.className = "b t";
-      b2.textContent = (ev.local === "Teams") ? "Online (Teams)" : (ev.local || "Local");
-
-      const b3 = document.createElement("span");
-      b3.className = "b o";
-      b3.textContent = ev.duracao || "Duração";
-
-      badges.appendChild(b1);
-      badges.appendChild(b2);
-      badges.appendChild(b3);
-
-      meta.appendChild(name);
-      meta.appendChild(line1);
-      meta.appendChild(line2);
-      meta.appendChild(line3);
-      if(lineObs) meta.appendChild(lineObs);
-      meta.appendChild(badges);
-
-      item.style.boxShadow = `inset 4px 0 0 ${ev.color || "#7b2cff"}`;
-
-      item.appendChild(badge);
-      item.appendChild(meta);
-      list.appendChild(item);
-    });
-  }
-
-  // ===========================
-  //  Modal / Form
-  // ===========================
-  const backdrop = document.getElementById("backdrop");
-  const form = document.getElementById("eventForm");
-
-  function openNewEvent(prefDate=null){
-    editingId = null;
-    document.getElementById("modalTitle").textContent = "Novo agendamento";
-    document.getElementById("modalSub").textContent = "Preencha os dados da reunião";
-    document.getElementById("btnDelete").style.display = "none";
-    form.reset();
-
-    const d = normalizeYMD(prefDate || ymd(new Date()));
-    document.getElementById("data").value = d;
-    document.getElementById("hora").value = "09:00";
-
-    document.getElementById("organizador").value = "";
-    document.getElementById("local").value = "Teams";
-    document.getElementById("modelo").value = "Teams";
-    document.getElementById("link").value = "";
-
-    const areas = document.getElementById("areas");
-    [...areas.options].forEach((o,i)=> o.selected = (i===0));
-
-    openModal();
-  }
-
-  function openEdit(id){
-    const ev0 = events.find(e=> e.id===id);
-    if(!ev0) return;
-
-    const ev = {...ev0, data: normalizeYMD(ev0.data)};
-
-    editingId = id;
-    document.getElementById("modalTitle").textContent = "Editar agendamento";
-    document.getElementById("modalSub").textContent = "Atualize os dados e salve";
-    document.getElementById("btnDelete").style.display = "inline-block";
-
-    document.getElementById("reuniao").value = ev.reuniao || "";
-    document.getElementById("organizador").value = ev.organizador || "";
-    document.getElementById("data").value = ev.data || "";
-    document.getElementById("hora").value = ev.hora || "09:00";
-    document.getElementById("duracao").value = ev.duracao || "30 min";
-    document.getElementById("local").value = ev.local || "Teams";
-    document.getElementById("modelo").value = ev.modelo || "Teams";
-    document.getElementById("link").value = ev.link || "";
-    document.getElementById("obs").value = ev.obs || "";
-
-    const areas = document.getElementById("areas");
-    const set = new Set(ev.areas || []);
-    [...areas.options].forEach(o=> o.selected = set.has(o.value));
-
-    openModal();
-  }
-
-  function openModal(){
-    backdrop.style.display="flex";
-    setTimeout(()=> document.getElementById("reuniao").focus(), 30);
-  }
-  function closeModal(){
-    backdrop.style.display="none";
-    editingId = null;
-  }
-
-  function selectedAreas(){
-    const areas = document.getElementById("areas");
-    return [...areas.selectedOptions].map(o=>o.value);
-  }
-
-  async function refreshFromSp(keepViewDate=true){
-    setSync("warn","Sincronizando com SharePoint…");
-    const old = viewDate;
-    events = await spLoadEvents();
-    events = events.map(e => ({...e, data: normalizeYMD(e.data)}));
-    if(keepViewDate) viewDate = old;
-    setSync("ok","Sincronizado.");
-    render();
-  }
-
-  async function saveEvent(e){
-    e.preventDefault();
-
-    const old = editingId ? events.find(x => x.id === editingId) : null;
-
-    const ev = {
-      id: editingId || null,                 // SP Id (quando editar)
-      uid: (old && old.uid) ? old.uid : cryptoRandomId(), // Title (id lógico)
-      reuniao: document.getElementById("reuniao").value.trim(),
-      organizador: document.getElementById("organizador").value.trim(),
-      data: normalizeYMD(document.getElementById("data").value),
-      hora: document.getElementById("hora").value,
-      duracao: document.getElementById("duracao").value,
-      local: document.getElementById("local").value,
-      modelo: document.getElementById("modelo").value,
-      areas: selectedAreas(),
-      link: safeUrl(document.getElementById("link").value),
-      obs: document.getElementById("obs").value.trim()
-    };
-
-    if(!ev.areas || ev.areas.length===0){
-      alert("Selecione ao menos 1 área envolvida.");
-      return;
-    }
-
-    ev.color = computeColor(ev);
-
-    try{
-      setSync("warn","Salvando no SharePoint…");
-
-      if(editingId){
-        await spUpdateEvent(editingId, ev);
-      }else{
-        const newId = await spCreateEvent(ev);
-        ev.id = newId;
-      }
-
-      viewDate = new Date(ev.data + "T00:00:00");
-      viewDate.setDate(1);
-
-      closeModal();
-      await refreshFromSp(false);
-    }catch(err){
-      console.error(err);
-      setSync("bad","Erro ao salvar.");
-      alert("Falha ao salvar no SharePoint.\n\n" + (err?.message || err));
-    }
-  }
-
-  async function deleteCurrent(){
-    if(!editingId) return;
-    const ev = events.find(x=>x.id===editingId);
-    if(!ev) return;
-
-    const ok = confirm(`Excluir o evento "${ev.reuniao}"?`);
-    if(!ok) return;
-
-    try{
-      setSync("warn","Excluindo…");
-      await spDeleteEvent(editingId);
-      closeModal();
-      await refreshFromSp(true);
-    }catch(err){
-      console.error(err);
-      setSync("bad","Erro ao excluir.");
-      alert("Falha ao excluir no SharePoint.\n\n" + (err?.message || err));
-    }
-  }
-
-  // ===========================
-  //  Navigation
-  // ===========================
-  function prevMonth(){ viewDate.setMonth(viewDate.getMonth()-1); viewDate.setDate(1); render(); }
-  function nextMonth(){ viewDate.setMonth(viewDate.getMonth()+1); viewDate.setDate(1); render(); }
-  function goToday(){ const now = new Date(); viewDate = new Date(now.getFullYear(), now.getMonth(), 1); render(); }
-  function scrollToTop(){ window.scrollTo({top:0, behavior:"smooth"}); }
-
-  // ===========================
-  //  Export / Import / Clear
-  // ===========================
-  function exportJSON(){
-    const data = JSON.stringify(events.map(e => ({
-      uid: e.uid,
-      reuniao: e.reuniao,
-      organizador: e.organizador,
-      data: e.data,
-      hora: e.hora,
-      duracao: e.duracao,
-      local: e.local,
-      modelo: e.modelo,
-      areas: e.areas,
-      link: e.link,
-      obs: e.obs,
-      color: e.color
-    })), null, 2);
-
-    const blob = new Blob([data], {type:"application/json"});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `agenda_vip_${monthKey(new Date())}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-
-  async function importJSON(){
-    const input = document.createElement("input");
-    input.type="file";
-    input.accept="application/json";
-    input.onchange = async () => {
-      const file = input.files?.[0];
-      if(!file) return;
-
-      const reader = new FileReader();
-      reader.onload = async () => {
-        try{
-          const data = JSON.parse(String(reader.result||""));
-          if(!Array.isArray(data)) throw new Error("Formato inválido");
-
-          setSync("warn","Importando para SharePoint…");
-
-          for(const raw of data){
-            const ev = {
-              uid: raw.uid || cryptoRandomId(),
-              reuniao: String(raw.reuniao||"").trim(),
-              organizador: String(raw.organizador||"").trim(),
-              data: normalizeYMD(raw.data),
-              hora: raw.hora || "09:00",
-              duracao: raw.duracao || "30 min",
-              local: raw.local || "Teams",
-              modelo: raw.modelo || "Teams",
-              areas: Array.isArray(raw.areas) ? raw.areas : (String(raw.areas||"").split("|").filter(Boolean)),
-              link: safeUrl(String(raw.link||"")),
-              obs: String(raw.obs||"").trim(),
-              color: raw.color || ""
-            };
-            if(!ev.color) ev.color = computeColor(ev);
-            await spUpsertByUid(ev);
-          }
-
-          await refreshFromSp(true);
-          alert("Importação concluída!");
-        }catch(err){
-          console.error(err);
-          setSync("bad","Erro na importação.");
-          alert("Falha ao importar JSON.\n\n" + (err?.message || err));
+    // ===========================
+    // Estado & Utilitários
+    // ===========================
+    const palette = ["#7b2cff","#3b82f6","#22c55e","#f59e0b","#ec4899","#06b6d4","#a855f7","#f97316"];
+    let viewDate = new Date(); viewDate.setDate(1);
+    let events = [];         // { id, uid, ... }
+    let editingId = null;    // id numérico interno
+
+    const pad = n => String(n).padStart(2,"0");
+    const ymd = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+    const monthKey = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}`;
+
+    function normalizeYMD(value){
+      if(!value) return "";
+      if(typeof value === "string"){
+        if(/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+        if(/^\d{2}\/\d{2}\/\d{4}$/.test(value)){
+          const [dd,mm,yyyy] = value.split("/");
+          return `${yyyy}-${mm}-${dd}`;
         }
+        const d = new Date(value); if(!isNaN(d.getTime())) return ymd(d);
+        return value.slice(0,10);
+      }
+      try{
+        const d = new Date(value); if(!isNaN(d.getTime())) return ymd(d);
+      }catch(e){}
+      return "";
+    }
+    function computeColor(ev){
+      const s = (ev.organizador + "\n" + ev.reuniao).toLowerCase();
+      let h = 0; for(let i=0;i<s.length;i++) h = (h*31 + s.charCodeAt(i)) >>> 0;
+      return palette[h % palette.length];
+    }
+    function safeUrl(u){
+      if(!u) return "";
+      const s = String(u).trim();
+      if(/^javascript:/i.test(s)) return "";
+      return s;
+    }
+    function setSync(status,msg){
+      const elMsg = document.getElementById("syncMsg");
+      const pill = document.getElementById("syncPill");
+      elMsg.textContent = msg || "";
+      pill.classList.remove("ok","warn","bad");
+      if(status==="ok"){ pill.classList.add("ok"); pill.textContent = "Local"; }
+      else if(status==="bad"){ pill.classList.add("bad"); pill.textContent = "Erro"; }
+      else { pill.classList.add("warn"); pill.textContent = "Atenção"; }
+    }
+    function parseTimeToMinutes(t){
+      if(!t) return 0;
+      const [h,m]=t.split(":").map(Number);
+      return (h*60)+(m||0);
+    }
+
+    // ===========================
+    // Renderização
+    // ===========================
+    function formatMonthTitle(d){
+      const fmt = new Intl.DateTimeFormat("pt-BR", { month:"long", year:"numeric" });
+      const s = fmt.format(d);
+      return s.charAt(0).toUpperCase() + s.slice(1);
+    }
+
+    function render(){
+      document.getElementById("monthTitle").textContent = formatMonthTitle(viewDate);
+      document.getElementById("monthSubtitle").textContent = formatMonthTitle(viewDate);
+      renderGrid();
+      renderList();
+    }
+
+    function renderGrid(){
+      const grid = document.getElementById("grid");
+      grid.innerHTML = "";
+      const first = new Date(viewDate);
+      const month = first.getMonth();
+      const year = first.getFullYear();
+      const firstDay = new Date(year, month, 1);
+      const jsDay = firstDay.getDay();            // 0=Dom..6=Sáb
+      const offset = (jsDay === 0) ? 6 : (jsDay - 1); // Segunda=0
+      const start = new Date(year, month, 1 - offset);
+      const today = new Date();
+      const todayYMD = ymd(today);
+
+      for(let i=0;i<42;i++){
+        const d = new Date(start); d.setDate(start.getDate() + i);
+        const cell = document.createElement("div");
+        cell.className = "cell" + (d.getMonth() !== month ? " other" : "") + (ymd(d)===todayYMD ? " today":"");
+
+        const day = document.createElement("div");
+        day.className = "day"; day.textContent = d.getDate();
+        cell.appendChild(day);
+
+        const chipsWrap = document.createElement("div");
+        chipsWrap.className = "events";
+        const dayKey = ymd(d);
+        const dayEvents = events
+          .map(e => ({...e, data: normalizeYMD(e.data)}))
+          .filter(e => e.data === dayKey)
+          .sort((a,b)=> parseTimeToMinutes(a.hora)-parseTimeToMinutes(b.hora));
+
+        dayEvents.slice(0,3).forEach(ev=>{
+          const chip = document.createElement("div");
+          chip.className = "eventChip";
+          chip.style.setProperty("--c", ev.color || "#7b2cff");
+          chip.title = `${ev.reuniao} • ${ev.hora} • ${ev.modelo}`;
+          chip.onclick = ()=> openEdit(ev.id);
+
+          const tag = document.createElement("div"); tag.className="tag";
+          const txt = document.createElement("div"); txt.className="txt";
+          const t = document.createElement("div"); t.className="t"; t.textContent = ev.reuniao;
+          const m = document.createElement("div"); m.className="m"; m.textContent = `${ev.hora} • ${ev.modelo}`;
+          txt.appendChild(t); txt.appendChild(m);
+          chip.appendChild(tag); chip.appendChild(txt);
+          chipsWrap.appendChild(chip);
+        });
+
+        if(dayEvents.length>3){
+          const more = document.createElement("div");
+          more.style.marginTop="4px"; more.style.fontSize="11px"; more.style.color="var(--muted)";
+          more.textContent = `+${dayEvents.length-3} mais`;
+          chipsWrap.appendChild(more);
+        }
+
+        cell.appendChild(chipsWrap);
+        cell.ondblclick = ()=>{ openNewEvent(dayKey); };
+        grid.appendChild(cell);
+      }
+    }
+
+    function renderList(){
+      const list = document.getElementById("list");
+      list.innerHTML = "";
+      const key = monthKey(viewDate); // "YYYY-MM"
+
+      const monthEvents = events
+        .map(e => ({...e, data: normalizeYMD(e.data)}))
+        .filter(e => e.data && e.data.slice(0,7) === key)
+        .sort((a,b)=>{
+          if(a.data!==b.data) return a.data.localeCompare(b.data);
+          return parseTimeToMinutes(a.hora)-parseTimeToMinutes(b.hora);
+        });
+
+      if(monthEvents.length === 0){
+        const empty = document.createElement("div");
+        empty.style.padding="14px";
+        empty.style.border="1px dashed var(--line)";
+        empty.style.borderRadius="14px";
+        empty.style.color="var(--muted)";
+        empty.style.background="rgba(255,255,255,.02)";
+        empty.textContent = "Nenhum evento cadastrado neste mês. Clique em “＋ Novo”.";
+        list.appendChild(empty);
+        return;
+      }
+
+      monthEvents.forEach(ev=>{
+        const item = document.createElement("div");
+        item.className = "item";
+        item.onclick = ()=> openEdit(ev.id);
+
+        const d = new Date(ev.data+"T00:00:00");
+        const badge = document.createElement("div");
+        badge.className="dateBadge";
+        badge.innerHTML =
+          `<div class="d">${pad(d.getDate())}</div>
+           <div class="m">${new Intl.DateTimeFormat("pt-BR",{month:"short"}).format(d).replace(".","")}</div>`;
+
+        const meta = document.createElement("div");
+        meta.className="meta";
+        const name = document.createElement("p"); name.className="name"; name.textContent = ev.reuniao;
+
+        const line1 = document.createElement("div"); line1.className="line"; line1.textContent = `${ev.hora} • ${ev.duracao} • ${ev.local}`;
+        const line2 = document.createElement("div"); line2.className="line"; line2.textContent = `Org: ${ev.organizador || "-"} • Modelo: ${ev.modelo || "-"}`;
+
+        const areasTxt = (ev.areas||[]).join(" + ") || "—";
+        const hasLink = !!(ev.link && String(ev.link).trim());
+        const line3 = document.createElement("div"); line3.className="line"; line3.textContent = `Áreas: ${areasTxt}${hasLink ? " • Com link" : ""}`;
+
+        let lineObs = null;
+        if(ev.obs && ev.obs.trim()){
+          lineObs = document.createElement("div");
+          lineObs.className="line";
+          lineObs.textContent = `Obs: ${ev.obs.trim()}`;
+        }
+
+        const badges = document.createElement("div"); badges.className="badgeRow";
+        if(hasLink){ const bLink = document.createElement("span"); bLink.className = "b g"; bLink.textContent = "🔗 Link"; badges.appendChild(bLink); }
+        const b1 = document.createElement("span"); b1.className = "b p"; b1.textContent = ev.modelo || "Modelo";
+        const b2 = document.createElement("span"); b2.className = "b t"; b2.textContent = (ev.local === "Teams") ? "Online (Teams)" : (ev.local || "Local");
+        const b3 = document.createElement("span"); b3.className = "b o"; b3.textContent = ev.duracao || "Duração";
+        badges.appendChild(b1); badges.appendChild(b2); badges.appendChild(b3);
+
+        meta.appendChild(name); meta.appendChild(line1); meta.appendChild(line2); meta.appendChild(line3);
+        if(lineObs) meta.appendChild(lineObs);
+        meta.appendChild(badges);
+
+        item.style.boxShadow = `inset 4px 0 0 ${ev.color || "#7b2cff"}`;
+
+        item.appendChild(badge);
+        item.appendChild(meta);
+        list.appendChild(item);
+      });
+    }
+
+    // ===========================
+    // Modal / Form
+    // ===========================
+    const backdrop = document.getElementById("backdrop");
+    const form = document.getElementById("eventForm");
+
+    function openNewEvent(prefDate=null){
+      editingId = null;
+      document.getElementById("modalTitle").textContent = "Novo agendamento";
+      document.getElementById("modalSub").textContent = "Preencha os dados da reunião";
+      document.getElementById("btnDelete").style.display = "none";
+      form.reset();
+
+      const d = normalizeYMD(prefDate || ymd(new Date()));
+      document.getElementById("data").value = d;
+      document.getElementById("hora").value = "09:00";
+      document.getElementById("organizador").value = "";
+      document.getElementById("duracao").value = "30 min";
+      document.getElementById("local").value = "Teams";
+      document.getElementById("modelo").value = "Teams";
+      document.getElementById("link").value = "";
+
+      const areas = document.getElementById("areas");
+      [...areas.options].forEach((o,i)=> o.selected = (i===0));
+
+      openModal();
+    }
+
+    function openEdit(id){
+      const ev0 = events.find(e=> e.id===id);
+      if(!ev0) return;
+      const ev = {...ev0, data: normalizeYMD(ev0.data)};
+      editingId = id;
+
+      document.getElementById("modalTitle").textContent = "Editar agendamento";
+      document.getElementById("modalSub").textContent = "Atualize os dados e salve";
+      document.getElementById("btnDelete").style.display = "inline-block";
+
+      document.getElementById("reuniao").value = ev.reuniao || "";
+      document.getElementById("organizador").value = ev.organizador || "";
+      document.getElementById("data").value = ev.data || "";
+      document.getElementById("hora").value = ev.hora || "09:00";
+      document.getElementById("duracao").value = ev.duracao || "30 min";
+      document.getElementById("local").value = ev.local || "Teams";
+      document.getElementById("modelo").value = ev.modelo || "Teams";
+      document.getElementById("link").value = ev.link || "";
+      document.getElementById("obs").value = ev.obs || "";
+
+      const areas = document.getElementById("areas");
+      const set = new Set(ev.areas || []);
+      [...areas.options].forEach(o=> o.selected = set.has(o.value));
+
+      openModal();
+    }
+
+    function openModal(){ backdrop.style.display="flex"; setTimeout(()=> document.getElementById("reuniao").focus(), 30); }
+    function closeModal(){ backdrop.style.display="none"; editingId = null; }
+    function selectedAreas(){
+      const areas = document.getElementById("areas");
+      return [...areas.selectedOptions].map(o=>o.value);
+    }
+
+    function nextId(){
+      // gera id incremental local
+      const ids = events.map(e=> e.id || 0);
+      return (ids.length ? Math.max(...ids) : 0) + 1;
+    }
+
+    function saveListAndRender(msgOk="Salvo."){
+      lsSave(events);
+      setSync("ok", msgOk);
+      render();
+    }
+
+    async function saveEvent(e){
+      e.preventDefault();
+
+      const old = editingId ? events.find(x => x.id === editingId) : null;
+      const ev = {
+        id: editingId || null,
+        uid: (old && old.uid) ? old.uid : cryptoRandomId(), // id lógico
+        reuniao: document.getElementById("reuniao").value.trim(),
+        organizador: document.getElementById("organizador").value.trim(),
+        data: normalizeYMD(document.getElementById("data").value),
+        hora: document.getElementById("hora").value,
+        duracao: document.getElementById("duracao").value,
+        local: document.getElementById("local").value,
+        modelo: document.getElementById("modelo").value,
+        areas: selectedAreas(),
+        link: safeUrl(document.getElementById("link").value),
+        obs: document.getElementById("obs").value.trim()
       };
-      reader.readAsText(file);
-    };
-    input.click();
-  }
 
-  async function clearAll(){
-    const ok = confirm("Tem certeza que deseja apagar TODOS os eventos da lista do SharePoint?");
-    if(!ok) return;
+      if(!ev.areas || ev.areas.length===0){
+        alert("Selecione ao menos 1 área envolvida.");
+        return;
+      }
+      ev.color = computeColor(ev);
 
-    try{
-      setSync("warn","Limpando lista…");
-      await spClearAll();
-      await refreshFromSp(true);
+      setSync("warn","Salvando...");
+      if(editingId){
+        const idx = events.findIndex(x=> x.id===editingId);
+        if(idx>=0) events[idx] = {...ev, id: editingId};
+      }else{
+        ev.id = nextId();
+        events.push(ev);
+      }
+      closeModal();
+      saveListAndRender("Salvo no navegador.");
+    }
+
+    function deleteCurrent(){
+      if(!editingId) return;
+      const ev = events.find(x=>x.id===editingId);
+      if(!ev) return;
+      const ok = confirm(`Excluir o evento "${ev.reuniao}"?`);
+      if(!ok) return;
+
+      setSync("warn","Excluindo...");
+      events = events.filter(x=> x.id !== editingId);
+      closeModal();
+      saveListAndRender("Excluído.");
+    }
+
+    // ===========================
+    // Navegação
+    // ===========================
+    function prevMonth(){ viewDate.setMonth(viewDate.getMonth()-1); viewDate.setDate(1); render(); }
+    function nextMonth(){ viewDate.setMonth(viewDate.getMonth()+1); viewDate.setDate(1); render(); }
+    function goToday(){ const now = new Date(); viewDate = new Date(now.getFullYear(), now.getMonth(), 1); render(); }
+    function scrollToTop(){ window.scrollTo({top:0, behavior:"smooth"}); }
+
+    // ===========================
+    // Exportar / Importar / Limpar
+    // ===========================
+    function exportJSON(){
+      const data = JSON.stringify(events.map(e => ({
+        uid: e.uid, reuniao: e.reuniao, organizador: e.organizador,
+        data: e.data, hora: e.hora, duracao: e.duracao,
+        local: e.local, modelo: e.modelo, areas: e.areas,
+        link: e.link, obs: e.obs, color: e.color
+      })), null, 2);
+
+      const blob = new Blob([data], {type:"application/json"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `agenda_vip_${monthKey(new Date())}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      setSync("ok","Exportado.");
+    }
+
+    function importJSON(){
+      const input = document.createElement("input");
+      input.type="file"; input.accept="application/json";
+      input.onchange = async () => {
+        const file = input.files?.[0]; if(!file) return;
+        const reader = new FileReader();
+        reader.onload = async () => {
+          try{
+            const data = JSON.parse(String(reader.result||""));
+            if(!Array.isArray(data)) throw new Error("Formato inválido");
+            setSync("warn","Importando...");
+            for(const raw of data){
+              const ev = {
+                id: null,
+                uid: raw.uid || cryptoRandomId(),
+                reuniao: String(raw.reuniao||"").trim(),
+                organizador: String(raw.organizador||"").trim(),
+                data: normalizeYMD(raw.data),
+                hora: raw.hora || "09:00",
+                duracao: raw.duracao || "30 min",
+                local: raw.local || "Teams",
+                modelo: raw.modelo || "Teams",
+                areas: Array.isArray(raw.areas) ? raw.areas : String(raw.areas||"").split("\n").filter(Boolean),
+                link: safeUrl(String(raw.link||"")),
+                obs: String(raw.obs||"").trim(),
+                color: raw.color || ""
+              };
+              if(!ev.color) ev.color = computeColor(ev);
+              ev.id = nextId();
+              events.push(ev);
+            }
+            saveListAndRender("Importado.");
+            alert("Importação concluída!");
+          }catch(err){
+            console.error(err);
+            setSync("bad","Erro na importação.");
+            alert("Falha ao importar JSON.\n\n" + (err?.message || err));
+          }
+        };
+        reader.readAsText(file);
+      };
+      input.click();
+    }
+
+    function clearAll(){
+      const ok = confirm("Tem certeza que deseja apagar TODOS os eventos salvos neste navegador?");
+      if(!ok) return;
+      events = [];
+      saveListAndRender("Lista limpa.");
       alert("Lista limpa!");
-    }catch(err){
-      console.error(err);
-      setSync("bad","Erro ao limpar.");
-      alert("Falha ao limpar a lista.\n\n" + (err?.message || err));
     }
-  }
 
-  // ===========================
-  //  Keyboard
-  // ===========================
-  window.addEventListener("keydown", (e)=>{
-    if(e.key==="Escape" && backdrop.style.display==="flex") closeModal();
-    if((e.key==="n" || e.key==="N") && backdrop.style.display!=="flex") openNewEvent();
-  });
-  backdrop.addEventListener("click", (e)=>{ if(e.target === backdrop) closeModal(); });
+    // ===========================
+    // Teclado & Init
+    // ===========================
+    window.addEventListener("keydown", (e)=>{
+      if(e.key==="Escape" && backdrop.style.display==="flex") closeModal();
+      if((e.key==="n" || e.key==="N") && backdrop.style.display!=="flex") openNewEvent();
+    });
+    backdrop.addEventListener("click", (e)=>{ if(e.target === backdrop) closeModal(); });
 
-  // ===========================
-  //  Init
-  // ===========================
-  async function init(){
-    try{
-      setSync("warn","Conectando ao SharePoint…");
-      events = await spLoadEvents();
-      events = events.map(e => ({...e, data: normalizeYMD(e.data)}));
-      setSync("ok","Sincronizado.");
-      render();
-    }catch(err){
-      console.error(err);
-      setSync("bad","Falha na conexão.");
-      alert("Não consegui conectar na lista do SharePoint.\n\n" + (err?.message || err));
-      // ainda renderiza vazio
+    function cryptoRandomId(){
+      if(crypto && crypto.randomUUID) return crypto.randomUUID();
+      return "id_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
+    }
+
+    function init(){
+      setSync("ok","Carregado do navegador.");
+      events = lsLoad().map(e => ({...e, data: normalizeYMD(e.data)}));
       render();
     }
-  }
-
-  init();
-</script>
+    init();
+  </script>
 </body>
 </html>
