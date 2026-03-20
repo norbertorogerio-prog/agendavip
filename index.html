@@ -42,7 +42,6 @@
     .logo img{ max-width:100%; max-height:100%; object-fit:contain; display:block; }
     .brand h1{ font-size: 14px; margin:0; letter-spacing: .2px; line-height: 1.1; }
     .brand p{ margin:2px 0 0; font-size: 12px; color: var(--muted); }
-
     .nav{ margin-top: 2px; display:flex; flex-direction:column; gap: 8px; }
     .nav button{
       all:unset; cursor:pointer; padding: 10px 12px; border-radius: 12px; display:flex; align-items:center; gap:10px;
@@ -52,7 +51,6 @@
     .nav button.active{ background: rgba(123,44,255,.14); border-color: rgba(123,44,255,.35); color: var(--text); }
     .dot{ width:10px;height:10px;border-radius:99px; background: rgba(255,255,255,.18); box-shadow: 0 0 0 3px rgba(255,255,255,.06) inset; }
     .nav button.active .dot{ background: var(--purple); box-shadow: 0 0 0 3px rgba(123,44,255,.18) inset; }
-
     .hint{
       margin-top:auto; padding: 12px; border-radius: 14px; border:1px solid var(--line);
       background: rgba(255,255,255,.03); color: #d0d0e6; font-size: 12px; line-height: 1.35;
@@ -70,7 +68,6 @@
     .pillStatus.ok{border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.12)}
     .pillStatus.warn{border-color: rgba(245,158,11,.35); background: rgba(245,158,11,.10)}
     .pillStatus.bad{border-color: rgba(239,68,68,.35); background: rgba(239,68,68,.12)}
-
     .main{
       background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
       border:1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow);
@@ -83,7 +80,6 @@
     .pill{ border:1px solid var(--line); background: rgba(255,255,255,.03); color: var(--text); padding: 9px 10px; border-radius: 12px; cursor:pointer; transition:.15s ease; font-size: 12px; user-select:none; }
     .pill:hover{border-color: rgba(123,44,255,.35)}
     .pill.primary{ background: linear-gradient(180deg, rgba(123,44,255,.28), rgba(123,44,255,.10)); border-color: rgba(123,44,255,.45); }
-
     .calendar{ margin-top: 6px; border:1px solid var(--line); background: rgba(0,0,0,.18); border-radius: 16px; overflow:hidden; }
     .dow{ display:grid; grid-template-columns: repeat(7, 1fr); background: rgba(255,255,255,.03); border-bottom:1px solid var(--line); }
     .dow div{ padding: 10px 10px; font-size: 11px; color: var(--muted); letter-spacing:.5px; text-transform: uppercase; }
@@ -94,7 +90,6 @@
     .cell.other .day{opacity:.35}
     .cell.today{ outline: 2px solid rgba(123,44,255,.45); outline-offset:-2px; background: linear-gradient(180deg, rgba(123,44,255,.12), transparent 55%); }
     .events{ margin-top: 6px; display:flex; flex-direction: column; gap: 6px; min-width:0; }
-
     .eventChip{
       --c: var(--purple);
       display:flex; align-items:center; gap:8px; padding: 6px 10px; border-radius: 12px;
@@ -108,7 +103,6 @@
     .eventChip .txt{ min-width:0; display:flex; flex-direction: column; gap: 2px; flex:1 1 auto; }
     .eventChip .t{ font-size: 12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:#fff; max-width: 100%; }
     .eventChip .m{ font-size: 11px; color: #cfcfe8; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width: 100%; }
-
     .panel{ background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); padding: 14px; display:flex; flex-direction: column; gap: 12px; min-width: 0; }
     .panel h3{ margin: 4px 0 0; font-size: 14px; letter-spacing:.2px; }
     .panel .desc{ margin: 0; font-size: 12px; color: var(--muted); }
@@ -118,7 +112,6 @@
     .dateBadge{ width: 52px; border-radius: 14px; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); padding: 8px 0; display:flex; flex-direction:column; align-items:center; flex: 0 0 52px; }
     .dateBadge .d{ font-size: 15px; font-weight: 800; }
     .dateBadge .m{ font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing:.5px; }
-
     .item .meta{ flex: 1 1 auto; min-width:0; }
     .item .meta .name{ margin:0; font-size: 13px; color:#fff; }
     .item .meta .line{ margin: 6px 0 0; font-size: 11px; color: #cfcfe8; line-height: 1.35; }
@@ -155,14 +148,23 @@
     select option{ background-color:#0f0f1a !important; color:#fff !important; }
     select option:checked, select option:hover{ background-color:#5b21b6 !important; color:#fff !important; }
     select option:disabled{ color:#9ca3af !important; background-color:#0f0f1a !important; }
-
     .actions{ grid-column: 1 / -1; display:flex; gap: 10px; justify-content:flex-end; padding-top: 4px; }
     .btn{ border-radius: 12px; padding: 10px 12px; border:1px solid var(--line); background: rgba(255,255,255,.03); color: var(--text); cursor:pointer; font-size: 12px; transition: .15s ease; }
     .btn:hover{border-color: rgba(123,44,255,.35)}
     .btn.primary{ background: linear-gradient(180deg, rgba(123,44,255,.28), rgba(123,44,255,.10)); border-color: rgba(123,44,255,.45); }
     .btn.danger{ background: linear-gradient(180deg, rgba(239,68,68,.20), rgba(239,68,68,.06)); border-color: rgba(239,68,68,.35); }
-
     .footerNote{ padding: 0 16px 16px; color: #d0d0e6; font-size: 11px; }
+
+    /* CHG list inside modal */
+    .chgList{ padding: 0 16px 16px; }
+    .chgItem{
+      border:1px solid var(--line); border-radius: 12px; padding:10px 12px; margin:8px 0; background: rgba(255,255,255,.03);
+      display:flex; gap:10px; justify-content:space-between; align-items:flex-start;
+    }
+    .chgItem .meta{ font-size:12px; color:#dcdcf0; }
+    .chgItem .meta b{ color:#fff; }
+    .chgItem .acts{ display:flex; gap:6px; }
+    .chgEmpty{ color:var(--muted); font-size:12px; border:1px dashed var(--line); border-radius:12px; padding:10px; background: rgba(255,255,255,.02); }
 
     @media (max-width: 1120px){
       .shell{grid-template-columns: 280px 1fr}
@@ -199,6 +201,12 @@
         <button type="button" onclick="openNewEvent()">
           <span class="dot"></span> Novo agendamento
         </button>
+
+        <!-- NOVO: CHGs e Mudanças -->
+        <button type="button" onclick="openChgManager()">
+          <span class="dot"></span> CHGs e Mudanças
+        </button>
+
         <button type="button" onclick="exportJSON()">
           <span class="dot"></span> Exportar (JSON)
         </button>
@@ -253,7 +261,7 @@
     </aside>
   </div>
 
-  <!-- MODAL -->
+  <!-- MODAL: Evento -->
   <div id="backdrop" class="backdrop" role="dialog" aria-modal="true" aria-label="Cadastro de evento">
     <div class="modal">
       <div class="modalHeader">
@@ -282,14 +290,28 @@
           </select>
         </div>
 
+        <!-- NOVO: Intervalo de datas -->
         <div>
-          <label>Data</label>
-          <input id="data" type="date" required />
+          <label>Data (início)</label>
+          <input id="dataIni" type="date" required />
+        </div>
+        <div>
+          <label>Data (fim)</label>
+          <input id="dataFim" type="date" required />
         </div>
 
         <div>
           <label>Horário</label>
-          <input id="hora" type="time" required />
+          <input id="hora" type="time" />
+        </div>
+        <div>
+          <label style="display:flex;align-items:center;gap:8px">
+            <input id="diaInteiro" type="checkbox" />
+            Evento o dia inteiro
+          </label>
+          <div style="margin-top:6px;font-size:11px;color:var(--muted)">
+            Marcado = ignora horário e duração; ocupa todos os dias do intervalo.
+          </div>
         </div>
 
         <div>
@@ -366,11 +388,53 @@
     </div>
   </div>
 
+  <!-- MODAL: CHGs e Mudanças -->
+  <div id="chgBackdrop" class="backdrop" role="dialog" aria-modal="true" aria-label="CHGs e Mudanças">
+    <div class="modal">
+      <div class="modalHeader">
+        <div class="mh">
+          <strong>CHGs e Mudanças</strong>
+          <span>Cadastre e acompanhe suas mudanças</span>
+        </div>
+        <button class="x" type="button" onclick="closeChgModal()">Fechar ✕</button>
+      </div>
+
+      <form id="chgForm" onsubmit="saveChg(event)">
+        <div>
+          <label>Data do Evento</label>
+          <input id="chgDataEvento" type="date" required />
+        </div>
+        <div>
+          <label>Número da CHG</label>
+          <input id="chgNumero" placeholder="Ex.: CHG0156426" required />
+        </div>
+        <div>
+          <label>Data</label>
+          <input id="chgData" type="date" required />
+        </div>
+        <div class="full">
+          <label>Observação</label>
+          <textarea id="chgObs" placeholder="Resumo, escopo, riscos, janelas, etc."></textarea>
+        </div>
+
+        <div class="actions">
+          <button class="btn" type="button" onclick="resetChgForm()">Limpar</button>
+          <button class="btn primary" type="submit">Adicionar</button>
+        </div>
+      </form>
+
+      <div class="chgList">
+        <div id="chgList"></div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // ===========================
     // Persistência Local (LocalStorage)
     // ===========================
-    const LS_KEY = "AGENDA_VIP_EVENTS";
+    const LS_KEY  = "AGENDA_VIP_EVENTS";
+    const LS_CHG  = "AGENDA_VIP_CHGS";
 
     function lsLoad(){
       try{
@@ -383,14 +447,28 @@
     function lsSave(list){
       try{ localStorage.setItem(LS_KEY, JSON.stringify(list)); }catch(e){}
     }
+    function lsLoadChg(){
+      try{
+        const raw = localStorage.getItem(LS_CHG);
+        if(!raw) return [];
+        const arr = JSON.parse(raw);
+        return Array.isArray(arr) ? arr : [];
+      }catch(e){ return []; }
+    }
+    function lsSaveChg(list){
+      try{ localStorage.setItem(LS_CHG, JSON.stringify(list)); }catch(e){}
+    }
 
     // ===========================
     // Estado & Utilitários
     // ===========================
     const palette = ["#7b2cff","#3b82f6","#22c55e","#f59e0b","#ec4899","#06b6d4","#a855f7","#f97316"];
     let viewDate = new Date(); viewDate.setDate(1);
-    let events = [];         // { id, uid, ... }
-    let editingId = null;    // id numérico interno
+    let events = [];  // { id, uid, ... }
+    let editingId = null; // id numérico interno
+
+    let chgItems = []; // [{id, dataEvento, numero, data, obs}]
+    let chgIdSeq = 1;
 
     const pad = n => String(n).padStart(2,"0");
     const ymd = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
@@ -412,6 +490,12 @@
       }catch(e){}
       return "";
     }
+    function compareYMD(a,b){ return String(a||"").localeCompare(String(b||"")); }
+    function isDateInRange(dayYMD, startYMD, endYMD){
+      if(!startYMD || !endYMD) return false;
+      return (compareYMD(startYMD, dayYMD) <= 0) && (compareYMD(dayYMD, endYMD) <= 0);
+    }
+
     function computeColor(ev){
       const s = (ev.organizador + "\n" + ev.reuniao).toLowerCase();
       let h = 0; for(let i=0;i<s.length;i++) h = (h*31 + s.charCodeAt(i)) >>> 0;
@@ -434,8 +518,8 @@
     }
     function parseTimeToMinutes(t){
       if(!t) return 0;
-      const [h,m]=t.split(":").map(Number);
-      return (h*60)+(m||0);
+      const [h,m] = t.split(":").map(Number);
+      return (h*60) + (m||0);
     }
 
     // ===========================
@@ -446,31 +530,33 @@
       const s = fmt.format(d);
       return s.charAt(0).toUpperCase() + s.slice(1);
     }
-
     function render(){
       document.getElementById("monthTitle").textContent = formatMonthTitle(viewDate);
       document.getElementById("monthSubtitle").textContent = formatMonthTitle(viewDate);
       renderGrid();
       renderList();
     }
-
     function renderGrid(){
       const grid = document.getElementById("grid");
       grid.innerHTML = "";
+
       const first = new Date(viewDate);
       const month = first.getMonth();
-      const year = first.getFullYear();
+      const year  = first.getFullYear();
       const firstDay = new Date(year, month, 1);
-      const jsDay = firstDay.getDay();            // 0=Dom..6=Sáb
+      const jsDay = firstDay.getDay(); // 0=Dom..6=Sáb
       const offset = (jsDay === 0) ? 6 : (jsDay - 1); // Segunda=0
       const start = new Date(year, month, 1 - offset);
+
       const today = new Date();
       const todayYMD = ymd(today);
 
       for(let i=0;i<42;i++){
         const d = new Date(start); d.setDate(start.getDate() + i);
+        const dayKey = ymd(d);
+
         const cell = document.createElement("div");
-        cell.className = "cell" + (d.getMonth() !== month ? " other" : "") + (ymd(d)===todayYMD ? " today":"");
+        cell.className = "cell" + (d.getMonth() !== month ? " other" : "") + (dayKey===todayYMD ? " today":"");
 
         const day = document.createElement("div");
         day.className = "day"; day.textContent = d.getDate();
@@ -478,23 +564,32 @@
 
         const chipsWrap = document.createElement("div");
         chipsWrap.className = "events";
-        const dayKey = ymd(d);
+
         const dayEvents = events
-          .map(e => ({...e, data: normalizeYMD(e.data)}))
-          .filter(e => e.data === dayKey)
-          .sort((a,b)=> parseTimeToMinutes(a.hora)-parseTimeToMinutes(b.hora));
+          .map(e => ({
+            ...e,
+            dataIni: normalizeYMD(e.dataIni || e.data),
+            dataFim: normalizeYMD(e.dataFim || e.dataIni || e.data)
+          }))
+          .filter(e => e.dataIni && e.dataFim && isDateInRange(dayKey, e.dataIni, e.dataFim))
+          .sort((a,b)=>{
+            const aAll = !!a.diaInteiro, bAll = !!b.diaInteiro;
+            if(aAll !== bAll) return aAll ? 1 : -1; // com hora primeiro
+            return parseTimeToMinutes(a.hora) - parseTimeToMinutes(b.hora);
+          });
 
         dayEvents.slice(0,3).forEach(ev=>{
           const chip = document.createElement("div");
           chip.className = "eventChip";
           chip.style.setProperty("--c", ev.color || "#7b2cff");
-          chip.title = `${ev.reuniao} • ${ev.hora} • ${ev.modelo}`;
+          const horaTxt = ev.diaInteiro ? "Dia inteiro" : (ev.hora || "—");
+          chip.title = `${ev.reuniao} • ${horaTxt} • ${ev.modelo}`;
           chip.onclick = ()=> openEdit(ev.id);
 
           const tag = document.createElement("div"); tag.className="tag";
           const txt = document.createElement("div"); txt.className="txt";
           const t = document.createElement("div"); t.className="t"; t.textContent = ev.reuniao;
-          const m = document.createElement("div"); m.className="m"; m.textContent = `${ev.hora} • ${ev.modelo}`;
+          const m = document.createElement("div"); m.className="m"; m.textContent = `${horaTxt} • ${ev.modelo}`;
           txt.appendChild(t); txt.appendChild(m);
           chip.appendChild(tag); chip.appendChild(txt);
           chipsWrap.appendChild(chip);
@@ -512,17 +607,28 @@
         grid.appendChild(cell);
       }
     }
-
     function renderList(){
       const list = document.getElementById("list");
       list.innerHTML = "";
-      const key = monthKey(viewDate); // "YYYY-MM"
 
+      const key = monthKey(viewDate); // "YYYY-MM"
       const monthEvents = events
-        .map(e => ({...e, data: normalizeYMD(e.data)}))
-        .filter(e => e.data && e.data.slice(0,7) === key)
+        .map(e => ({
+          ...e,
+          dataIni: normalizeYMD(e.dataIni || e.data),
+          dataFim: normalizeYMD(e.dataFim || e.dataIni || e.data)
+        }))
+        .filter(e => {
+          if(!e.dataIni || !e.dataFim) return false;
+          const monthStart = `${key}-01`;
+          const monthEnd = ymd(new Date(viewDate.getFullYear(), viewDate.getMonth()+1, 0));
+          // Interseção de intervalos (evento x mês)
+          return !(compareYMD(e.dataFim, monthStart) < 0 || compareYMD(e.dataIni, monthEnd) > 0);
+        })
         .sort((a,b)=>{
-          if(a.data!==b.data) return a.data.localeCompare(b.data);
+          if(a.dataIni!==b.dataIni) return a.dataIni.localeCompare(b.dataIni);
+          const aAll = !!a.diaInteiro, bAll = !!b.diaInteiro;
+          if(aAll !== bAll) return aAll ? 1 : -1;
           return parseTimeToMinutes(a.hora)-parseTimeToMinutes(b.hora);
         });
 
@@ -543,23 +649,39 @@
         item.className = "item";
         item.onclick = ()=> openEdit(ev.id);
 
-        const d = new Date(ev.data+"T00:00:00");
+        const di = new Date((ev.dataIni||ev.data)+"T00:00:00");
+        const df = new Date((ev.dataFim||ev.dataIni||ev.data)+"T00:00:00");
+
         const badge = document.createElement("div");
         badge.className="dateBadge";
         badge.innerHTML =
-          `<div class="d">${pad(d.getDate())}</div>
-           <div class="m">${new Intl.DateTimeFormat("pt-BR",{month:"short"}).format(d).replace(".","")}</div>`;
+          `<div class="d">${pad(di.getDate())}</div>
+           <div class="m">${new Intl.DateTimeFormat("pt-BR",{month:"short"}).format(di).replace(".","")}</div>`;
 
         const meta = document.createElement("div");
         meta.className="meta";
+
         const name = document.createElement("p"); name.className="name"; name.textContent = ev.reuniao;
 
-        const line1 = document.createElement("div"); line1.className="line"; line1.textContent = `${ev.hora} • ${ev.duracao} • ${ev.local}`;
-        const line2 = document.createElement("div"); line2.className="line"; line2.textContent = `Org: ${ev.organizador || "-"} • Modelo: ${ev.modelo || "-"}`;
+        const rangeTxt = (normalizeYMD(ev.dataIni)===normalizeYMD(ev.dataFim))
+          ? `${ev.dataIni}`
+          : `${ev.dataIni} → ${ev.dataFim}`;
 
-        const areasTxt = (ev.areas||[]).join(" + ") || "—";
+        const horaTxt = ev.diaInteiro ? "Dia inteiro" : (ev.hora || "—");
+
+        const line1 = document.createElement("div");
+        line1.className="line";
+        line1.textContent = `${rangeTxt} • ${horaTxt} • ${ev.local}`;
+
+        const line2 = document.createElement("div");
+        line2.className="line";
+        line2.textContent = `Org: ${ev.organizador || "-"} • Modelo: ${ev.modelo || "-"}`;
+
+        const areasTxt = (ev.areas || []).join(" + ") || "—";
         const hasLink = !!(ev.link && String(ev.link).trim());
-        const line3 = document.createElement("div"); line3.className="line"; line3.textContent = `Áreas: ${areasTxt}${hasLink ? " • Com link" : ""}`;
+        const line3 = document.createElement("div");
+        line3.className="line";
+        line3.textContent = `Áreas: ${areasTxt}${hasLink ? " • Com link" : ""}`;
 
         let lineObs = null;
         if(ev.obs && ev.obs.trim()){
@@ -572,7 +694,7 @@
         if(hasLink){ const bLink = document.createElement("span"); bLink.className = "b g"; bLink.textContent = "🔗 Link"; badges.appendChild(bLink); }
         const b1 = document.createElement("span"); b1.className = "b p"; b1.textContent = ev.modelo || "Modelo";
         const b2 = document.createElement("span"); b2.className = "b t"; b2.textContent = (ev.local === "Teams") ? "Online (Teams)" : (ev.local || "Local");
-        const b3 = document.createElement("span"); b3.className = "b o"; b3.textContent = ev.duracao || "Duração";
+        const b3 = document.createElement("span"); b3.className = "b o"; b3.textContent = ev.diaInteiro ? "Dia inteiro" : (ev.duracao || "Duração");
         badges.appendChild(b1); badges.appendChild(b2); badges.appendChild(b3);
 
         meta.appendChild(name); meta.appendChild(line1); meta.appendChild(line2); meta.appendChild(line3);
@@ -580,7 +702,6 @@
         meta.appendChild(badges);
 
         item.style.boxShadow = `inset 4px 0 0 ${ev.color || "#7b2cff"}`;
-
         item.appendChild(badge);
         item.appendChild(meta);
         list.appendChild(item);
@@ -588,7 +709,7 @@
     }
 
     // ===========================
-    // Modal / Form
+    // Modal / Form (Eventos)
     // ===========================
     const backdrop = document.getElementById("backdrop");
     const form = document.getElementById("eventForm");
@@ -601,92 +722,130 @@
       form.reset();
 
       const d = normalizeYMD(prefDate || ymd(new Date()));
-      document.getElementById("data").value = d;
+      document.getElementById("dataIni").value = d;
+      document.getElementById("dataFim").value = d;
+
       document.getElementById("hora").value = "09:00";
+      document.getElementById("diaInteiro").checked = false;
+
       document.getElementById("organizador").value = "";
       document.getElementById("duracao").value = "30 min";
       document.getElementById("local").value = "Teams";
       document.getElementById("modelo").value = "Teams";
       document.getElementById("link").value = "";
+      document.getElementById("obs").value = "";
 
       const areas = document.getElementById("areas");
       [...areas.options].forEach((o,i)=> o.selected = (i===0));
 
+      toggleTimeInputs();
       openModal();
     }
-
     function openEdit(id){
       const ev0 = events.find(e=> e.id===id);
       if(!ev0) return;
-      const ev = {...ev0, data: normalizeYMD(ev0.data)};
-      editingId = id;
+      const ev = {
+        ...ev0,
+        dataIni: normalizeYMD(ev0.dataIni || ev0.data),
+        dataFim: normalizeYMD(ev0.dataFim || ev0.dataIni || ev0.data)
+      };
 
+      editingId = id;
       document.getElementById("modalTitle").textContent = "Editar agendamento";
       document.getElementById("modalSub").textContent = "Atualize os dados e salve";
       document.getElementById("btnDelete").style.display = "inline-block";
 
-      document.getElementById("reuniao").value = ev.reuniao || "";
-      document.getElementById("organizador").value = ev.organizador || "";
-      document.getElementById("data").value = ev.data || "";
-      document.getElementById("hora").value = ev.hora || "09:00";
-      document.getElementById("duracao").value = ev.duracao || "30 min";
-      document.getElementById("local").value = ev.local || "Teams";
-      document.getElementById("modelo").value = ev.modelo || "Teams";
-      document.getElementById("link").value = ev.link || "";
-      document.getElementById("obs").value = ev.obs || "";
+      document.getElementById("reuniao").value      = ev.reuniao || "";
+      document.getElementById("organizador").value  = ev.organizador || "";
+      document.getElementById("dataIni").value      = ev.dataIni || "";
+      document.getElementById("dataFim").value      = ev.dataFim || ev.dataIni || "";
+      document.getElementById("hora").value         = ev.hora || "09:00";
+      document.getElementById("duracao").value      = ev.duracao || "30 min";
+      document.getElementById("local").value        = ev.local || "Teams";
+      document.getElementById("modelo").value       = ev.modelo || "Teams";
+      document.getElementById("link").value         = ev.link || "";
+      document.getElementById("obs").value          = ev.obs || "";
+      document.getElementById("diaInteiro").checked = !!ev.diaInteiro;
 
       const areas = document.getElementById("areas");
       const set = new Set(ev.areas || []);
       [...areas.options].forEach(o=> o.selected = set.has(o.value));
 
+      toggleTimeInputs();
       openModal();
     }
-
     function openModal(){ backdrop.style.display="flex"; setTimeout(()=> document.getElementById("reuniao").focus(), 30); }
     function closeModal(){ backdrop.style.display="none"; editingId = null; }
+
     function selectedAreas(){
       const areas = document.getElementById("areas");
       return [...areas.selectedOptions].map(o=>o.value);
     }
-
     function nextId(){
-      // gera id incremental local
       const ids = events.map(e=> e.id || 0);
       return (ids.length ? Math.max(...ids) : 0) + 1;
     }
-
     function saveListAndRender(msgOk="Salvo."){
       lsSave(events);
       setSync("ok", msgOk);
       render();
     }
+    function toggleTimeInputs(){
+      const chk = document.getElementById("diaInteiro");
+      const hora = document.getElementById("hora");
+      const dur  = document.getElementById("duracao");
+      const disabled = chk.checked;
+      hora.disabled = disabled;
+      dur.disabled  = disabled;
+    }
+
+    document.getElementById("diaInteiro")?.addEventListener("change", toggleTimeInputs);
+    document.getElementById("dataIni")?.addEventListener("change", ()=>{
+      const di = document.getElementById("dataIni").value;
+      const df = document.getElementById("dataFim").value;
+      if(di && df && compareYMD(di,df) > 0){
+        document.getElementById("dataFim").value = di;
+      }
+    });
 
     async function saveEvent(e){
       e.preventDefault();
 
+      const dataIni = normalizeYMD(document.getElementById("dataIni").value);
+      const dataFim = normalizeYMD(document.getElementById("dataFim").value);
+      if(!dataIni || !dataFim){ alert("Preencha as datas de início e fim."); return; }
+      if(compareYMD(dataIni, dataFim) > 0){ alert("A data fim não pode ser anterior à data início."); return; }
+
       const old = editingId ? events.find(x => x.id === editingId) : null;
+      const diaInteiro = document.getElementById("diaInteiro").checked;
+
       const ev = {
         id: editingId || null,
-        uid: (old && old.uid) ? old.uid : cryptoRandomId(), // id lógico
+        uid: (old && old.uid) ? old.uid : cryptoRandomId(),
         reuniao: document.getElementById("reuniao").value.trim(),
         organizador: document.getElementById("organizador").value.trim(),
-        data: normalizeYMD(document.getElementById("data").value),
-        hora: document.getElementById("hora").value,
-        duracao: document.getElementById("duracao").value,
+        dataIni,
+        dataFim,
+        // compatibilidade com versão anterior: manter "data" igual a dataIni
+        data: dataIni,
+        hora: diaInteiro ? "" : (document.getElementById("hora").value || "09:00"),
+        duracao: diaInteiro ? "Dia inteiro" : (document.getElementById("duracao").value || "30 min"),
         local: document.getElementById("local").value,
         modelo: document.getElementById("modelo").value,
         areas: selectedAreas(),
         link: safeUrl(document.getElementById("link").value),
-        obs: document.getElementById("obs").value.trim()
+        obs: document.getElementById("obs").value.trim(),
+        diaInteiro: diaInteiro
       };
 
       if(!ev.areas || ev.areas.length===0){
         alert("Selecione ao menos 1 área envolvida.");
         return;
       }
-      ev.color = computeColor(ev);
 
+      ev.color = computeColor(ev);
       setSync("warn","Salvando...");
+
       if(editingId){
         const idx = events.findIndex(x=> x.id===editingId);
         if(idx>=0) events[idx] = {...ev, id: editingId};
@@ -694,17 +853,16 @@
         ev.id = nextId();
         events.push(ev);
       }
+
       closeModal();
       saveListAndRender("Salvo no navegador.");
     }
-
     function deleteCurrent(){
       if(!editingId) return;
       const ev = events.find(x=>x.id===editingId);
       if(!ev) return;
       const ok = confirm(`Excluir o evento "${ev.reuniao}"?`);
       if(!ok) return;
-
       setSync("warn","Excluindo...");
       events = events.filter(x=> x.id !== editingId);
       closeModal();
@@ -724,12 +882,16 @@
     // ===========================
     function exportJSON(){
       const data = JSON.stringify(events.map(e => ({
-        uid: e.uid, reuniao: e.reuniao, organizador: e.organizador,
-        data: e.data, hora: e.hora, duracao: e.duracao,
+        uid: e.uid,
+        reuniao: e.reuniao, organizador: e.organizador,
+        dataIni: e.dataIni || e.data,   // compatibilidade
+        dataFim: e.dataFim || e.dataIni || e.data,
+        diaInteiro: !!e.diaInteiro,
+        hora: e.hora,
+        duracao: e.duracao,
         local: e.local, modelo: e.modelo, areas: e.areas,
         link: e.link, obs: e.obs, color: e.color
       })), null, 2);
-
       const blob = new Blob([data], {type:"application/json"});
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -739,7 +901,6 @@
       URL.revokeObjectURL(url);
       setSync("ok","Exportado.");
     }
-
     function importJSON(){
       const input = document.createElement("input");
       input.type="file"; input.accept="application/json";
@@ -748,23 +909,26 @@
         const reader = new FileReader();
         reader.onload = async () => {
           try{
-            const data = JSON.parse(String(reader.result||""));
+            const data = JSON.parse(String(reader.result || ""));
             if(!Array.isArray(data)) throw new Error("Formato inválido");
             setSync("warn","Importando...");
             for(const raw of data){
               const ev = {
                 id: null,
                 uid: raw.uid || cryptoRandomId(),
-                reuniao: String(raw.reuniao||"").trim(),
-                organizador: String(raw.organizador||"").trim(),
-                data: normalizeYMD(raw.data),
-                hora: raw.hora || "09:00",
-                duracao: raw.duracao || "30 min",
+                reuniao: String(raw.reuniao || "").trim(),
+                organizador: String(raw.organizador || "").trim(),
+                dataIni: normalizeYMD(raw.dataIni || raw.data),
+                dataFim: normalizeYMD(raw.dataFim || raw.dataIni || raw.data),
+                data: normalizeYMD(raw.dataIni || raw.data), // compat.
+                diaInteiro: !!raw.diaInteiro,
+                hora: raw.hora || "",
+                duracao: raw.duracao || (raw.diaInteiro ? "Dia inteiro" : "30 min"),
                 local: raw.local || "Teams",
                 modelo: raw.modelo || "Teams",
-                areas: Array.isArray(raw.areas) ? raw.areas : String(raw.areas||"").split("\n").filter(Boolean),
-                link: safeUrl(String(raw.link||"")),
-                obs: String(raw.obs||"").trim(),
+                areas: Array.isArray(raw.areas) ? raw.areas : String(raw.areas || "").split("\n").filter(Boolean),
+                link: safeUrl(String(raw.link || "")),
+                obs: String(raw.obs || "").trim(),
                 color: raw.color || ""
               };
               if(!ev.color) ev.color = computeColor(ev);
@@ -783,7 +947,6 @@
       };
       input.click();
     }
-
     function clearAll(){
       const ok = confirm("Tem certeza que deseja apagar TODOS os eventos salvos neste navegador?");
       if(!ok) return;
@@ -793,22 +956,138 @@
     }
 
     // ===========================
+    // CHGs e Mudanças
+    // ===========================
+    const chgBackdrop = document.getElementById("chgBackdrop");
+    const chgForm = document.getElementById("chgForm");
+    let chgEditingId = null;
+
+    function openChgManager(){
+      renderChgList();
+      chgBackdrop.style.display = "flex";
+      setTimeout(()=> document.getElementById("chgNumero").focus(), 30);
+    }
+    function closeChgModal(){
+      chgBackdrop.style.display = "none";
+      chgEditingId = null;
+      resetChgForm();
+    }
+    function resetChgForm(){
+      chgForm.reset();
+      document.getElementById("chgDataEvento").value = normalizeYMD(ymd(new Date()));
+      document.getElementById("chgData").value = normalizeYMD(ymd(new Date()));
+    }
+    function chgNextId(){
+      const ids = chgItems.map(x=> x.id || 0);
+      return (ids.length ? Math.max(...ids) : 0) + 1;
+    }
+    function saveChg(e){
+      e.preventDefault();
+      const dataEvento = normalizeYMD(document.getElementById("chgDataEvento").value);
+      const numero     = String(document.getElementById("chgNumero").value || "").trim();
+      const data       = normalizeYMD(document.getElementById("chgData").value);
+      const obs        = String(document.getElementById("chgObs").value || "").trim();
+
+      if(!dataEvento || !numero || !data){
+        alert("Preencha Data do Evento, Número da CHG e Data.");
+        return;
+      }
+
+      if(chgEditingId){
+        const idx = chgItems.findIndex(x=> x.id===chgEditingId);
+        if(idx>=0) chgItems[idx] = { id: chgEditingId, dataEvento, numero, data, obs };
+        chgEditingId = null;
+      }else{
+        chgItems.push({ id: chgNextId(), dataEvento, numero, data, obs });
+      }
+      lsSaveChg(chgItems);
+      renderChgList();
+      resetChgForm();
+      setSync("ok","CHG salva.");
+    }
+    function deleteChg(id){
+      const it = chgItems.find(x=> x.id===id);
+      if(!it) return;
+      const ok = confirm(`Excluir a CHG ${it.numero}?`);
+      if(!ok) return;
+      chgItems = chgItems.filter(x=> x.id!==id);
+      lsSaveChg(chgItems);
+      renderChgList();
+      setSync("ok","CHG excluída.");
+    }
+    function editChg(id){
+      const it = chgItems.find(x=> x.id===id);
+      if(!it) return;
+      chgEditingId = id;
+      document.getElementById("chgDataEvento").value = it.dataEvento;
+      document.getElementById("chgNumero").value     = it.numero;
+      document.getElementById("chgData").value       = it.data;
+      document.getElementById("chgObs").value        = it.obs || "";
+    }
+    function renderChgList(){
+      const wrap = document.getElementById("chgList");
+      wrap.innerHTML = "";
+
+      if(!chgItems.length){
+        const empty = document.createElement("div");
+        empty.className = "chgEmpty";
+        empty.textContent = "Nenhuma mudança cadastrada.";
+        wrap.appendChild(empty);
+        return;
+      }
+
+      const sorted = [...chgItems].sort((a,b)=>{
+        // Mais recentes primeiro por Data do Evento
+        return compareYMD(b.dataEvento, a.dataEvento);
+      });
+
+      sorted.forEach(c=>{
+        const item = document.createElement("div");
+        item.className = "chgItem";
+
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        meta.innerHTML =
+          `<div><b>Evento:</b> ${c.dataEvento} • <b>CHG:</b> ${c.numero}</div>
+           <div><b>Data:</b> ${c.data}</div>
+           ${c.obs ? `<div><b>Obs:</b> ${c.obs}</div>` : ""}`;
+
+        const acts = document.createElement("div");
+        acts.className = "acts";
+        const bEdit = document.createElement("button"); bEdit.className="btn"; bEdit.textContent = "Editar"; bEdit.onclick = ()=> editChg(c.id);
+        const bDel  = document.createElement("button"); bDel.className="btn danger"; bDel.textContent = "Excluir"; bDel.onclick = ()=> deleteChg(c.id);
+        acts.appendChild(bEdit); acts.appendChild(bDel);
+
+        item.appendChild(meta);
+        item.appendChild(acts);
+        wrap.appendChild(item);
+      });
+    }
+
+    // ===========================
     // Teclado & Init
     // ===========================
     window.addEventListener("keydown", (e)=>{
-      if(e.key==="Escape" && backdrop.style.display==="flex") closeModal();
-      if((e.key==="n" || e.key==="N") && backdrop.style.display!=="flex") openNewEvent();
+      if(e.key==="Escape"){
+        if(backdrop.style.display==="flex") closeModal();
+        if(chgBackdrop.style.display==="flex") closeChgModal();
+      }
+      if((e.key==="n" || e.key==="N") && backdrop.style.display!=="flex" && chgBackdrop.style.display!=="flex") openNewEvent();
     });
     backdrop.addEventListener("click", (e)=>{ if(e.target === backdrop) closeModal(); });
+    chgBackdrop.addEventListener("click", (e)=>{ if(e.target === chgBackdrop) closeChgModal(); });
 
     function cryptoRandomId(){
       if(crypto && crypto.randomUUID) return crypto.randomUUID();
       return "id_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
     }
-
     function init(){
       setSync("ok","Carregado do navegador.");
       events = lsLoad().map(e => ({...e, data: normalizeYMD(e.data)}));
+      chgItems = lsLoadChg();
+      if(chgItems.length){
+        chgIdSeq = Math.max(...chgItems.map(x=> x.id||0)) + 1;
+      }
       render();
     }
     init();
