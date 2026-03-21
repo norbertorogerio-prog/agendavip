@@ -40,6 +40,7 @@ body{
   text-align:center;
 }
 
+/* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(7,110px);
@@ -62,6 +63,14 @@ body{
   border-radius:5px;
 }
 
+/* LOAD BAR */
+.load{
+  height:5px;
+  margin-top:5px;
+  border-radius:4px;
+}
+
+/* PANEL */
 .panel{
   background:#12121a;
   padding:15px;
@@ -69,31 +78,17 @@ body{
 }
 
 .item{
-  display:flex;
-  gap:10px;
   padding:10px;
   border-radius:10px;
   margin-bottom:10px;
 }
 
-.dateBox{
-  width:40px;
-  height:40px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:8px;
-  font-weight:bold;
-  color:#fff;
+.bar{
+  height:8px;
+  border-radius:4px;
+  margin-top:5px;
 }
 
-.badge{
-  font-size:10px;
-  padding:2px 6px;
-  border-radius:6px;
-  margin-top:4px;
-  display:inline-block;
-}
 </style>
 </head>
 
@@ -107,7 +102,7 @@ body{
 </div>
 
 <div class="panel">
-<h3>📌 Agenda Inteligente</h3>
+<h3>📊 Dashboard Executivo</h3>
 <div id="list"></div>
 </div>
 
@@ -117,39 +112,41 @@ body{
 const DB="agendaWorkplace";
 let events=JSON.parse(localStorage.getItem(DB)||"[]");
 
-const colors={
-reuniao:"#3b82f6",
-evento:"#22c55e",
-chg:"#ef4444",
-outro:"#a855f7"
-};
-
 function todayStr(){
 const d=new Date();
 return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
 }
 
-function getStatus(ev){
-const today=todayStr();
+/* 🔥 CALCULAR CARGA */
+function getLoad(){
+let load={};
 
-if(ev.end < today) return "ATRASADO";
-if(ev.start === today) return "HOJE";
-if(ev.start > today) return "FUTURO";
-if(ev.start < today && ev.end >= today) return "EM ANDAMENTO";
+events.forEach(ev=>{
+let d=ev.start;
 
-return "";
+while(d<=ev.end){
+load[d]=(load[d]||0)+1;
+
+let p=d.split("-");
+let dt=new Date(p[0],p[1]-1,p[2]);
+dt.setDate(dt.getDate()+1);
+
+d=`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,"0")}-${String(dt.getDate()).padStart(2,"0")}`;
+}
+});
+
+return load;
 }
 
-function getStatusColor(status){
-return {
-"ATRASADO":"#ef4444",
-"HOJE":"#f59e0b",
-"EM ANDAMENTO":"#22c55e",
-"FUTURO":"#888"
-}[status];
+function getColor(q){
+if(q>=6) return "#ef4444";
+if(q>=4) return "#f59e0b";
+return "#22c55e";
 }
 
 function render(){
+
+const load=getLoad();
 
 const grid=document.getElementById("grid");
 grid.innerHTML="";
@@ -170,79 +167,66 @@ if(ds===today) cell.classList.add("today");
 
 cell.innerHTML=`<div>${i}</div>`;
 
-events.forEach(ev=>{
+(events||[]).forEach(ev=>{
 if(ds>=ev.start && ds<=ev.end){
 const el=document.createElement("div");
 el.className="event";
-el.style.background=colors[ev.tipo];
+el.style.background="#7b2cff";
 el.innerText=ev.title;
 cell.appendChild(el);
 }
 });
 
+/* 🔥 BARRA DE CARGA */
+if(load[ds]){
+const bar=document.createElement("div");
+bar.className="load";
+bar.style.background=getColor(load[ds]);
+bar.style.width=(load[ds]*15)+"px";
+cell.appendChild(bar);
+}
+
 grid.appendChild(cell);
 }
 
-renderList();
-renderKPIs();
+renderDashboard(load);
+renderKPIs(load);
 }
 
-function renderList(){
+/* DASHBOARD */
+function renderDashboard(load){
 const list=document.getElementById("list");
 list.innerHTML="";
 
-let conflicts={};
+const sorted=Object.entries(load).sort((a,b)=>b[1]-a[1]);
 
-events.forEach(e=>{
-for(let d=e.start; d<=e.end; ){
-conflicts[d]=(conflicts[d]||0)+1;
-let parts=d.split("-");
-let dt=new Date(parts[0],parts[1]-1,parts[2]);
-dt.setDate(dt.getDate()+1);
-d=`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,"0")}-${String(dt.getDate()).padStart(2,"0")}`;
-}
-});
+sorted.forEach(([day,q])=>{
 
-events.forEach(ev=>{
 const item=document.createElement("div");
 item.className="item";
 
-const day=ev.start.split("-")[2];
-const status=getStatus(ev);
-
-item.style.background= status==="ATRASADO" ? "#3a1111" : "#1b1b2a";
-
 item.innerHTML=`
-<div class="dateBox" style="background:${colors[ev.tipo]}">${day}</div>
-<div>
-<b>${ev.title}</b><br>
-${ev.start} → ${ev.end}<br>
-
-<span class="badge" style="background:${getStatusColor(status)}">${status}</span>
-
-${conflicts[ev.start]>1 ? "<br>⚠️ Conflito de agenda" : ""}
-
-</div>
+<b>${day}</b><br>
+Carga: ${q} eventos
+<div class="bar" style="width:${q*20}px;background:${getColor(q)}"></div>
+${q>=6?"🔴 Sobrecarga crítica": q>=4?"⚠️ Atenção":""}
 `;
 
 list.appendChild(item);
 });
 }
 
-function renderKPIs(){
-
-const today=todayStr();
+/* KPI */
+function renderKPIs(load){
 
 const total=events.length;
-const chg=events.filter(e=>e.tipo==="chg").length;
-const hoje=events.filter(e=>e.start===today).length;
-const atrasados=events.filter(e=>e.end < today).length;
+const diasCriticos=Object.values(load).filter(v=>v>=6).length;
+const diasAtencao=Object.values(load).filter(v=>v>=4 && v<6).length;
 
 document.getElementById("kpis").innerHTML=`
-<div class="kpi">${total}<br>Total</div>
-<div class="kpi">${chg}<br>CHG</div>
-<div class="kpi">${hoje}<br>Hoje</div>
-<div class="kpi">${atrasados}<br>Atrasados</div>
+<div class="kpi">${total}<br>Total Eventos</div>
+<div class="kpi">${diasCriticos}<br>Críticos</div>
+<div class="kpi">${diasAtencao}<br>Atenção</div>
 `;
 }
 
