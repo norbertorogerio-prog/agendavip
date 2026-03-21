@@ -158,32 +158,7 @@ body {
   transform: scale(1.02);
 }
 
-.kpis {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.kpi {
-  background: var(--card);
-  padding: 15px;
-  border-radius: 12px;
-  text-align: center;
-  transition: all 0.2s;
-}
-
-.kpi:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-.kpi strong {
-  font-size: 28px;
-  color: var(--purple);
-  display: block;
-  margin-bottom: 5px;
-}
+/* KPIs removidos - não serão mais exibidos */
 
 .panel {
   background: #12121a;
@@ -372,23 +347,6 @@ button:active {
     padding: 15px;
   }
   
-  .kpis {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-  }
-  
-  .kpi {
-    padding: 10px;
-  }
-  
-  .kpi strong {
-    font-size: 20px;
-  }
-  
-  .kpi span {
-    font-size: 11px;
-  }
-  
   .mobile-section {
     background: var(--card);
     border-radius: 16px;
@@ -419,15 +377,6 @@ button:active {
   
   .mobile-event:active {
     transform: scale(0.98);
-  }
-  
-  .mobile-event.critical {
-    border-left: 4px solid var(--danger);
-    background: rgba(239, 68, 68, 0.1);
-  }
-  
-  .mobile-event.important {
-    border-left: 4px solid var(--warning);
   }
   
   .mobile-event-time {
@@ -497,7 +446,7 @@ button:active {
 
 <div class="layout">
   <div class="main">
-    <div class="kpis" id="kpis"></div>
+    <!-- KPIs removidos -->
     
     <!-- VISÃO DESKTOP (NORMAL) -->
     <div class="desktop-view">
@@ -699,17 +648,12 @@ function occursOnDay(event, dateStr) {
   return dateStr >= event.start && dateStr <= event.end;
 }
 
-// ==================== VISÃO MOBILE (SEM REDUNDÂNCIA) ====================
+// ==================== VISÃO MOBILE ====================
 function renderMobileView() {
   const container = document.getElementById("mobileView");
   if (!container) return;
   
   const hoje = formatDateLocal(new Date());
-  
-  // Eventos críticos: CHG (todos os futuros)
-  const eventosCriticos = events.filter(e => 
-    e.tipo === "chg" && e.start >= hoje
-  ).sort((a,b) => a.start.localeCompare(b.start));
   
   // Próximos eventos (próximos 7 dias, INCLUINDO HOJE)
   const proximosEventos = [];
@@ -725,25 +669,7 @@ function renderMobileView() {
   
   let html = '';
   
-  // Seção: Eventos Críticos (CHG)
-  if (eventosCriticos.length > 0) {
-    html += `
-      <div class="mobile-section">
-        <h3>⚠️ Eventos Críticos (CHG)</h3>
-        ${eventosCriticos.map(ev => `
-          <div class="mobile-event critical" onclick="edit(${ev.id})">
-            <div class="mobile-event-time">${formatDateTime(ev.start)}</div>
-            <div class="mobile-event-info">
-              <div class="mobile-event-title">${ev.title}</div>
-              <div class="mobile-event-type">${ev.tipo} • ${ev.time || "Dia inteiro"}</div>
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    `;
-  }
-  
-  // Seção: Próximos Dias (inclui hoje e próximos 7 dias)
+  // Seção: Próximos 7 Dias
   if (proximosUnicos.length > 0) {
     html += `
       <div class="mobile-section">
@@ -759,13 +685,11 @@ function renderMobileView() {
         `).join('')}
       </div>
     `;
-  }
-  
-  if (eventosCriticos.length === 0 && proximosUnicos.length === 0) {
+  } else {
     html = `
       <div class="mobile-section">
         <div class="mobile-empty">
-          ✨ Nenhum compromisso agendado<br>
+          ✨ Nenhum compromisso nos próximos 7 dias<br>
           Toque no botão + para criar
         </div>
       </div>
@@ -963,29 +887,12 @@ function renderList() {
   });
 }
 
-function renderKPIs() {
-  const container = document.getElementById("kpis");
-  if (!container) return;
-  
-  const total = events.length;
-  const reuniao = events.filter(e => e.tipo === "reuniao").length;
-  const chg = events.filter(e => e.tipo === "chg").length;
-  const evento = events.filter(e => e.tipo === "evento").length;
-  const outros = events.filter(e => e.tipo === "outro").length;
-  
-  container.innerHTML = `
-    <div class="kpi"><strong>${total}</strong><span>Total</span></div>
-    <div class="kpi"><strong>${reuniao}</strong><span>Reuniões</span></div>
-    <div class="kpi"><strong>${chg}</strong><span>CHG</span></div>
-    <div class="kpi"><strong>${evento}</strong><span>Eventos</span></div>
-    <div class="kpi"><strong>${outros}</strong><span>Outros</span></div>
-  `;
-}
+// Função renderKPIs removida - não será mais usada
 
 function render() {
   renderCalendar();
   renderList();
-  renderKPIs();
+  // renderKPIs removido
 }
 
 // ==================== NAVEGAÇÃO ====================
