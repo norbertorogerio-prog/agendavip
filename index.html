@@ -22,35 +22,44 @@ body{
 
 .layout{
   display:grid;
-  grid-template-columns:1fr 340px;
+  grid-template-columns:1fr 420px; /* painel maior */
   height:100vh;
 }
 
 /* CALENDÁRIO */
 .calendar{
-  padding:15px;
+  padding:10px;
+  max-width:900px;
+  margin:auto;
 }
+
 .grid{
   display:grid;
-  grid-template-columns:repeat(7,1fr);
+  grid-template-columns:repeat(7, 110px); /* largura fixa menor */
   gap:8px;
+  justify-content:center;
 }
+
 .cell{
   background:var(--card);
-  min-height:80px;
+  min-height:80px; /* altura menor */
+  max-height:80px;
   padding:6px;
   border-radius:10px;
   cursor:pointer;
+  overflow:hidden;
 }
+
 .day{
-  font-size:12px;
+  font-size:11px;
   color:var(--muted);
 }
+
 .event{
   font-size:10px;
-  padding:4px;
+  padding:3px;
   border-radius:6px;
-  margin-top:4px;
+  margin-top:3px;
 }
 
 /* PAINEL */
@@ -60,7 +69,7 @@ body{
   overflow-y:auto;
 }
 
-/* KPI LINHA */
+/* KPI */
 .kpis{
   display:flex;
   gap:10px;
@@ -170,7 +179,6 @@ input,select,textarea{
 const DB="agendaWorkplace";
 let events=JSON.parse(localStorage.getItem(DB)||"[]");
 let editId=null;
-let selectedDate=null;
 
 const colors={
 reuniao:"#3b82f6",
