@@ -158,8 +158,6 @@ body {
   transform: scale(1.02);
 }
 
-/* KPIs removidos - não serão mais exibidos */
-
 .panel {
   background: #12121a;
   padding: 20px;
@@ -170,6 +168,8 @@ body {
 .panel h3 {
   margin-top: 0;
   color: var(--purple);
+  font-size: 16px;
+  margin-bottom: 16px;
 }
 
 .item {
@@ -333,6 +333,10 @@ button:active {
     display: block;
   }
   
+  .panel h3 {
+    font-size: 16px;
+  }
+  
   /* Esconde elementos pesados no mobile */
   .weekdays, .grid, .calendar-header {
     display: none;
@@ -446,8 +450,6 @@ button:active {
 
 <div class="layout">
   <div class="main">
-    <!-- KPIs removidos -->
-    
     <!-- VISÃO DESKTOP (NORMAL) -->
     <div class="desktop-view">
       <div class="calendar-header">
@@ -464,7 +466,7 @@ button:active {
   </div>
 
   <div class="panel">
-    <h3>📌 Compromissos do Time</h3>
+    <h3>🔗 Conexões Workplace</h3>
     <div id="list"></div>
   </div>
 </div>
@@ -669,7 +671,7 @@ function renderMobileView() {
   
   let html = '';
   
-  // Seção: Próximos 7 Dias
+  // Seção: Próximos 7 Dias (apenas eventos futuros, sem duplicar os que já estão na lista)
   if (proximosUnicos.length > 0) {
     html += `
       <div class="mobile-section">
@@ -887,12 +889,9 @@ function renderList() {
   });
 }
 
-// Função renderKPIs removida - não será mais usada
-
 function render() {
   renderCalendar();
   renderList();
-  // renderKPIs removido
 }
 
 // ==================== NAVEGAÇÃO ====================
