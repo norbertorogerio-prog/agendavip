@@ -1,3 +1,704 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Agenda Workplace - Time</title>
+
+<style>
+:root {
+  --bg: #0b0b10;
+  --card: #1b1b2a;
+  --purple: #7b2cff;
+  --text: #fff;
+  --muted: #aaa;
+  --danger: #ef4444;
+  --success: #22c55e;
+  --warning: #f59e0b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ==================== VISÃO DESKTOP (PADRÃO) ==================== */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  height: 100vh;
+  gap: 1px;
+  background: var(--card);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: var(--bg);
+  overflow-y: auto;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 20px;
+}
+
+.calendar-header button {
+  background: var(--card);
+  border: none;
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.2s;
+}
+
+.calendar-header button:hover {
+  background: var(--purple);
+  transform: scale(1.05);
+}
+
+.month-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--purple);
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 10px;
+  padding: 0 10px;
+}
+
+.weekday {
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  color: var(--purple);
+  background: var(--card);
+  border-radius: 8px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  padding: 0 10px;
+}
+
+.cell {
+  background: var(--card);
+  min-height: 100px;
+  padding: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.cell:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(123, 44, 255, 0.2);
+}
+
+.cell.other-month {
+  opacity: 0.4;
+}
+
+.today {
+  border: 2px solid var(--purple);
+  background: rgba(123, 44, 255, 0.1);
+}
+
+.day-number {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: var(--muted);
+}
+
+.today .day-number {
+  color: var(--purple);
+}
+
+.events-container {
+  max-height: 70px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.event {
+  font-size: 10px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.2s;
+}
+
+.event:hover {
+  filter: brightness(1.1);
+  transform: scale(1.02);
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.kpi {
+  background: var(--card);
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.kpi:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.kpi strong {
+  font-size: 28px;
+  color: var(--purple);
+  display: block;
+  margin-bottom: 5px;
+}
+
+.panel {
+  background: #12121a;
+  padding: 20px;
+  overflow-y: auto;
+  border-left: 1px solid var(--card);
+}
+
+.panel h3 {
+  margin-top: 0;
+  color: var(--purple);
+}
+
+.item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.item:hover {
+  transform: translateX(4px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.dateBox {
+  min-width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+  color: #fff;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.box {
+  background: var(--card);
+  padding: 24px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.box h2 {
+  margin: 0 0 20px 0;
+  color: var(--purple);
+}
+
+input, select, textarea {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--card);
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--purple);
+}
+
+button {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--purple);
+  color: #fff;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+.btn-secondary {
+  background: var(--card);
+  color: var(--text);
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: #fff;
+  animation: slideIn 0.3s ease;
+  z-index: 2000;
+}
+
+.toast.success { background: var(--success); }
+.toast.error { background: var(--danger); }
+.toast.info { background: var(--purple); }
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--card);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--purple);
+  border-radius: 4px;
+}
+
+/* ==================== VISÃO MOBILE ==================== */
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .panel {
+    border-left: none;
+    border-top: 1px solid var(--card);
+    display: block;
+  }
+  
+  /* Esconde elementos pesados no mobile */
+  .weekdays, .grid, .calendar-header {
+    display: none;
+  }
+  
+  /* Visão mobile simplificada */
+  .mobile-view {
+    display: block;
+  }
+  
+  .main {
+    padding: 15px;
+  }
+  
+  .kpis {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  
+  .kpi {
+    padding: 10px;
+  }
+  
+  .kpi strong {
+    font-size: 20px;
+  }
+  
+  .kpi span {
+    font-size: 11px;
+  }
+  
+  .mobile-section {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .mobile-section h3 {
+    margin: 0 0 12px 0;
+    color: var(--purple);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .mobile-event {
+    background: rgba(123, 44, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .mobile-event:active {
+    transform: scale(0.98);
+  }
+  
+  .mobile-event.critical {
+    border-left: 4px solid var(--danger);
+    background: rgba(239, 68, 68, 0.1);
+  }
+  
+  .mobile-event.important {
+    border-left: 4px solid var(--warning);
+  }
+  
+  .mobile-event-time {
+    min-width: 60px;
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--purple);
+  }
+  
+  .mobile-event-info {
+    flex: 1;
+  }
+  
+  .mobile-event-title {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .mobile-event-type {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  
+  .mobile-empty {
+    text-align: center;
+    padding: 20px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  
+  .add-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--purple);
+    width: 56px;
+    height: 56px;
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(123, 44, 255, 0.4);
+    z-index: 100;
+    transition: all 0.2s;
+  }
+  
+  .add-button:active {
+    transform: scale(0.95);
+  }
+  
+  .add-button span {
+    font-size: 28px;
+    font-weight: bold;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-view {
+    display: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <div class="main">
+    <div class="kpis" id="kpis"></div>
+    
+    <!-- VISÃO DESKTOP (NORMAL) -->
+    <div class="desktop-view">
+      <div class="calendar-header">
+        <button onclick="calendar.prevMonth()" aria-label="Mês anterior">◀</button>
+        <div class="month-title" id="monthTitle"></div>
+        <button onclick="calendar.nextMonth()" aria-label="Próximo mês">▶</button>
+      </div>
+      <div class="weekdays" id="weekdays"></div>
+      <div id="grid" class="grid"></div>
+    </div>
+    
+    <!-- VISÃO MOBILE (SIMPLIFICADA) -->
+    <div class="mobile-view" id="mobileView"></div>
+  </div>
+
+  <div class="panel">
+    <h3>📌 Compromissos do Time</h3>
+    <div id="list"></div>
+  </div>
+</div>
+
+<!-- Botão flutuante mobile -->
+<div class="add-button" onclick="openMobileAdd()">
+  <span>+</span>
+</div>
+
+<div id="modal" class="modal" role="dialog" aria-modal="true">
+  <div class="box">
+    <h2 id="modalTitle">Novo Compromisso</h2>
+    <form onsubmit="event.preventDefault(); save();">
+      <input id="title" placeholder="Título" required autocomplete="off">
+      
+      <select id="tipo">
+        <option value="reuniao">Reunião</option>
+        <option value="evento">Evento</option>
+        <option value="chg">Mudança (CHG)</option>
+        <option value="outro">Outros</option>
+      </select>
+      
+      <input type="date" id="start" required>
+      <input type="date" id="end">
+      <input type="time" id="time">
+      
+      <select id="duration">
+        <option>Dia inteiro</option>
+        <option selected>30 min</option>
+        <option>1 hora</option>
+      </select>
+      
+      <textarea id="obs" placeholder="Observações" rows="3"></textarea>
+      
+      <button type="submit" class="btn-primary" style="width:100%">Salvar</button>
+      <button type="button" onclick="deleteEvent()" class="btn-danger" style="width:100%;margin-top:8px;">Excluir</button>
+      <button type="button" onclick="closeModal()" class="btn-secondary" style="width:100%;margin-top:8px;">Fechar</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// ==================== CONFIGURAÇÃO DO SUPABASE ====================
+const SUPABASE_URL = "https://wffjntjupnsvtvqxfihw.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_7Ma1Z2nNPHPxKtdfasln_w_ptK2--lb";
+
+// ==================== CORES ====================
+const COLORS = {
+  reuniao: "#3b82f6",
+  evento: "#22c55e",
+  chg: "#ef4444",
+  outro: "#a855f7"
+};
+
+const BG_COLORS = {
+  reuniao: "rgba(59,130,246,0.15)",
+  evento: "rgba(34,197,94,0.15)",
+  chg: "rgba(239,68,68,0.15)",
+  outro: "rgba(168,85,247,0.15)"
+};
+
+let events = [];
+let editId = null;
+let currentDate = new Date();
+
+// ==================== FUNÇÕES SUPABASE ====================
+async function loadEventsFromSupabase() {
+  try {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/eventos?select=*`, {
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      }
+    });
+    events = await response.json();
+    render();
+    renderMobileView();
+  } catch (error) {
+    console.error("Erro ao carregar:", error);
+    showToast("Erro ao carregar eventos", "error");
+  }
+}
+
+async function saveToSupabase(event) {
+  try {
+    let response;
+    if (editId) {
+      response = await fetch(`${SUPABASE_URL}/rest/v1/eventos?id=eq.${editId}`, {
+        method: 'PATCH',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(event)
+      });
+    } else {
+      response = await fetch(`${SUPABASE_URL}/rest/v1/eventos`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(event)
+      });
+    }
+    
+    if (response.ok) {
+      showToast(editId ? "Evento atualizado!" : "Evento criado!", "success");
+      await loadEventsFromSupabase();
+      closeModal();
+    } else {
+      throw new Error("Erro no servidor");
+    }
+  } catch (error) {
+    console.error("Erro ao salvar:", error);
+    showToast("Erro ao salvar evento", "error");
+  }
+}
+
+async function deleteFromSupabase() {
+  if (!editId) return;
+  
+  if (confirm("Tem certeza que deseja excluir este compromisso?")) {
+    try {
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/eventos?id=eq.${editId}`, {
+        method: 'DELETE',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+        }
+      });
+      
+      if (response.ok) {
+        showToast("Evento excluído!", "info");
+        await loadEventsFromSupabase();
+        closeModal();
+      } else {
+        throw new Error("Erro ao excluir");
+      }
+    } catch (error) {
+      console.error("Erro ao excluir:", error);
+      showToast("Erro ao excluir evento", "error");
+    }
+  }
+}
+
+// ==================== FUNÇÕES AUXILIARES ====================
+function formatDateLocal(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function formatDateTime(dateStr) {
+  const date = new Date(dateStr + "T00:00:00");
+  const hoje = new Date();
+  const amanha = new Date(hoje);
+  amanha.setDate(hoje.getDate() + 1);
+  const depoisAmanha = new Date(hoje);
+  depoisAmanha.setDate(hoje.getDate() + 2);
+  
+  if (date.toDateString() === hoje.toDateString()) return "Hoje";
+  if (date.toDateString() === amanha.toDateString()) return "Amanhã";
+  if (date.toDateString() === depoisAmanha.toDateString()) return "Depois";
+  
+  return date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+}
+
+function showToast(message, type = "info") {
+  const toast = document.createElement("div");
+  toast.className = `toast ${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+function occursOnDay(event, dateStr) {
+  return dateStr >= event.start && dateStr <= event.end;
+}
+
 // ==================== VISÃO MOBILE (SEM REDUNDÂNCIA) ====================
 function renderMobileView() {
   const container = document.getElementById("mobileView");
@@ -73,3 +774,247 @@ function renderMobileView() {
   
   container.innerHTML = html;
 }
+
+function openMobileAdd() {
+  openModal();
+}
+
+// ==================== CRUD ====================
+function save() {
+  const event = {
+    id: editId || Date.now(),
+    title: document.getElementById("title").value.trim(),
+    tipo: document.getElementById("tipo").value,
+    start: document.getElementById("start").value,
+    end: document.getElementById("end").value || document.getElementById("start").value,
+    time: document.getElementById("duration").value === "Dia inteiro" ? "" : document.getElementById("time").value,
+    duration: document.getElementById("duration").value,
+    obs: document.getElementById("obs").value
+  };
+  
+  if (!event.title || !event.start) {
+    showToast("Título e data são obrigatórios", "error");
+    return;
+  }
+  
+  saveToSupabase(event);
+}
+
+function deleteEvent() {
+  deleteFromSupabase();
+}
+
+function edit(id) {
+  const event = events.find(e => e.id === id);
+  if (!event) return;
+  
+  editId = id;
+  document.getElementById("modalTitle").textContent = "Editar Compromisso";
+  document.getElementById("title").value = event.title;
+  document.getElementById("tipo").value = event.tipo;
+  document.getElementById("start").value = event.start;
+  document.getElementById("end").value = event.end;
+  document.getElementById("time").value = event.time || "";
+  document.getElementById("duration").value = event.duration;
+  document.getElementById("obs").value = event.obs || "";
+  
+  openModal();
+}
+
+function openModal(date = null) {
+  const modal = document.getElementById("modal");
+  modal.style.display = "flex";
+  
+  if (date) {
+    document.getElementById("start").value = date;
+    document.getElementById("end").value = date;
+  }
+  
+  setTimeout(() => document.getElementById("title").focus(), 100);
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+  editId = null;
+  document.getElementById("modalTitle").textContent = "Novo Compromisso";
+  document.getElementById("title").value = "";
+  document.getElementById("obs").value = "";
+}
+
+// ==================== RENDERIZAÇÃO DESKTOP ====================
+function renderWeekdays() {
+  const weekdays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+  const container = document.getElementById("weekdays");
+  if (container) {
+    container.innerHTML = weekdays.map(day => 
+      `<div class="weekday">${day}</div>`
+    ).join("");
+  }
+}
+
+function renderCalendar() {
+  const grid = document.getElementById("grid");
+  if (!grid) return;
+  grid.innerHTML = "";
+  
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const todayStr = formatDateLocal(new Date());
+  
+  const firstDay = new Date(year, month, 1);
+  const startDate = new Date(year, month, -firstDay.getDay());
+  
+  for (let i = 0; i < 42; i++) {
+    const date = new Date(startDate);
+    date.setDate(startDate.getDate() + i);
+    
+    const dateStr = formatDateLocal(date);
+    const isCurrentMonth = date.getMonth() === month;
+    const isToday = dateStr === todayStr;
+    
+    const cell = document.createElement("div");
+    cell.className = "cell";
+    if (!isCurrentMonth) cell.classList.add("other-month");
+    if (isToday) cell.classList.add("today");
+    
+    cell.onclick = () => openModal(dateStr);
+    
+    const dayNumber = document.createElement("div");
+    dayNumber.className = "day-number";
+    dayNumber.textContent = date.getDate();
+    cell.appendChild(dayNumber);
+    
+    const eventsContainer = document.createElement("div");
+    eventsContainer.className = "events-container";
+    
+    const dayEvents = events.filter(ev => occursOnDay(ev, dateStr));
+    
+    dayEvents.slice(0, 3).forEach(ev => {
+      const eventEl = document.createElement("div");
+      eventEl.className = "event";
+      eventEl.style.background = COLORS[ev.tipo];
+      eventEl.textContent = ev.duration === "Dia inteiro" 
+        ? `📅 ${ev.title}`
+        : `${ev.time || "00:00"} ${ev.title}`;
+      eventEl.onclick = (e) => {
+        e.stopPropagation();
+        edit(ev.id);
+      };
+      eventsContainer.appendChild(eventEl);
+    });
+    
+    if (dayEvents.length > 3) {
+      const moreEl = document.createElement("div");
+      moreEl.className = "event";
+      moreEl.style.background = "var(--muted)";
+      moreEl.textContent = `+${dayEvents.length - 3} mais`;
+      moreEl.onclick = (e) => {
+        e.stopPropagation();
+        showToast(`${dayEvents.length} eventos neste dia`, "info");
+      };
+      eventsContainer.appendChild(moreEl);
+    }
+    
+    cell.appendChild(eventsContainer);
+    grid.appendChild(cell);
+  }
+  
+  const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                      "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+  const monthTitle = document.getElementById("monthTitle");
+  if (monthTitle) {
+    monthTitle.textContent = `${monthNames[month]} ${year}`;
+  }
+}
+
+function renderList() {
+  const list = document.getElementById("list");
+  if (!list) return;
+  list.innerHTML = "";
+  
+  const sorted = [...events].sort((a, b) => a.start.localeCompare(b.start));
+  
+  if (sorted.length === 0) {
+    list.innerHTML = '<div style="text-align:center;color:var(--muted);padding:40px;">Nenhum compromisso agendado</div>';
+    return;
+  }
+  
+  sorted.forEach(ev => {
+    const item = document.createElement("div");
+    item.className = "item";
+    item.style.borderLeft = `5px solid ${COLORS[ev.tipo]}`;
+    item.style.background = BG_COLORS[ev.tipo];
+    item.onclick = () => edit(ev.id);
+    
+    const dayNumber = ev.start.split("-")[2];
+    const dateRange = ev.start === ev.end ? ev.start : `${ev.start} → ${ev.end}`;
+    
+    item.innerHTML = `
+      <div class="dateBox" style="background:${COLORS[ev.tipo]}">${dayNumber}</div>
+      <div style="flex:1">
+        <strong>${ev.title}</strong><br>
+        <small>${dateRange}</small><br>
+        <small>${ev.time || "Dia inteiro"} • ${ev.tipo}</small>
+        ${ev.obs ? `<br><small style="color:var(--muted)">📝 ${ev.obs.substring(0, 50)}</small>` : ""}
+      </div>
+    `;
+    
+    list.appendChild(item);
+  });
+}
+
+function renderKPIs() {
+  const container = document.getElementById("kpis");
+  if (!container) return;
+  
+  const total = events.length;
+  const reuniao = events.filter(e => e.tipo === "reuniao").length;
+  const chg = events.filter(e => e.tipo === "chg").length;
+  const evento = events.filter(e => e.tipo === "evento").length;
+  const outros = events.filter(e => e.tipo === "outro").length;
+  
+  container.innerHTML = `
+    <div class="kpi"><strong>${total}</strong><span>Total</span></div>
+    <div class="kpi"><strong>${reuniao}</strong><span>Reuniões</span></div>
+    <div class="kpi"><strong>${chg}</strong><span>CHG</span></div>
+    <div class="kpi"><strong>${evento}</strong><span>Eventos</span></div>
+    <div class="kpi"><strong>${outros}</strong><span>Outros</span></div>
+  `;
+}
+
+function render() {
+  renderCalendar();
+  renderList();
+  renderKPIs();
+}
+
+// ==================== NAVEGAÇÃO ====================
+const calendar = {
+  prevMonth() {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    renderCalendar();
+  },
+  nextMonth() {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    renderCalendar();
+  }
+};
+
+// ==================== EVENTOS ====================
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
+});
+
+const modal = document.getElementById("modal");
+if (modal) {
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+}
+
+// ==================== INICIALIZAÇÃO ====================
+renderWeekdays();
+loadEventsFromSupabase();
+</script>
+</body>
+</html>
