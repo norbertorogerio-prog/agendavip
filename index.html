@@ -168,7 +168,8 @@ body {
 .panel h3 {
   margin-top: 0;
   color: var(--purple);
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
   margin-bottom: 16px;
 }
 
@@ -334,7 +335,8 @@ button:active {
   }
   
   .panel h3 {
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: bold;
   }
   
   /* Esconde elementos pesados no mobile */
@@ -342,106 +344,14 @@ button:active {
     display: none;
   }
   
-  /* Visão mobile simplificada */
+  /* Remove a seção mobile-view completamente */
   .mobile-view {
-    display: block;
+    display: none;
   }
   
   .main {
     padding: 15px;
-  }
-  
-  .mobile-section {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 16px;
-  }
-  
-  .mobile-section h3 {
-    margin: 0 0 12px 0;
-    color: var(--purple);
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .mobile-event {
-    background: rgba(123, 44, 255, 0.1);
-    border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  
-  .mobile-event:active {
-    transform: scale(0.98);
-  }
-  
-  .mobile-event-time {
-    min-width: 60px;
-    font-size: 12px;
-    font-weight: bold;
-    color: var(--purple);
-  }
-  
-  .mobile-event-info {
-    flex: 1;
-  }
-  
-  .mobile-event-title {
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
-  .mobile-event-type {
-    font-size: 10px;
-    color: var(--muted);
-    margin-top: 4px;
-  }
-  
-  .mobile-empty {
-    text-align: center;
-    padding: 20px;
-    color: var(--muted);
-    font-size: 14px;
-  }
-  
-  .add-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: var(--purple);
-    width: 56px;
-    height: 56px;
-    border-radius: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(123, 44, 255, 0.4);
-    z-index: 100;
-    transition: all 0.2s;
-  }
-  
-  .add-button:active {
-    transform: scale(0.95);
-  }
-  
-  .add-button span {
-    font-size: 28px;
-    font-weight: bold;
-  }
-}
-
-@media (min-width: 769px) {
-  .mobile-view {
-    display: none;
+    min-height: auto;
   }
 }
 </style>
@@ -461,8 +371,8 @@ button:active {
       <div id="grid" class="grid"></div>
     </div>
     
-    <!-- VISÃO MOBILE (SIMPLIFICADA) -->
-    <div class="mobile-view" id="mobileView"></div>
+    <!-- VISÃO MOBILE (REMOVIDA - NÃO MOSTRA MAIS PRÓXIMOS 7 DIAS) -->
+    <div class="mobile-view" id="mobileView" style="display:none;"></div>
   </div>
 
   <div class="panel">
@@ -543,7 +453,6 @@ async function loadEventsFromSupabase() {
     });
     events = await response.json();
     render();
-    renderMobileView();
   } catch (error) {
     console.error("Erro ao carregar:", error);
     showToast("Erro ao carregar eventos", "error");
@@ -623,21 +532,6 @@ function formatDateLocal(date) {
   return `${y}-${m}-${d}`;
 }
 
-function formatDateTime(dateStr) {
-  const date = new Date(dateStr + "T00:00:00");
-  const hoje = new Date();
-  const amanha = new Date(hoje);
-  amanha.setDate(hoje.getDate() + 1);
-  const depoisAmanha = new Date(hoje);
-  depoisAmanha.setDate(hoje.getDate() + 2);
-  
-  if (date.toDateString() === hoje.toDateString()) return "Hoje";
-  if (date.toDateString() === amanha.toDateString()) return "Amanhã";
-  if (date.toDateString() === depoisAmanha.toDateString()) return "Depois";
-  
-  return date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
-}
-
 function showToast(message, type = "info") {
   const toast = document.createElement("div");
   toast.className = `toast ${type}`;
@@ -648,61 +542,6 @@ function showToast(message, type = "info") {
 
 function occursOnDay(event, dateStr) {
   return dateStr >= event.start && dateStr <= event.end;
-}
-
-// ==================== VISÃO MOBILE ====================
-function renderMobileView() {
-  const container = document.getElementById("mobileView");
-  if (!container) return;
-  
-  const hoje = formatDateLocal(new Date());
-  
-  // Próximos eventos (próximos 7 dias, INCLUINDO HOJE)
-  const proximosEventos = [];
-  for (let i = 0; i <= 7; i++) {
-    const data = formatDateLocal(new Date(new Date().setDate(new Date().getDate() + i)));
-    const eventosData = events.filter(e => occursOnDay(e, data));
-    proximosEventos.push(...eventosData);
-  }
-  
-  // Remove duplicatas (eventos que duram mais de um dia)
-  const proximosUnicos = [...new Map(proximosEventos.map(e => [e.id, e])).values()]
-    .sort((a,b) => a.start.localeCompare(b.start));
-  
-  let html = '';
-  
-  // Seção: Próximos 7 Dias (apenas eventos futuros, sem duplicar os que já estão na lista)
-  if (proximosUnicos.length > 0) {
-    html += `
-      <div class="mobile-section">
-        <h3>📅 Próximos 7 Dias</h3>
-        ${proximosUnicos.slice(0, 10).map(ev => `
-          <div class="mobile-event" onclick="edit(${ev.id})">
-            <div class="mobile-event-time">${formatDateTime(ev.start)}</div>
-            <div class="mobile-event-info">
-              <div class="mobile-event-title">${ev.title}</div>
-              <div class="mobile-event-type">${ev.tipo} • ${ev.time || "Dia inteiro"}</div>
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    `;
-  } else {
-    html = `
-      <div class="mobile-section">
-        <div class="mobile-empty">
-          ✨ Nenhum compromisso nos próximos 7 dias<br>
-          Toque no botão + para criar
-        </div>
-      </div>
-    `;
-  }
-  
-  container.innerHTML = html;
-}
-
-function openMobileAdd() {
-  openModal();
 }
 
 // ==================== CRUD ====================
@@ -765,6 +604,10 @@ function closeModal() {
   document.getElementById("modalTitle").textContent = "Novo Compromisso";
   document.getElementById("title").value = "";
   document.getElementById("obs").value = "";
+}
+
+function openMobileAdd() {
+  openModal();
 }
 
 // ==================== RENDERIZAÇÃO DESKTOP ====================
