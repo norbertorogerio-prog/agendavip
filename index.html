@@ -26,7 +26,6 @@ body{
   height:100vh;
 }
 
-/* ÁREA PRINCIPAL */
 .main{
   display:flex;
   flex-direction:column;
@@ -92,25 +91,25 @@ body{
   overflow-y:auto;
 }
 
-/* EVENTO LISTA */
+/* LISTA */
 .item{
   display:flex;
   gap:10px;
-  background:var(--card);
   padding:10px;
   border-radius:10px;
   margin-bottom:10px;
 }
 
+/* DATA BOX */
 .dateBox{
   min-width:40px;
   height:40px;
-  background:var(--purple);
   border-radius:8px;
   display:flex;
   align-items:center;
   justify-content:center;
   font-weight:bold;
+  color:#fff;
 }
 
 /* MODAL */
@@ -143,11 +142,8 @@ input,select,textarea{
 <div class="layout">
 
 <div class="main">
-
   <div class="kpis" id="kpis"></div>
-
   <div id="grid" class="grid"></div>
-
 </div>
 
 <div class="panel">
@@ -204,6 +200,21 @@ evento:"#22c55e",
 chg:"#ef4444",
 outro:"#a855f7"
 };
+
+const bgColors={
+reuniao:"rgba(59,130,246,0.15)",
+evento:"rgba(34,197,94,0.15)",
+chg:"rgba(239,68,68,0.15)",
+outro:"rgba(168,85,247,0.15)"
+};
+
+/* CORREÇÃO DATA */
+function formatDateLocal(date){
+  const y = date.getFullYear();
+  const m = String(date.getMonth()+1).padStart(2,"0");
+  const d = String(date.getDate()).padStart(2,"0");
+  return `${y}-${m}-${d}`;
+}
 
 function saveDB(){localStorage.setItem(DB,JSON.stringify(events));}
 
@@ -262,7 +273,7 @@ const grid=document.getElementById("grid");
 grid.innerHTML="";
 
 const now=new Date();
-const todayStr=now.toISOString().slice(0,10);
+const todayStr=formatDateLocal(now);
 
 const y=now.getFullYear();
 const m=now.getMonth();
@@ -271,7 +282,7 @@ for(let i=1;i<=31;i++){
 const d=new Date(y,m,i);
 if(d.getMonth()!=m) continue;
 
-const ds=d.toISOString().slice(0,10);
+const ds=formatDateLocal(d);
 
 const cell=document.createElement("div");
 cell.className="cell";
@@ -319,13 +330,17 @@ list.innerHTML="";
 const sorted=[...events].sort((a,b)=>a.start.localeCompare(b.start));
 
 sorted.forEach(ev=>{
+
 const item=document.createElement("div");
 item.className="item";
+
+item.style.borderLeft="5px solid "+colors[ev.tipo];
+item.style.background=bgColors[ev.tipo];
 
 const dayNumber=new Date(ev.start).getDate();
 
 item.innerHTML=`
-<div class="dateBox">${dayNumber}</div>
+<div class="dateBox" style="background:${colors[ev.tipo]}">${dayNumber}</div>
 <div>
 <b>${ev.title}</b><br>
 ${ev.start} → ${ev.end}<br>
