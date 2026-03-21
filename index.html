@@ -200,6 +200,38 @@ body {
   color: #fff;
 }
 
+/* Botão flutuante + */
+.floating-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: white;
+  border: none;
+  font-size: 32px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(123, 44, 255, 0.4);
+  transition: all 0.2s;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-btn:hover {
+  transform: scale(1.1);
+  background: #8b3cff;
+  box-shadow: 0 6px 16px rgba(123, 44, 255, 0.5);
+}
+
+.floating-btn:active {
+  transform: scale(0.95);
+}
+
 .modal {
   position: fixed;
   inset: 0;
@@ -344,14 +376,17 @@ button:active {
     display: none;
   }
   
-  /* Remove a seção mobile-view completamente */
-  .mobile-view {
-    display: none;
-  }
-  
   .main {
     padding: 15px;
     min-height: auto;
+  }
+  
+  .floating-btn {
+    width: 56px;
+    height: 56px;
+    font-size: 28px;
+    bottom: 20px;
+    right: 20px;
   }
 }
 </style>
@@ -370,9 +405,6 @@ button:active {
       <div class="weekdays" id="weekdays"></div>
       <div id="grid" class="grid"></div>
     </div>
-    
-    <!-- VISÃO MOBILE (REMOVIDA - NÃO MOSTRA MAIS PRÓXIMOS 7 DIAS) -->
-    <div class="mobile-view" id="mobileView" style="display:none;"></div>
   </div>
 
   <div class="panel">
@@ -381,10 +413,8 @@ button:active {
   </div>
 </div>
 
-<!-- Botão flutuante mobile -->
-<div class="add-button" onclick="openMobileAdd()">
-  <span>+</span>
-</div>
+<!-- Botão flutuante + para criar eventos -->
+<button class="floating-btn" onclick="openModal()">+</button>
 
 <div id="modal" class="modal" role="dialog" aria-modal="true">
   <div class="box">
@@ -604,10 +634,6 @@ function closeModal() {
   document.getElementById("modalTitle").textContent = "Novo Compromisso";
   document.getElementById("title").value = "";
   document.getElementById("obs").value = "";
-}
-
-function openMobileAdd() {
-  openModal();
 }
 
 // ==================== RENDERIZAÇÃO DESKTOP ====================
