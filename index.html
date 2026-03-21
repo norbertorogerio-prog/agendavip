@@ -22,33 +22,14 @@ body{
 
 .layout{
   display:grid;
-  grid-template-columns:240px 1fr 340px;
+  grid-template-columns:1fr 340px;
   height:100vh;
 }
 
-/* SIDEBAR */
-.sidebar{
-  background:#12121a;
-  padding:20px;
-}
-.logo{
-  font-size:18px;
-  color:var(--purple);
-  font-weight:bold;
-}
-.btn{
-  width:100%;
-  padding:10px;
-  margin-top:10px;
-  background:var(--purple);
-  border:none;
-  color:#fff;
-  border-radius:8px;
-  cursor:pointer;
-}
-
 /* CALENDÁRIO */
-.calendar{padding:15px;}
+.calendar{
+  padding:15px;
+}
 .grid{
   display:grid;
   grid-template-columns:repeat(7,1fr);
@@ -59,38 +40,45 @@ body{
   min-height:110px;
   padding:6px;
   border-radius:10px;
+  cursor:pointer;
 }
-.day{font-size:12px;color:var(--muted);}
+.day{
+  font-size:12px;
+  color:var(--muted);
+}
 .event{
   font-size:11px;
   padding:4px;
   border-radius:6px;
   margin-top:4px;
-  cursor:pointer;
 }
 
 /* PAINEL */
 .panel{
   background:#12121a;
   padding:15px;
-  overflow:auto;
+  overflow-y:auto;
 }
 
-/* KPI estilo Power BI */
+/* KPI LINHA */
 .kpis{
-  display:grid;
-  grid-template-columns:1fr 1fr;
+  display:flex;
   gap:10px;
   margin-bottom:15px;
 }
 .kpi{
+  flex:1;
   background:var(--card);
   padding:10px;
   border-radius:10px;
   text-align:center;
 }
-.kpi strong{font-size:18px;color:var(--purple)}
+.kpi strong{
+  font-size:18px;
+  color:var(--purple);
+}
 
+/* LISTA */
 .item{
   background:var(--card);
   padding:10px;
@@ -127,12 +115,8 @@ input,select,textarea{
 
 <div class="layout">
 
-<div class="sidebar">
-  <div class="logo">📊 Agenda Workplace</div>
-  <button class="btn" onclick="openModal()">+ Novo Evento</button>
-</div>
-
 <div class="calendar">
+  <h2 style="color:#7b2cff;">📊 Agenda Workplace</h2>
   <div id="grid" class="grid"></div>
 </div>
 
@@ -174,9 +158,9 @@ input,select,textarea{
 
 <textarea id="obs" placeholder="Observações"></textarea>
 
-<button class="btn">Salvar</button>
-<button type="button" class="btn" onclick="deleteEvent()">Excluir</button>
-<button type="button" class="btn" onclick="closeModal()">Fechar</button>
+<button style="background:#7b2cff;color:#fff;border:none;padding:10px;width:100%;border-radius:8px;">Salvar</button>
+<button type="button" onclick="deleteEvent()" style="background:#ef4444;color:#fff;border:none;padding:10px;width:100%;border-radius:8px;margin-top:5px;">Excluir</button>
+<button type="button" onclick="closeModal()" style="margin-top:5px;width:100%;">Fechar</button>
 
 </form>
 
@@ -187,6 +171,7 @@ input,select,textarea{
 const DB="agendaWorkplace";
 let events=JSON.parse(localStorage.getItem(DB)||"[]");
 let editId=null;
+let selectedDate=null;
 
 const colors={
 reuniao:"#3b82f6",
@@ -197,8 +182,18 @@ outro:"#a855f7"
 
 function saveDB(){localStorage.setItem(DB,JSON.stringify(events));}
 
-function openModal(){modal.style.display="flex";}
-function closeModal(){modal.style.display="none";editId=null;}
+function openModal(date=null){
+  modal.style.display="flex";
+  if(date){
+    start.value=date;
+    end.value=date;
+  }
+}
+
+function closeModal(){
+  modal.style.display="none";
+  editId=null;
+}
 
 function save(e){
 e.preventDefault();
@@ -226,7 +221,7 @@ render();
 }
 
 function deleteEvent(){
-if(!editId) return;
+if(!editId)return;
 events=events.filter(e=>e.id!==editId);
 saveDB();
 closeModal();
@@ -254,6 +249,8 @@ const ds=d.toISOString().slice(0,10);
 const cell=document.createElement("div");
 cell.className="cell";
 
+cell.onclick=()=>openModal(ds);
+
 const day=document.createElement("div");
 day.className="day";
 day.textContent=i;
@@ -265,7 +262,11 @@ if(occurs(ev,ds)){
 const el=document.createElement("div");
 el.className="event";
 el.style.background=colors[ev.tipo];
-el.onclick=()=>edit(ev.id);
+
+el.onclick=(e)=>{
+e.stopPropagation();
+edit(ev.id);
+};
 
 el.innerText=ev.duration==="Dia inteiro"
 ? "📅 "+ev.title
@@ -311,11 +312,13 @@ const el=document.getElementById("kpis");
 const total=events.length;
 const reuniao=events.filter(e=>e.tipo==="reuniao").length;
 const chg=events.filter(e=>e.tipo==="chg").length;
+const evento=events.filter(e=>e.tipo==="evento").length;
 
 el.innerHTML=`
 <div class="kpi"><strong>${total}</strong><br>Total</div>
 <div class="kpi"><strong>${reuniao}</strong><br>Reuniões</div>
-<div class="kpi"><strong>${chg}</strong><br>CHGs</div>
+<div class="kpi"><strong>${chg}</strong><br>CHG</div>
+<div class="kpi"><strong>${evento}</strong><br>Eventos</div>
 `;
 }
 
