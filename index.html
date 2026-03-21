@@ -699,10 +699,6 @@ function occursOnDay(event, dateStr) {
   return dateStr >= event.start && dateStr <= event.end;
 }
 
-function ocorreHoje(event, hoje) {
-  return occursOnDay(event, hoje);
-}
-
 // ==================== VISÃO MOBILE ====================
 function renderMobileView() {
   const container = document.getElementById("mobileView");
@@ -718,9 +714,9 @@ function renderMobileView() {
   // Eventos de hoje (exatamente hoje)
   const eventosHoje = events.filter(e => occursOnDay(e, hoje));
   
-  // Próximos eventos (próximos 7 dias, EXCLUINDO HOJE)
+  // Próximos eventos (próximos 7 dias, INCLUINDO HOJE para dar visibilidade)
   const proximosEventos = [];
-  for (let i = 1; i <= 7; i++) {
+  for (let i = 0; i <= 7; i++) {
     const data = formatDateLocal(new Date(new Date().setDate(new Date().getDate() + i)));
     const eventosData = events.filter(e => occursOnDay(e, data));
     proximosEventos.push(...eventosData);
@@ -729,9 +725,6 @@ function renderMobileView() {
   // Remove duplicatas (eventos que duram mais de um dia)
   const proximosUnicos = [...new Map(proximosEventos.map(e => [e.id, e])).values()]
     .sort((a,b) => a.start.localeCompare(b.start));
-  
-  // Filtra os que não ocorrem hoje
-  const proximosSemHoje = proximosUnicos.filter(ev => !ocorreHoje(ev, hoje));
   
   let html = '';
   
@@ -771,12 +764,12 @@ function renderMobileView() {
     `;
   }
   
-  // Seção: Próximos Dias (excluindo hoje)
-  if (proximosSemHoje.length > 0) {
+  // Seção: Próximos Dias (incluindo hoje para visibilidade)
+  if (proximosUnicos.length > 0) {
     html += `
       <div class="mobile-section">
-        <h3>📆 Próximos Dias</h3>
-        ${proximosSemHoje.slice(0, 10).map(ev => `
+        <h3>📆 Próximos Dias (próximos 7 dias)</h3>
+        ${proximosUnicos.slice(0, 10).map(ev => `
           <div class="mobile-event" onclick="edit(${ev.id})">
             <div class="mobile-event-time">${formatDateTime(ev.start)}</div>
             <div class="mobile-event-info">
@@ -789,7 +782,7 @@ function renderMobileView() {
     `;
   }
   
-  if (eventosCriticos.length === 0 && eventosHoje.length === 0 && proximosSemHoje.length === 0) {
+  if (eventosCriticos.length === 0 && eventosHoje.length === 0 && proximosUnicos.length === 0) {
     html = `
       <div class="mobile-section">
         <div class="mobile-empty">
