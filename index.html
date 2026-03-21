@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<title>Agenda Workplace</title>
+<title>Agenda Inteligente</title>
 
 <style>
 :root{
@@ -10,7 +10,6 @@
   --card:#1b1b2a;
   --purple:#7b2cff;
   --text:#fff;
-  --muted:#aaa;
 }
 
 body{
@@ -26,13 +25,8 @@ body{
   height:100vh;
 }
 
-.main{
-  display:flex;
-  flex-direction:column;
-  padding:10px;
-}
+.main{padding:10px;}
 
-/* KPI */
 .kpis{
   display:flex;
   gap:10px;
@@ -45,53 +39,35 @@ body{
   border-radius:10px;
   text-align:center;
 }
-.kpi strong{
-  font-size:18px;
-  color:var(--purple);
-}
 
-/* CALENDÁRIO */
 .grid{
   display:grid;
-  grid-template-columns:repeat(7, 110px);
+  grid-template-columns:repeat(7,110px);
   gap:8px;
   justify-content:center;
 }
 
 .cell{
   background:var(--card);
-  min-height:80px;
-  max-height:80px;
   padding:6px;
   border-radius:10px;
-  cursor:pointer;
-  overflow:hidden;
 }
 
-.today{
-  border:2px solid var(--purple);
-}
-
-.day{
-  font-size:11px;
-  color:var(--muted);
-}
+.today{border:2px solid var(--purple);}
 
 .event{
   font-size:10px;
-  padding:3px;
-  border-radius:6px;
   margin-top:3px;
+  padding:3px;
+  border-radius:5px;
 }
 
-/* PAINEL */
 .panel{
   background:#12121a;
   padding:15px;
-  overflow-y:auto;
+  overflow:auto;
 }
 
-/* LISTA */
 .item{
   display:flex;
   gap:10px;
@@ -100,39 +76,23 @@ body{
   margin-bottom:10px;
 }
 
-/* DATA BOX */
 .dateBox{
-  min-width:40px;
+  width:40px;
   height:40px;
-  border-radius:8px;
   display:flex;
   align-items:center;
   justify-content:center;
+  border-radius:8px;
   font-weight:bold;
   color:#fff;
 }
 
-/* MODAL */
-.modal{
-  position:fixed;
-  inset:0;
-  background:#000a;
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-.box{
-  background:#111;
-  padding:20px;
-  border-radius:10px;
-  width:320px;
-}
-input,select,textarea{
-  width:100%;
-  margin-bottom:8px;
-  padding:8px;
+.badge{
+  font-size:10px;
+  padding:2px 6px;
   border-radius:6px;
-  border:none;
+  margin-top:4px;
+  display:inline-block;
 }
 </style>
 </head>
@@ -142,57 +102,20 @@ input,select,textarea{
 <div class="layout">
 
 <div class="main">
-  <div class="kpis" id="kpis"></div>
-  <div id="grid" class="grid"></div>
+<div class="kpis" id="kpis"></div>
+<div id="grid" class="grid"></div>
 </div>
 
 <div class="panel">
-  <h3>📌 Compromissos do Time</h3>
-  <div id="list"></div>
+<h3>📌 Agenda Inteligente</h3>
+<div id="list"></div>
 </div>
 
-</div>
-
-<!-- MODAL -->
-<div id="modal" class="modal">
-<div class="box">
-
-<form onsubmit="save(event)">
-<input id="title" placeholder="Título" required>
-
-<select id="tipo">
-<option value="reuniao">Reunião</option>
-<option value="evento">Evento</option>
-<option value="chg">Mudança (CHG)</option>
-<option value="outro">Outros</option>
-</select>
-
-<input type="date" id="start" required>
-<input type="date" id="end">
-
-<input type="time" id="time">
-
-<select id="duration">
-<option>Dia inteiro</option>
-<option selected>30 min</option>
-<option>1 hora</option>
-</select>
-
-<textarea id="obs" placeholder="Observações"></textarea>
-
-<button style="background:#7b2cff;color:#fff;border:none;padding:10px;width:100%;border-radius:8px;">Salvar</button>
-<button type="button" onclick="deleteEvent()" style="background:#ef4444;color:#fff;border:none;padding:10px;width:100%;border-radius:8px;margin-top:5px;">Excluir</button>
-<button type="button" onclick="closeModal()" style="margin-top:5px;width:100%;">Fechar</button>
-
-</form>
-
-</div>
 </div>
 
 <script>
 const DB="agendaWorkplace";
 let events=JSON.parse(localStorage.getItem(DB)||"[]");
-let editId=null;
 
 const colors={
 reuniao:"#3b82f6",
@@ -201,117 +124,58 @@ chg:"#ef4444",
 outro:"#a855f7"
 };
 
-const bgColors={
-reuniao:"rgba(59,130,246,0.15)",
-evento:"rgba(34,197,94,0.15)",
-chg:"rgba(239,68,68,0.15)",
-outro:"rgba(168,85,247,0.15)"
-};
-
-/* CORREÇÃO DATA */
-function formatDateLocal(date){
-  const y = date.getFullYear();
-  const m = String(date.getMonth()+1).padStart(2,"0");
-  const d = String(date.getDate()).padStart(2,"0");
-  return `${y}-${m}-${d}`;
+function todayStr(){
+const d=new Date();
+return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
 }
 
-function saveDB(){localStorage.setItem(DB,JSON.stringify(events));}
+function getStatus(ev){
+const today=todayStr();
 
-function openModal(date=null){
-  modal.style.display="flex";
-  if(date){
-    start.value=date;
-    end.value=date;
-  }
+if(ev.end < today) return "ATRASADO";
+if(ev.start === today) return "HOJE";
+if(ev.start > today) return "FUTURO";
+if(ev.start < today && ev.end >= today) return "EM ANDAMENTO";
+
+return "";
 }
 
-function closeModal(){
-  modal.style.display="none";
-  editId=null;
-}
-
-function save(e){
-e.preventDefault();
-
-const ev={
-id:editId||Date.now(),
-title:title.value,
-tipo:tipo.value,
-start:start.value,
-end:end.value||start.value,
-time:duration.value==="Dia inteiro"?"":time.value,
-duration:duration.value,
-obs:obs.value
-};
-
-if(editId){
-events=events.map(x=>x.id===editId?ev:x);
-}else{
-events.push(ev);
-}
-
-saveDB();
-closeModal();
-render();
-}
-
-function deleteEvent(){
-if(!editId)return;
-events=events.filter(e=>e.id!==editId);
-saveDB();
-closeModal();
-render();
-}
-
-function occurs(ev,day){
-return day>=ev.start && day<=ev.end;
+function getStatusColor(status){
+return {
+"ATRASADO":"#ef4444",
+"HOJE":"#f59e0b",
+"EM ANDAMENTO":"#22c55e",
+"FUTURO":"#888"
+}[status];
 }
 
 function render(){
+
 const grid=document.getElementById("grid");
 grid.innerHTML="";
 
 const now=new Date();
-const todayStr=formatDateLocal(now);
-
-const y=now.getFullYear();
-const m=now.getMonth();
+const today=todayStr();
 
 for(let i=1;i<=31;i++){
-const d=new Date(y,m,i);
-if(d.getMonth()!=m) continue;
+let d=new Date(now.getFullYear(),now.getMonth(),i);
+if(d.getMonth()!=now.getMonth()) continue;
 
-const ds=formatDateLocal(d);
+const ds=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(i).padStart(2,"0")}`;
 
 const cell=document.createElement("div");
 cell.className="cell";
 
-if(ds===todayStr) cell.classList.add("today");
+if(ds===today) cell.classList.add("today");
 
-cell.onclick=()=>openModal(ds);
-
-const day=document.createElement("div");
-day.className="day";
-day.textContent=i;
-
-cell.appendChild(day);
+cell.innerHTML=`<div>${i}</div>`;
 
 events.forEach(ev=>{
-if(occurs(ev,ds)){
+if(ds>=ev.start && ds<=ev.end){
 const el=document.createElement("div");
 el.className="event";
 el.style.background=colors[ev.tipo];
-
-el.onclick=(e)=>{
-e.stopPropagation();
-edit(ev.id);
-};
-
-el.innerText=ev.duration==="Dia inteiro"
-? "📅 "+ev.title
-: ev.time+" "+ev.title;
-
+el.innerText=ev.title;
 cell.appendChild(el);
 }
 });
@@ -327,26 +191,37 @@ function renderList(){
 const list=document.getElementById("list");
 list.innerHTML="";
 
-const sorted=[...events].sort((a,b)=>a.start.localeCompare(b.start));
+let conflicts={};
 
-sorted.forEach(ev=>{
+events.forEach(e=>{
+for(let d=e.start; d<=e.end; ){
+conflicts[d]=(conflicts[d]||0)+1;
+let parts=d.split("-");
+let dt=new Date(parts[0],parts[1]-1,parts[2]);
+dt.setDate(dt.getDate()+1);
+d=`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,"0")}-${String(dt.getDate()).padStart(2,"0")}`;
+}
+});
 
+events.forEach(ev=>{
 const item=document.createElement("div");
 item.className="item";
 
-item.style.borderLeft="5px solid "+colors[ev.tipo];
-item.style.background=bgColors[ev.tipo];
+const day=ev.start.split("-")[2];
+const status=getStatus(ev);
 
-const dayNumber=new Date(ev.start).getDate();
+item.style.background= status==="ATRASADO" ? "#3a1111" : "#1b1b2a";
 
 item.innerHTML=`
-<div class="dateBox" style="background:${colors[ev.tipo]}">${dayNumber}</div>
+<div class="dateBox" style="background:${colors[ev.tipo]}">${day}</div>
 <div>
 <b>${ev.title}</b><br>
 ${ev.start} → ${ev.end}<br>
-${ev.time||"Dia inteiro"}<br>
-<small>${ev.tipo}</small><br>
-${ev.obs||""}
+
+<span class="badge" style="background:${getStatusColor(status)}">${status}</span>
+
+${conflicts[ev.start]>1 ? "<br>⚠️ Conflito de agenda" : ""}
+
 </div>
 `;
 
@@ -355,34 +230,20 @@ list.appendChild(item);
 }
 
 function renderKPIs(){
-const el=document.getElementById("kpis");
+
+const today=todayStr();
 
 const total=events.length;
-const reuniao=events.filter(e=>e.tipo==="reuniao").length;
 const chg=events.filter(e=>e.tipo==="chg").length;
-const evento=events.filter(e=>e.tipo==="evento").length;
+const hoje=events.filter(e=>e.start===today).length;
+const atrasados=events.filter(e=>e.end < today).length;
 
-el.innerHTML=`
-<div class="kpi"><strong>${total}</strong><br>Total</div>
-<div class="kpi"><strong>${reuniao}</strong><br>Reuniões</div>
-<div class="kpi"><strong>${chg}</strong><br>CHG</div>
-<div class="kpi"><strong>${evento}</strong><br>Eventos</div>
+document.getElementById("kpis").innerHTML=`
+<div class="kpi">${total}<br>Total</div>
+<div class="kpi">${chg}<br>CHG</div>
+<div class="kpi">${hoje}<br>Hoje</div>
+<div class="kpi">${atrasados}<br>Atrasados</div>
 `;
-}
-
-function edit(id){
-const ev=events.find(e=>e.id===id);
-editId=id;
-
-title.value=ev.title;
-tipo.value=ev.tipo;
-start.value=ev.start;
-end.value=ev.end;
-time.value=ev.time;
-duration.value=ev.duration;
-obs.value=ev.obs||"";
-
-openModal();
 }
 
 render();
