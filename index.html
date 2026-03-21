@@ -22,32 +22,55 @@ body{
 
 .layout{
   display:grid;
-  grid-template-columns:1fr 420px; /* painel maior */
+  grid-template-columns:1fr 420px;
   height:100vh;
 }
 
-/* CALENDÁRIO */
-.calendar{
+/* ÁREA PRINCIPAL */
+.main{
+  display:flex;
+  flex-direction:column;
   padding:10px;
-  max-width:900px;
-  margin:auto;
 }
 
+/* KPI */
+.kpis{
+  display:flex;
+  gap:10px;
+  margin-bottom:10px;
+}
+.kpi{
+  flex:1;
+  background:var(--card);
+  padding:10px;
+  border-radius:10px;
+  text-align:center;
+}
+.kpi strong{
+  font-size:18px;
+  color:var(--purple);
+}
+
+/* CALENDÁRIO */
 .grid{
   display:grid;
-  grid-template-columns:repeat(7, 110px); /* largura fixa menor */
+  grid-template-columns:repeat(7, 110px);
   gap:8px;
   justify-content:center;
 }
 
 .cell{
   background:var(--card);
-  min-height:80px; /* altura menor */
+  min-height:80px;
   max-height:80px;
   padding:6px;
   border-radius:10px;
   cursor:pointer;
   overflow:hidden;
+}
+
+.today{
+  border:2px solid var(--purple);
 }
 
 .day{
@@ -69,30 +92,25 @@ body{
   overflow-y:auto;
 }
 
-/* KPI */
-.kpis{
+/* EVENTO LISTA */
+.item{
   display:flex;
   gap:10px;
-  margin-bottom:15px;
-}
-.kpi{
-  flex:1;
-  background:var(--card);
-  padding:10px;
-  border-radius:10px;
-  text-align:center;
-}
-.kpi strong{
-  font-size:18px;
-  color:var(--purple);
-}
-
-/* LISTA */
-.item{
   background:var(--card);
   padding:10px;
   border-radius:10px;
   margin-bottom:10px;
+}
+
+.dateBox{
+  min-width:40px;
+  height:40px;
+  background:var(--purple);
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
 }
 
 /* MODAL */
@@ -124,17 +142,17 @@ input,select,textarea{
 
 <div class="layout">
 
-<div class="calendar">
-  <div id="grid" class="grid"></div>
-</div>
-
-<div class="panel">
+<div class="main">
 
   <div class="kpis" id="kpis"></div>
 
+  <div id="grid" class="grid"></div>
+
+</div>
+
+<div class="panel">
   <h3>📌 Compromissos do Time</h3>
   <div id="list"></div>
-
 </div>
 
 </div>
@@ -244,6 +262,8 @@ const grid=document.getElementById("grid");
 grid.innerHTML="";
 
 const now=new Date();
+const todayStr=now.toISOString().slice(0,10);
+
 const y=now.getFullYear();
 const m=now.getMonth();
 
@@ -255,6 +275,8 @@ const ds=d.toISOString().slice(0,10);
 
 const cell=document.createElement("div");
 cell.className="cell";
+
+if(ds===todayStr) cell.classList.add("today");
 
 cell.onclick=()=>openModal(ds);
 
@@ -299,14 +321,18 @@ const sorted=[...events].sort((a,b)=>a.start.localeCompare(b.start));
 sorted.forEach(ev=>{
 const item=document.createElement("div");
 item.className="item";
-item.style.borderLeft="5px solid "+colors[ev.tipo];
+
+const dayNumber=new Date(ev.start).getDate();
 
 item.innerHTML=`
+<div class="dateBox">${dayNumber}</div>
+<div>
 <b>${ev.title}</b><br>
 ${ev.start} → ${ev.end}<br>
 ${ev.time||"Dia inteiro"}<br>
 <small>${ev.tipo}</small><br>
 ${ev.obs||""}
+</div>
 `;
 
 list.appendChild(item);
