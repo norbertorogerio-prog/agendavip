@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Agenda Workplace - Time</title>
 
 <style>
@@ -14,6 +14,7 @@
   --muted: #aaa;
   --danger: #ef4444;
   --success: #22c55e;
+  --warning: #f59e0b;
 }
 
 * {
@@ -27,6 +28,7 @@ body {
   color: var(--text);
 }
 
+/* ==================== VISÃO DESKTOP (PADRÃO) ==================== */
 .layout {
   display: grid;
   grid-template-columns: 1fr 420px;
@@ -344,6 +346,7 @@ button:active {
   border-radius: 4px;
 }
 
+/* ==================== VISÃO MOBILE ==================== */
 @media (max-width: 768px) {
   .layout {
     grid-template-columns: 1fr;
@@ -352,6 +355,140 @@ button:active {
   .panel {
     border-left: none;
     border-top: 1px solid var(--card);
+    display: block;
+  }
+  
+  /* Esconde elementos pesados no mobile */
+  .weekdays, .grid, .calendar-header {
+    display: none;
+  }
+  
+  /* Visão mobile simplificada */
+  .mobile-view {
+    display: block;
+  }
+  
+  .main {
+    padding: 15px;
+  }
+  
+  .kpis {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  
+  .kpi {
+    padding: 10px;
+  }
+  
+  .kpi strong {
+    font-size: 20px;
+  }
+  
+  .kpi span {
+    font-size: 11px;
+  }
+  
+  .mobile-section {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .mobile-section h3 {
+    margin: 0 0 12px 0;
+    color: var(--purple);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .mobile-event {
+    background: rgba(123, 44, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .mobile-event:active {
+    transform: scale(0.98);
+  }
+  
+  .mobile-event.critical {
+    border-left: 4px solid var(--danger);
+    background: rgba(239, 68, 68, 0.1);
+  }
+  
+  .mobile-event.important {
+    border-left: 4px solid var(--warning);
+  }
+  
+  .mobile-event-time {
+    min-width: 60px;
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--purple);
+  }
+  
+  .mobile-event-info {
+    flex: 1;
+  }
+  
+  .mobile-event-title {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .mobile-event-type {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  
+  .mobile-empty {
+    text-align: center;
+    padding: 20px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  
+  .add-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--purple);
+    width: 56px;
+    height: 56px;
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(123, 44, 255, 0.4);
+    z-index: 100;
+    transition: all 0.2s;
+  }
+  
+  .add-button:active {
+    transform: scale(0.95);
+  }
+  
+  .add-button span {
+    font-size: 28px;
+    font-weight: bold;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-view {
+    display: none;
   }
 }
 </style>
@@ -362,20 +499,30 @@ button:active {
   <div class="main">
     <div class="kpis" id="kpis"></div>
     
-    <div class="calendar-header">
-      <button onclick="calendar.prevMonth()" aria-label="Mês anterior">◀</button>
-      <div class="month-title" id="monthTitle"></div>
-      <button onclick="calendar.nextMonth()" aria-label="Próximo mês">▶</button>
+    <!-- VISÃO DESKTOP (NORMAL) -->
+    <div class="desktop-view">
+      <div class="calendar-header">
+        <button onclick="calendar.prevMonth()" aria-label="Mês anterior">◀</button>
+        <div class="month-title" id="monthTitle"></div>
+        <button onclick="calendar.nextMonth()" aria-label="Próximo mês">▶</button>
+      </div>
+      <div class="weekdays" id="weekdays"></div>
+      <div id="grid" class="grid"></div>
     </div>
     
-    <div class="weekdays" id="weekdays"></div>
-    <div id="grid" class="grid"></div>
+    <!-- VISÃO MOBILE (SIMPLIFICADA) -->
+    <div class="mobile-view" id="mobileView"></div>
   </div>
 
   <div class="panel">
     <h3>📌 Compromissos do Time</h3>
     <div id="list"></div>
   </div>
+</div>
+
+<!-- Botão flutuante mobile -->
+<div class="add-button" onclick="openMobileAdd()">
+  <span>+</span>
 </div>
 
 <div id="modal" class="modal" role="dialog" aria-modal="true">
@@ -445,6 +592,7 @@ async function loadEventsFromSupabase() {
     });
     events = await response.json();
     render();
+    renderMobileView();
   } catch (error) {
     console.error("Erro ao carregar:", error);
     showToast("Erro ao carregar eventos", "error");
@@ -524,6 +672,18 @@ function formatDateLocal(date) {
   return `${y}-${m}-${d}`;
 }
 
+function formatDateTime(dateStr) {
+  const date = new Date(dateStr + "T00:00:00");
+  const hoje = new Date();
+  const amanha = new Date(hoje);
+  amanha.setDate(hoje.getDate() + 1);
+  
+  if (date.toDateString() === hoje.toDateString()) return "Hoje";
+  if (date.toDateString() === amanha.toDateString()) return "Amanhã";
+  
+  return date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+}
+
 function showToast(message, type = "info") {
   const toast = document.createElement("div");
   toast.className = `toast ${type}`;
@@ -534,6 +694,108 @@ function showToast(message, type = "info") {
 
 function occursOnDay(event, dateStr) {
   return dateStr >= event.start && dateStr <= event.end;
+}
+
+// ==================== VISÃO MOBILE ====================
+function renderMobileView() {
+  const container = document.getElementById("mobileView");
+  if (!container) return;
+  
+  const hoje = formatDateLocal(new Date());
+  const amanha = formatDateLocal(new Date(new Date().setDate(new Date().getDate() + 1)));
+  
+  // Eventos críticos: CHG e Reuniões
+  const eventosCriticos = events.filter(e => 
+    e.tipo === "chg" && e.start >= hoje
+  ).sort((a,b) => a.start.localeCompare(b.start));
+  
+  // Eventos de hoje
+  const eventosHoje = events.filter(e => occursOnDay(e, hoje));
+  
+  // Próximos eventos (próximos 7 dias, excluindo hoje e críticos já mostrados)
+  const proximaSemana = [];
+  for (let i = 1; i <= 7; i++) {
+    const data = formatDateLocal(new Date(new Date().setDate(new Date().getDate() + i)));
+    const eventosData = events.filter(e => occursOnDay(e, data));
+    proximaSemana.push(...eventosData);
+  }
+  
+  // Remove duplicatas e ordena
+  const proximosUnicos = [...new Map(proximaSemana.map(e => [e.id, e])).values()]
+    .sort((a,b) => a.start.localeCompare(b.start));
+  
+  let html = '';
+  
+  // Seção: Eventos Críticos (CHG)
+  if (eventosCriticos.length > 0) {
+    html += `
+      <div class="mobile-section">
+        <h3>⚠️ Eventos Críticos (CHG)</h3>
+        ${eventosCriticos.map(ev => `
+          <div class="mobile-event critical" onclick="edit(${ev.id})">
+            <div class="mobile-event-time">${formatDateTime(ev.start)}</div>
+            <div class="mobile-event-info">
+              <div class="mobile-event-title">${ev.title}</div>
+              <div class="mobile-event-type">${ev.tipo} • ${ev.time || "Dia inteiro"}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+  
+  // Seção: Hoje
+  if (eventosHoje.length > 0) {
+    html += `
+      <div class="mobile-section">
+        <h3>📅 Hoje</h3>
+        ${eventosHoje.map(ev => `
+          <div class="mobile-event ${ev.tipo === 'chg' ? 'critical' : ''}" onclick="edit(${ev.id})">
+            <div class="mobile-event-time">${ev.time || "Dia todo"}</div>
+            <div class="mobile-event-info">
+              <div class="mobile-event-title">${ev.title}</div>
+              <div class="mobile-event-type">${ev.tipo}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+  
+  // Seção: Próximos 7 dias
+  if (proximosUnicos.length > 0) {
+    html += `
+      <div class="mobile-section">
+        <h3>📆 Próximos Dias</h3>
+        ${proximosUnicos.slice(0, 10).map(ev => `
+          <div class="mobile-event" onclick="edit(${ev.id})">
+            <div class="mobile-event-time">${formatDateTime(ev.start)}</div>
+            <div class="mobile-event-info">
+              <div class="mobile-event-title">${ev.title}</div>
+              <div class="mobile-event-type">${ev.tipo} • ${ev.time || "Dia inteiro"}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+  
+  if (eventosCriticos.length === 0 && eventosHoje.length === 0 && proximosUnicos.length === 0) {
+    html = `
+      <div class="mobile-section">
+        <div class="mobile-empty">
+          ✨ Nenhum compromisso agendado<br>
+          Toque no botão + para criar
+        </div>
+      </div>
+    `;
+  }
+  
+  container.innerHTML = html;
+}
+
+function openMobileAdd() {
+  openModal();
 }
 
 // ==================== CRUD ====================
@@ -598,17 +860,20 @@ function closeModal() {
   document.getElementById("obs").value = "";
 }
 
-// ==================== RENDERIZAÇÃO ====================
+// ==================== RENDERIZAÇÃO DESKTOP ====================
 function renderWeekdays() {
   const weekdays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
   const container = document.getElementById("weekdays");
-  container.innerHTML = weekdays.map(day => 
-    `<div class="weekday">${day}</div>`
-  ).join("");
+  if (container) {
+    container.innerHTML = weekdays.map(day => 
+      `<div class="weekday">${day}</div>`
+    ).join("");
+  }
 }
 
 function renderCalendar() {
   const grid = document.getElementById("grid");
+  if (!grid) return;
   grid.innerHTML = "";
   
   const year = currentDate.getFullYear();
@@ -675,11 +940,15 @@ function renderCalendar() {
   
   const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
                       "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-  document.getElementById("monthTitle").textContent = `${monthNames[month]} ${year}`;
+  const monthTitle = document.getElementById("monthTitle");
+  if (monthTitle) {
+    monthTitle.textContent = `${monthNames[month]} ${year}`;
+  }
 }
 
 function renderList() {
   const list = document.getElementById("list");
+  if (!list) return;
   list.innerHTML = "";
   
   const sorted = [...events].sort((a, b) => a.start.localeCompare(b.start));
@@ -715,6 +984,7 @@ function renderList() {
 
 function renderKPIs() {
   const container = document.getElementById("kpis");
+  if (!container) return;
   
   const total = events.length;
   const reuniao = events.filter(e => e.tipo === "reuniao").length;
@@ -754,9 +1024,12 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeModal();
 });
 
-document.getElementById("modal").addEventListener("click", (e) => {
-  if (e.target === document.getElementById("modal")) closeModal();
-});
+const modal = document.getElementById("modal");
+if (modal) {
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+}
 
 // ==================== INICIALIZAÇÃO ====================
 renderWeekdays();
