@@ -10,7 +10,7 @@
 
 <style>
 /* =============================================
-   DESIGN SYSTEM — AGENDA WORKPLACE SMART EDITION
+   DESIGN SYSTEM — AGENDA WORKPLACE
    ============================================= */
 :root {
   --bg:           #080810;
@@ -26,7 +26,6 @@
   --purple-glow:  rgba(124,58,237,0.35);
   --purple-soft:  rgba(124,58,237,0.12);
   --gradient:     linear-gradient(135deg, #7c3aed 0%, #c026d3 100%);
-  --gradient2:    linear-gradient(135deg, #1a1a2e 0%, #14141f 100%);
 
   --blue:         #3b82f6;
   --blue-soft:    rgba(59,130,246,0.15);
@@ -34,8 +33,6 @@
   --green-soft:   rgba(16,185,129,0.15);
   --red:          #ef4444;
   --red-soft:     rgba(239,68,68,0.15);
-  --amber:        #f59e0b;
-  --amber-soft:   rgba(245,158,11,0.15);
   --pink:         #ec4899;
   --pink-soft:    rgba(236,72,153,0.15);
 
@@ -55,9 +52,7 @@
   --shadow-lg:    0 8px 40px rgba(0,0,0,0.6);
 
   --transition:   all 0.2s cubic-bezier(0.4,0,0.2,1);
-  --transition-slow: all 0.35s cubic-bezier(0.4,0,0.2,1);
-
-  --sidebar-w:    380px;
+  --sidebar-w:    420px;
   --header-h:     64px;
 }
 
@@ -74,17 +69,10 @@ body {
   height: 100vh;
 }
 
-/* =============================================
-   SCROLLBAR
-   ============================================= */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.4); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: var(--purple); }
 
-/* =============================================
-   LAYOUT
-   ============================================= */
 .app {
   display: grid;
   grid-template-rows: var(--header-h) 1fr;
@@ -93,9 +81,7 @@ body {
   background: var(--bg);
 }
 
-/* =============================================
-   TOP HEADER
-   ============================================= */
+/* HEADER */
 .header {
   grid-column: 1 / -1;
   display: flex;
@@ -106,7 +92,6 @@ body {
   border-bottom: 1px solid var(--border);
   position: relative;
   z-index: 50;
-  backdrop-filter: blur(12px);
 }
 
 .header::after {
@@ -133,13 +118,6 @@ body {
   justify-content: center;
   font-size: 18px;
   box-shadow: 0 0 16px var(--purple-glow);
-  flex-shrink: 0;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 16px var(--purple-glow); }
-  50% { box-shadow: 0 0 24px rgba(124,58,237,0.6); }
 }
 
 .brand-name {
@@ -149,15 +127,12 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: -0.3px;
 }
 
 .brand-sub {
   font-size: 10px;
   color: var(--text3);
   font-weight: 500;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
   margin-top: -2px;
 }
 
@@ -175,23 +150,20 @@ body {
   border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: 14px;
-  display: flex; align-items: center; justify-content: center;
   transition: var(--transition);
 }
 .nav-btn:hover {
   background: var(--purple-soft);
   border-color: var(--purple);
   color: var(--purple-light);
-  box-shadow: 0 0 12px var(--purple-glow);
 }
 
 .month-display {
   font-size: 16px;
   font-weight: 700;
   color: var(--text);
-  min-width: 190px;
+  min-width: 180px;
   text-align: center;
-  letter-spacing: -0.3px;
 }
 
 .month-display span {
@@ -207,49 +179,17 @@ body {
   cursor: pointer;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.3px;
   transition: var(--transition);
-  font-family: inherit;
 }
 .btn-today:hover {
   background: var(--purple);
   color: #fff;
-  box-shadow: 0 0 16px var(--purple-glow);
 }
 
 .header-right {
   display: flex;
   align-items: center;
   gap: 12px;
-}
-
-.header-stats {
-  display: flex;
-  gap: 8px;
-}
-
-.stat-chip {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
-  border-radius: var(--radius-full);
-  font-size: 11px;
-  font-weight: 600;
-  border: 1px solid var(--border);
-  background: var(--surface2);
-}
-
-.stat-chip .dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-}
-
-.header-date {
-  font-size: 11px;
-  color: var(--text3);
-  font-weight: 500;
-  text-align: right;
 }
 
 .add-btn {
@@ -265,176 +205,112 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
-  font-family: inherit;
-  box-shadow: 0 2px 12px var(--purple-glow);
-  white-space: nowrap;
 }
 .add-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 20px rgba(124,58,237,0.5);
 }
-.add-btn:active { transform: scale(0.97); }
-.add-btn .icon { font-size: 14px; }
 
-/* =============================================
-   MAIN CALENDAR AREA
-   ============================================= */
+/* CALENDÁRIO REDUZIDO */
 .main {
   display: flex;
   flex-direction: column;
   overflow: hidden;
   background: var(--bg);
-  padding: 16px 20px 12px;
-  gap: 10px;
+  padding: 12px 16px 12px;
+  gap: 8px;
 }
 
 .weekdays-row {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
+  gap: 4px;
 }
 
 .weekday-label {
   text-align: center;
-  padding: 6px 4px;
-  font-size: 10px;
+  padding: 4px;
+  font-size: 9px;
   font-weight: 700;
-  letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--text3);
-  border-radius: var(--radius-sm);
 }
+
 .weekday-label.weekend {
   color: var(--purple-light);
-  opacity: 0.7;
 }
 
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(6, 1fr);
-  gap: 4px;
+  gap: 3px;
   flex: 1;
-  overflow: hidden;
   min-height: 0;
 }
 
 .day-cell {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 6px;
+  border-radius: var(--radius-sm);
+  padding: 4px;
   cursor: pointer;
   transition: var(--transition);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  position: relative;
-  min-height: 0;
+  min-height: 65px;
 }
 
 .day-cell:hover {
-  border-color: var(--border-hover);
+  border-color: var(--purple);
   background: var(--surface2);
-  box-shadow: 0 0 0 1px var(--purple-soft), var(--shadow-sm);
-  transform: translateY(-1px);
-  z-index: 2;
 }
 
 .day-cell.other-month {
   opacity: 0.3;
-  background: var(--bg2);
-}
-
-.day-cell.weekend .day-num {
-  color: var(--purple-light);
-  opacity: 0.8;
 }
 
 .day-cell.today {
   border-color: var(--purple);
-  background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(192,38,211,0.05));
-  box-shadow: 0 0 0 1px rgba(124,58,237,0.3), inset 0 0 20px rgba(124,58,237,0.05);
-}
-
-.day-cell.today .day-num {
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 800;
-  font-size: 13px;
+  background: rgba(124,58,237,0.1);
 }
 
 .day-num {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   color: var(--text2);
-  line-height: 1;
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  margin-bottom: 2px;
 }
 
-.today-dot {
-  display: none;
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: var(--purple);
-  box-shadow: 0 0 6px var(--purple);
+.day-cell.today .day-num {
+  color: var(--purple-light);
+  font-weight: 800;
 }
-
-.day-cell.today .today-dot { display: block; }
 
 .cell-events {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  flex: 1;
   overflow: hidden;
 }
 
 .ev-pill {
-  font-size: 9px;
+  font-size: 7px;
   font-weight: 500;
-  padding: 2px 5px;
-  border-radius: 4px;
+  padding: 1px 3px;
+  border-radius: 3px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer;
-  transition: var(--transition);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  line-height: 1.3;
-}
-
-.ev-pill:hover {
-  filter: brightness(1.2);
-  transform: scale(1.01);
-}
-
-.ev-pill .ev-dot {
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  background: rgba(255,255,255,0.6);
 }
 
 .ev-more {
-  font-size: 8px;
+  font-size: 7px;
   color: var(--text3);
-  font-weight: 600;
-  padding: 1px 4px;
   cursor: pointer;
 }
-.ev-more:hover { color: var(--purple-light); }
 
-/* =============================================
-   SIDEBAR (MAIOR)
-   ============================================= */
+/* SIDEBAR - APENAS COMPROMISSOS */
 .sidebar {
   background: var(--surface);
   border-left: 1px solid var(--border);
@@ -443,283 +319,92 @@ body {
   overflow: hidden;
 }
 
-/* NOVIDADE 1: GRÁFICO */
-.chart-container {
+/* HEADER DO SIDEBAR COM BADGE */
+.sidebar-header {
   padding: 16px 16px 8px;
   border-bottom: 1px solid var(--border);
 }
-.chart-title {
-  font-size: 10px;
+
+.sidebar-title {
+  font-size: 14px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--text3);
-  margin-bottom: 12px;
+  color: var(--purple-light);
   display: flex;
   align-items: center;
   gap: 8px;
-}
-.chart-wrapper {
-  position: relative;
-  height: 140px;
 }
 
-/* NOVIDADE 2: TIMELINE */
-.timeline-container {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border);
-}
-.timeline-title {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--text3);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.timeline-days {
-  display: flex;
-  gap: 6px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-}
-.timeline-day {
-  flex: 1;
-  min-width: 45px;
-  text-align: center;
-  padding: 8px 4px;
-  background: var(--surface2);
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  transition: var(--transition);
-  cursor: pointer;
-}
-.timeline-day:hover {
-  border-color: var(--purple);
-  transform: translateY(-2px);
-}
-.timeline-day-name {
-  font-size: 9px;
-  font-weight: 600;
-  color: var(--text2);
-  text-transform: uppercase;
-}
-.timeline-day-date {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--text);
-  margin: 4px 0;
-}
-.timeline-day-count {
-  font-size: 9px;
-  padding: 2px 6px;
+.sidebar-title .count {
+  background: var(--purple-soft);
+  padding: 2px 8px;
   border-radius: var(--radius-full);
-  background: var(--purple-soft);
+  font-size: 11px;
   color: var(--purple-light);
-  display: inline-block;
-}
-.timeline-day.highlight {
-  border-color: var(--purple);
-  background: var(--purple-soft);
-}
-.timeline-day.today-timeline {
-  border-color: var(--green);
-  background: var(--green-soft);
 }
 
-/* Filter Tabs */
-.filter-tabs {
-  display: flex;
-  gap: 4px;
-  padding: 12px 16px 0;
-}
-
-.filter-tab {
-  flex: 1;
-  padding: 7px 4px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text3);
-  font-size: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  font-family: inherit;
-  text-align: center;
-  letter-spacing: 0.3px;
-}
-.filter-tab:hover {
-  border-color: var(--border-hover);
-  color: var(--purple-light);
-  background: var(--purple-soft);
-}
-.filter-tab.active {
-  background: var(--purple-soft);
-  border-color: var(--purple);
-  color: var(--purple-light);
-  box-shadow: 0 0 10px var(--purple-glow);
-}
-
-/* Search */
-.search-wrap {
-  padding: 12px 16px;
-  position: relative;
-}
-.search-icon {
-  position: absolute;
-  left: 26px; top: 50%;
-  transform: translateY(-50%);
-  color: var(--text3);
-  font-size: 12px;
-  pointer-events: none;
-}
-.search-input {
-  width: 100%;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 8px 10px 8px 32px;
-  color: var(--text);
-  font-size: 12px;
-  font-family: 'Inter', sans-serif;
-  transition: var(--transition);
-}
-.search-input:focus {
-  outline: none;
-  border-color: var(--purple);
-  box-shadow: 0 0 0 3px var(--purple-soft);
-}
-.search-input::placeholder { color: var(--text3); }
-
-/* Stats Row */
-.stats-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  padding: 0 16px 12px;
-}
-
-.stat-box {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 10px 12px;
-  transition: var(--transition);
-}
-.stat-box:hover {
-  border-color: var(--border-hover);
-  background: var(--surface3);
-}
-.stat-label {
-  font-size: 9px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: var(--text3);
-  margin-bottom: 4px;
-}
-.stat-value {
-  font-size: 22px;
-  font-weight: 800;
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1;
-}
-.stat-hint {
-  font-size: 9px;
-  color: var(--text3);
-  margin-top: 2px;
-}
-
-/* Divider */
-.divider-label {
-  padding: 4px 16px 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.divider-label span {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--text3);
-  white-space: nowrap;
-}
-.divider-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-/* Events List */
+/* LISTA DE COMPROMISSOS */
 .events-list {
   flex: 1;
   overflow-y: auto;
-  padding: 0 16px 16px;
+  padding: 12px 16px 16px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .ev-card {
   background: var(--surface2);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 12px 14px;
+  padding: 14px;
   cursor: pointer;
   transition: var(--transition);
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .ev-card:hover {
-  border-color: var(--border-hover);
-  background: var(--surface3);
+  border-color: var(--purple);
   transform: translateX(3px);
-  box-shadow: -3px 0 16px rgba(124,58,237,0.15), var(--shadow-sm);
 }
 
-/* NOVIDADE 3: BADGE ACONTECENDO AGORA */
+/* BADGE ACONTECENDO AGORA - CORRIGIDO */
 .ev-card.happening-now {
-  border-left: 3px solid var(--green);
-  animation: glowPulse 1.5s infinite;
+  border-left: 4px solid var(--green);
+  background: linear-gradient(135deg, var(--surface2), rgba(16,185,129,0.1));
+  animation: pulse-border 1.5s infinite;
 }
-@keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
-  50% { box-shadow: 0 0 0 3px rgba(16,185,129,0.2); }
+
+@keyframes pulse-border {
+  0%, 100% { border-left-color: var(--green); box-shadow: 0 0 0 0 rgba(16,185,129,0.3); }
+  50% { border-left-color: #2ecc71; box-shadow: 0 0 0 3px rgba(16,185,129,0.2); }
 }
+
 .happening-badge {
   position: absolute;
-  top: -2px;
+  top: -10px;
   right: 12px;
   background: linear-gradient(135deg, #10b981, #059669);
   color: white;
-  font-size: 8px;
+  font-size: 9px;
   font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 0 0 8px 8px;
+  padding: 3px 10px;
+  border-radius: 20px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  animation: bounce 1s infinite;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(16,185,129,0.4);
+  z-index: 10;
+  animation: badge-pulse 1s infinite;
 }
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-2px); }
+
+@keyframes badge-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.9; }
 }
 
 .ev-date-badge {
-  width: 42px; height: 42px;
+  width: 48px; height: 48px;
   border-radius: var(--radius-sm);
   display: flex;
   flex-direction: column;
@@ -727,88 +412,65 @@ body {
   justify-content: center;
   flex-shrink: 0;
   font-weight: 800;
-  line-height: 1;
+  margin-right: 12px;
+  float: left;
 }
-.ev-date-badge .day { font-size: 16px; }
-.ev-date-badge .month {
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  opacity: 0.75;
-  margin-top: 1px;
-}
+.ev-date-badge .day { font-size: 18px; font-weight: 800; }
+.ev-date-badge .month { font-size: 9px; font-weight: 700; text-transform: uppercase; opacity: 0.8; }
 
-.ev-info { flex: 1; min-width: 0; }
+.ev-info {
+  margin-left: 60px;
+}
 
 .ev-title {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
   color: var(--text);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-bottom: 3px;
-}
-
-.ev-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 4px;
-}
-
-.ev-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 2px 7px;
-  border-radius: var(--radius-full);
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  transition: all 0.2s;
-}
-.ev-tag:hover {
-  transform: scale(1.05);
-  filter: brightness(1.1);
+  margin-bottom: 4px;
 }
 
 .ev-time {
   font-size: 10px;
   color: var(--text3);
   font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.ev-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.ev-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 9px;
+  font-weight: 600;
 }
 
 .ev-obs-preview {
   font-size: 10px;
   color: var(--text3);
-  margin-top: 4px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  margin-top: 6px;
+  padding-top: 4px;
+  border-top: 1px solid var(--border);
 }
 
-/* Empty State */
 .empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  text-align: center;
   padding: 40px 20px;
   color: var(--text3);
-  text-align: center;
 }
-.empty-icon { font-size: 40px; opacity: 0.4; animation: float 3s infinite; }
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-.empty-text { font-size: 12px; font-weight: 500; }
-.empty-sub { font-size: 10px; opacity: 0.7; }
 
-/* Modal (mesmo de antes) */
+.empty-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.5; }
+.empty-text { font-size: 13px; font-weight: 500; }
+
+/* MODAL (mesmo anterior) */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -826,19 +488,13 @@ body {
   border-radius: var(--radius-xl);
   width: 92%;
   max-width: 460px;
-  max-height: 92vh;
+  max-height: 90vh;
   overflow-y: auto;
-  animation: modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
-}
-@keyframes modalIn {
-  from { transform: translateY(30px) scale(0.95); opacity: 0; }
-  to { transform: translateY(0) scale(1); opacity: 1; }
 }
 .modal-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 24px 24px 0;
+  padding: 20px 24px 0;
 }
 .modal-title {
   font-size: 17px;
@@ -854,12 +510,6 @@ body {
   background: var(--surface2);
   color: var(--text3);
   cursor: pointer;
-  transition: var(--transition);
-}
-.modal-close:hover {
-  background: var(--red-soft);
-  border-color: var(--red);
-  color: var(--red);
 }
 .modal-body { padding: 20px 24px 24px; }
 .type-grid {
@@ -869,7 +519,7 @@ body {
   margin-bottom: 16px;
 }
 .type-btn {
-  padding: 10px 4px 8px;
+  padding: 8px 4px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: var(--surface2);
@@ -881,9 +531,8 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  transition: var(--transition);
 }
-.type-btn .t-icon { font-size: 16px; }
+.type-btn .t-icon { font-size: 14px; }
 .type-btn.active-reuniao { background: var(--blue-soft); border-color: var(--blue); color: var(--blue); }
 .type-btn.active-evento { background: var(--green-soft); border-color: var(--green); color: var(--green); }
 .type-btn.active-chg { background: var(--red-soft); border-color: var(--red); color: var(--red); }
@@ -894,7 +543,6 @@ body {
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
   color: var(--text3);
   margin-bottom: 5px;
 }
@@ -911,17 +559,9 @@ body {
 .field-input:focus {
   outline: none;
   border-color: var(--purple);
-  box-shadow: 0 0 0 3px var(--purple-soft);
 }
 .date-row, .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.modal-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-}
+.modal-actions { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
 .btn-save {
   width: 100%;
   padding: 12px;
@@ -932,10 +572,8 @@ body {
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  transition: var(--transition);
 }
-.btn-save:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(124,58,237,0.5); }
-.btn-row { display: flex; gap: 8px; }
+.btn-row { display: flex; gap: 8px; margin-top: 8px; }
 .btn-del {
   flex: 1;
   padding: 10px;
@@ -943,11 +581,8 @@ body {
   border: 1px solid rgba(239,68,68,0.3);
   border-radius: var(--radius-sm);
   color: var(--red);
-  font-size: 12px;
-  font-weight: 600;
   cursor: pointer;
 }
-.btn-del:hover { background: var(--red); color: #fff; }
 .btn-cancel {
   flex: 1;
   padding: 10px;
@@ -955,41 +590,29 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   color: var(--text2);
-  font-size: 12px;
-  font-weight: 600;
   cursor: pointer;
 }
-.btn-cancel:hover { border-color: var(--border-hover); color: var(--text); }
 
 .toast-stack {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
   z-index: 9999;
-  pointer-events: none;
 }
 .toast-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
+  padding: 10px 16px;
   border-radius: var(--radius);
   color: #fff;
   font-size: 12px;
-  font-weight: 500;
-  box-shadow: var(--shadow-lg);
-  animation: toastIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
-  pointer-events: all;
+  margin-top: 8px;
+  animation: fadeIn 0.3s;
 }
-.toast-success { background: linear-gradient(135deg, #059669, #10b981); }
-.toast-error { background: linear-gradient(135deg, #b91c1c, #ef4444); }
-.toast-info { background: linear-gradient(135deg, #7c3aed, #a855f7); }
-@keyframes toastIn {
-  from { transform: translateX(120%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+.toast-success { background: #10b981; }
+.toast-error { background: #ef4444; }
+.toast-info { background: #7c3aed; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(100%); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 .loading-overlay {
@@ -997,73 +620,59 @@ body {
   inset: 0;
   background: var(--bg);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
   z-index: 9000;
-  transition: opacity 0.4s ease;
 }
-.loading-overlay.hidden { opacity: 0; pointer-events: none; }
+.loading-overlay.hidden { display: none; }
 .spinner {
-  width: 44px; height: 44px;
-  border-radius: 50%;
+  width: 40px; height: 40px;
   border: 3px solid var(--surface2);
   border-top-color: var(--purple);
+  border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* MOBILE */
+.fab-mobile {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--gradient);
+  color: #fff;
+  font-size: 28px;
+  border: none;
+  cursor: pointer;
+  z-index: 200;
+}
+
 @media (max-width: 768px) {
   .app { display: flex; flex-direction: column; height: auto; }
-  .header { padding: 0 16px; position: sticky; top: 0; z-index: 100; }
-  .header-stats, .header-date, .brand-sub { display: none; }
-  .month-display { font-size: 14px; min-width: 140px; }
+  .header .add-btn { display: none; }
   .main { display: none; }
-  .sidebar { order: 2; border-left: none; border-top: 1px solid var(--border); width: 100%; flex: 1; }
-  .add-btn { display: none; }
-  .fab-mobile {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: var(--gradient);
-    border: none;
-    color: #fff;
-    font-size: 28px;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(124,58,237,0.5);
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .fab-mobile:active { transform: scale(0.95); }
-  .chart-container { display: none; }
-  .timeline-container { display: none; }
+  .sidebar { width: 100%; border-left: none; border-top: 1px solid var(--border); }
+  .fab-mobile { display: flex; align-items: center; justify-content: center; }
+  .ev-date-badge { width: 40px; height: 40px; }
+  .ev-date-badge .day { font-size: 14px; }
+  .ev-info { margin-left: 52px; }
 }
-@media (min-width: 769px) { .fab-mobile { display: none; } }
 </style>
 </head>
 <body>
 
 <div class="loading-overlay" id="loadingOverlay">
-  <div class="logo-icon" style="width:52px;height:52px;font-size:24px">📅</div>
   <div class="spinner"></div>
-  <div class="loading-text">Carregando agenda inteligente…</div>
 </div>
 
 <div class="app">
   <header class="header">
     <div class="header-brand">
-      <div class="logo-icon">✨</div>
-      <div>
-        <div class="brand-name">Agenda Workplace</div>
-        <div class="brand-sub">Smart Edition</div>
-      </div>
+      <div class="logo-icon">📅</div>
+      <div><div class="brand-name">Agenda Workplace</div><div class="brand-sub">Smart</div></div>
     </div>
     <div class="header-center">
       <button class="nav-btn" id="prevBtn">◀</button>
@@ -1072,12 +681,7 @@ body {
       <button class="btn-today" id="todayBtn">Hoje</button>
     </div>
     <div class="header-right">
-      <div class="header-stats">
-        <div class="stat-chip"><div class="dot" style="background:var(--purple)"></div><span id="chipTotalVal">—</span> total</div>
-        <div class="stat-chip"><div class="dot" style="background:var(--green)"></div><span id="chipUpcomingVal">—</span> próximos</div>
-      </div>
-      <div class="header-date" id="headerDate"></div>
-      <button class="add-btn" id="addBtn"><span class="icon">＋</span> Novo Evento</button>
+      <button class="add-btn" id="addBtn">➕ Novo Evento</button>
     </div>
   </header>
 
@@ -1087,39 +691,12 @@ body {
   </main>
 
   <aside class="sidebar">
-    <!-- NOVIDADE 1: GRÁFICO DE ATIVIDADES -->
-    <div class="chart-container">
-      <div class="chart-title">📊 Distribuição por tipo</div>
-      <div class="chart-wrapper">
-        <canvas id="activityChart" width="300" height="120" style="width:100%; height:120px"></canvas>
+    <div class="sidebar-header">
+      <div class="sidebar-title">
+        📌 Compromissos
+        <span class="count" id="totalCount">0</span>
       </div>
     </div>
-
-    <!-- NOVIDADE 2: TIMELINE PRÓXIMOS 7 DIAS -->
-    <div class="timeline-container">
-      <div class="timeline-title">📆 Próximos 7 dias</div>
-      <div class="timeline-days" id="timelineDays"></div>
-    </div>
-
-    <div class="filter-tabs">
-      <button class="filter-tab active" data-filter="todos">Todos</button>
-      <button class="filter-tab" data-filter="reuniao">Reuniões</button>
-      <button class="filter-tab" data-filter="chg">CHG</button>
-      <button class="filter-tab" data-filter="evento">Eventos</button>
-      <button class="filter-tab" data-filter="outro">Outros</button>
-    </div>
-
-    <div class="search-wrap">
-      <span class="search-icon">🔍</span>
-      <input type="text" class="search-input" id="searchInput" placeholder="Buscar compromissos…">
-    </div>
-
-    <div class="stats-row">
-      <div class="stat-box"><div class="stat-label">Este mês</div><div class="stat-value" id="statMes">0</div><div class="stat-hint">compromissos</div></div>
-      <div class="stat-box"><div class="stat-label">Próximos 7d</div><div class="stat-value" id="statSemana">0</div><div class="stat-hint">agendados</div></div>
-    </div>
-
-    <div class="divider-label"><span>Compromissos</span></div>
     <div class="events-list" id="eventsList"></div>
   </aside>
 </div>
@@ -1139,11 +716,11 @@ body {
         </div>
         <input type="hidden" id="tipoInput" value="reuniao">
       </div>
-      <div class="field"><label class="field-label">Título *</label><input type="text" id="titleInput" class="field-input" placeholder="Nome do compromisso…" autocomplete="off"></div>
-      <div class="field"><label class="field-label">Período</label><div class="date-row"><div><label style="font-size:9px">Início *</label><input type="date" id="startInput" class="field-input"></div><div><label style="font-size:9px">Fim</label><input type="date" id="endInput" class="field-input"></div></div></div>
-      <div class="field"><label class="field-label">Horário</label><div class="time-row"><div><label style="font-size:9px">Hora</label><input type="time" id="timeInput" class="field-input"></div><div><label style="font-size:9px">Duração</label><select id="durationInput" class="field-input"><option>Dia inteiro</option><option selected>30 min</option><option>1 hora</option><option>2 horas</option><option>3 horas</option></select></div></div></div>
-      <div class="field"><label class="field-label">Observações</label><textarea id="obsInput" class="field-input" rows="3" placeholder="Detalhes adicionais…"></textarea></div>
-      <div class="modal-actions"><button class="btn-save" id="saveBtn">💾 Salvar Compromisso</button><div class="btn-row"><button class="btn-del" id="deleteBtn" style="display:none">🗑 Excluir</button><button class="btn-cancel" id="cancelBtn">Fechar</button></div></div>
+      <div class="field"><label class="field-label">Título *</label><input type="text" id="titleInput" class="field-input" placeholder="Nome do compromisso…"></div>
+      <div class="field"><div class="date-row"><div><label class="field-label">Início *</label><input type="date" id="startInput" class="field-input"></div><div><label class="field-label">Fim</label><input type="date" id="endInput" class="field-input"></div></div></div>
+      <div class="field"><div class="time-row"><div><label class="field-label">Hora</label><input type="time" id="timeInput" class="field-input"></div><div><label class="field-label">Duração</label><select id="durationInput" class="field-input"><option>Dia inteiro</option><option selected>30 min</option><option>1 hora</option></select></div></div></div>
+      <div class="field"><label class="field-label">Observações</label><textarea id="obsInput" class="field-input" rows="2"></textarea></div>
+      <div class="modal-actions"><button class="btn-save" id="saveBtn">💾 Salvar</button><div class="btn-row"><button class="btn-del" id="deleteBtn" style="display:none">🗑 Excluir</button><button class="btn-cancel" id="cancelBtn">Fechar</button></div></div>
     </div>
   </div>
 </div>
@@ -1151,16 +728,13 @@ body {
 <div class="toast-stack" id="toastStack"></div>
 
 <script>
-// ================================================================
-//  CONFIG
-// ================================================================
 const SUPABASE_URL = "https://wffjntjupnsvtvqxfihw.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_7Ma1Z2nNPHPxKtdfasln_w_ptK2--lb";
 
 const CONFIG = {
   reuniao: { color: "#3b82f6", soft: "rgba(59,130,246,0.15)", icon: "🤝", label: "Reunião" },
   evento:  { color: "#10b981", soft: "rgba(16,185,129,0.15)", icon: "🎯", label: "Evento" },
-  chg:     { color: "#ef4444", soft: "rgba(239,68,68,0.15)", icon: "⚙️", label: "Mudança" },
+  chg:     { color: "#ef4444", soft: "rgba(239,68,68,0.15)", icon: "⚙️", label: "CHG" },
   outro:   { color: "#ec4899", soft: "rgba(236,72,153,0.15)", icon: "📌", label: "Outro" }
 };
 
@@ -1168,20 +742,18 @@ const MONTH_NAMES = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julh
 const MONTH_SHORT = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
 const WEEK_DAYS = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
 
-let allEvents = [], currentDate = new Date(), editId = null, activeFilter = "todos", searchTerm = "";
-let chart = null;
+let allEvents = [], currentDate = new Date(), editId = null;
 
 const $ = id => document.getElementById(id);
 function toLocalStr(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
 function occursOn(ev, dateStr) { return dateStr >= ev.start && dateStr <= (ev.end || ev.start); }
 
 function toast(msg, type = "info") {
-  const icons = { success:"✅", error:"❌", info:"💡" };
   const el = document.createElement("div");
   el.className = `toast-item toast-${type}`;
-  el.innerHTML = `<span>${icons[type]||"💡"}</span><span>${msg}</span>`;
+  el.textContent = msg;
   $("toastStack").appendChild(el);
-  setTimeout(() => { el.remove(); }, 3200);
+  setTimeout(() => el.remove(), 3000);
 }
 
 const headers = { "apikey": SUPABASE_ANON_KEY, "Authorization": `Bearer ${SUPABASE_ANON_KEY}`, "Content-Type": "application/json" };
@@ -1192,9 +764,7 @@ async function loadEvents() {
     if (!r.ok) throw new Error();
     allEvents = await r.json();
     render();
-    updateChart();
-    updateTimeline();
-  } catch { toast("Erro ao carregar eventos", "error"); }
+  } catch { toast("Erro ao carregar", "error"); }
   finally { $("loadingOverlay")?.classList.add("hidden"); }
 }
 
@@ -1204,7 +774,7 @@ async function saveEvent(ev) {
     if (editId) r = await fetch(`${SUPABASE_URL}/rest/v1/eventos?id=eq.${editId}`, { method:"PATCH", headers, body: JSON.stringify(ev) });
     else r = await fetch(`${SUPABASE_URL}/rest/v1/eventos`, { method:"POST", headers, body: JSON.stringify(ev) });
     if (!r.ok) throw new Error();
-    toast(editId ? "Atualizado! 🎉" : "Criado! 🎉", "success");
+    toast(editId ? "Atualizado!" : "Criado!", "success");
     await loadEvents();
     closeModal();
   } catch { toast("Erro ao salvar", "error"); }
@@ -1221,67 +791,6 @@ async function deleteEvent() {
   } catch { toast("Erro", "error"); }
 }
 
-// NOVIDADE 4: CHART
-function updateChart() {
-  const ctx = document.getElementById('activityChart')?.getContext('2d');
-  if (!ctx) return;
-  const counts = {
-    reuniao: allEvents.filter(e => e.tipo === 'reuniao').length,
-    evento: allEvents.filter(e => e.tipo === 'evento').length,
-    chg: allEvents.filter(e => e.tipo === 'chg').length,
-    outro: allEvents.filter(e => e.tipo === 'outro').length
-  };
-  if (chart) chart.destroy();
-  chart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Reuniões', 'Eventos', 'CHG', 'Outros'],
-      datasets: [{
-        data: [counts.reuniao, counts.evento, counts.chg, counts.outro],
-        backgroundColor: ['#3b82f6', '#10b981', '#ef4444', '#ec4899'],
-        borderRadius: 8,
-        barPercentage: 0.65
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: true,
-      plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1a1a2e', titleColor: '#fff', bodyColor: '#a0a0c0' } },
-      scales: { y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#606080', stepSize: 1 } }, x: { ticks: { color: '#a0a0c0', font: { size: 9 } } } }
-    }
-  });
-}
-
-// NOVIDADE 2: TIMELINE
-function updateTimeline() {
-  const container = $("timelineDays");
-  if (!container) return;
-  const today = new Date();
-  const days = [];
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(today);
-    d.setDate(today.getDate() + i);
-    const dateStr = toLocalStr(d);
-    const eventsCount = allEvents.filter(ev => occursOn(ev, dateStr)).length;
-    days.push({ date: d, dateStr, count: eventsCount, isToday: i === 0 });
-  }
-  container.innerHTML = days.map(day => `
-    <div class="timeline-day ${day.isToday ? 'today-timeline' : ''} ${day.count > 0 ? 'highlight' : ''}" onclick="goToDate('${day.dateStr}')">
-      <div class="timeline-day-name">${WEEK_DAYS[day.date.getDay()].substring(0,3)}</div>
-      <div class="timeline-day-date">${day.date.getDate()}</div>
-      <div class="timeline-day-count">${day.count} ${day.count === 1 ? 'ev' : 'evs'}</div>
-    </div>
-  `).join('');
-}
-
-function goToDate(dateStr) {
-  const [y,m,d] = dateStr.split('-');
-  currentDate = new Date(parseInt(y), parseInt(m)-1, parseInt(d));
-  render();
-  toast(`Navegando para ${d}/${m}`, "info");
-}
-
-// NOVIDADE 3: VERIFICAR EVENTO ACONTECENDO AGORA
 function isHappeningNow(ev) {
   const now = new Date();
   const today = toLocalStr(now);
@@ -1297,34 +806,34 @@ function isHappeningNow(ev) {
 
 function renderCalendar() {
   const grid = $("calendarGrid"), wr = $("weekdaysRow");
-  if (!grid || !wr) return;
+  if (!grid) return;
   const year = currentDate.getFullYear(), month = currentDate.getMonth(), today = toLocalStr(new Date());
   $("monthName").textContent = MONTH_NAMES[month];
   $("yearNum").textContent = year;
-  wr.innerHTML = WEEK_DAYS.map((d,i) => `<div class="weekday-label${i===0||i===6?" weekend":""}">${d}</div>`).join("");
+  if (wr) wr.innerHTML = WEEK_DAYS.map((d,i) => `<div class="weekday-label${i===0||i===6?" weekend":""}">${d}</div>`).join("");
   grid.innerHTML = "";
   const firstDay = new Date(year, month, 1), startDate = new Date(year, month, 1 - firstDay.getDay());
   for (let i=0; i<42; i++) {
     const date = new Date(startDate); date.setDate(startDate.getDate() + i);
-    const dateStr = toLocalStr(date), isCur = date.getMonth() === month, isToday = dateStr === today, isWeek = date.getDay() === 0 || date.getDay() === 6;
+    const dateStr = toLocalStr(date), isCur = date.getMonth() === month, isToday = dateStr === today;
     const dayEvs = allEvents.filter(ev => occursOn(ev, dateStr));
     const cell = document.createElement("div");
-    cell.className = `day-cell${!isCur ? " other-month" : ""}${isToday ? " today" : ""}${isWeek ? " weekend" : ""}`;
-    cell.innerHTML = `<div class="day-num">${date.getDate()}<span class="today-dot"></span></div><div class="cell-events"></div>`;
+    cell.className = `day-cell${!isCur ? " other-month" : ""}${isToday ? " today" : ""}`;
+    cell.innerHTML = `<div class="day-num">${date.getDate()}</div><div class="cell-events"></div>`;
     const evContainer = cell.querySelector(".cell-events");
-    dayEvs.slice(0,3).forEach(ev => {
+    dayEvs.slice(0,2).forEach(ev => {
       const cfg = CONFIG[ev.tipo] || CONFIG.outro;
       const pill = document.createElement("div");
       pill.className = "ev-pill";
       pill.style.cssText = `background:${cfg.soft};color:${cfg.color}`;
-      pill.innerHTML = `<span class="ev-dot" style="background:${cfg.color}"></span>${ev.duration==="Dia inteiro" ? ev.title : `${ev.time||"00:00"} ${ev.title}`}`;
+      pill.textContent = ev.duration==="Dia inteiro" ? ev.title.substring(0,12) : `${ev.time||"00:00"} ${ev.title.substring(0,10)}`;
       pill.addEventListener("click", e => { e.stopPropagation(); openEdit(ev.id); });
       evContainer.appendChild(pill);
     });
-    if (dayEvs.length > 3) {
+    if (dayEvs.length > 2) {
       const more = document.createElement("div");
       more.className = "ev-more";
-      more.textContent = `+${dayEvs.length-3} mais`;
+      more.textContent = `+${dayEvs.length-2}`;
       more.addEventListener("click", e => { e.stopPropagation(); toast(`${dayEvs.length} eventos`, "info"); });
       evContainer.appendChild(more);
     }
@@ -1336,66 +845,62 @@ function renderCalendar() {
 function renderList() {
   const list = $("eventsList");
   if (!list) return;
-  const today = toLocalStr(new Date()), year = currentDate.getFullYear(), month = currentDate.getMonth();
-  const mStart = `${year}-${String(month+1).padStart(2,"0")}-01`, mEnd = `${year}-${String(month+1).padStart(2,"0")}-31`;
-  let filtered = [...allEvents];
-  if (activeFilter !== "todos") filtered = filtered.filter(ev => ev.tipo === activeFilter);
-  if (searchTerm) { const s = searchTerm.toLowerCase(); filtered = filtered.filter(ev => ev.title.toLowerCase().includes(s) || (ev.obs||"").toLowerCase().includes(s)); }
-  filtered.sort((a,b) => a.start.localeCompare(b.start));
-  const thisMonth = allEvents.filter(ev => (ev.start >= mStart && ev.start <= mEnd) || (ev.end >= mStart && ev.end <= mEnd));
-  const upcoming7 = allEvents.filter(ev => { const in7 = new Date(); in7.setDate(in7.getDate()+7); return ev.start >= today && ev.start <= toLocalStr(in7); });
-  $("statMes").textContent = thisMonth.length;
-  $("statSemana").textContent = upcoming7.length;
-  $("chipTotalVal").textContent = allEvents.length;
-  $("chipUpcomingVal").textContent = upcoming7.length;
-  if (!filtered.length) { list.innerHTML = `<div class="empty-state"><div class="empty-icon">✨</div><div class="empty-text">Nenhum compromisso</div><div class="empty-sub">Clique em + para adicionar</div></div>`; return; }
+  const today = toLocalStr(new Date());
+  let filtered = [...allEvents].sort((a,b) => a.start.localeCompare(b.start));
+  if (!filtered.length) { list.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">Nenhum compromisso</div></div>`; $("totalCount").textContent = "0"; return; }
+  $("totalCount").textContent = filtered.length;
   list.innerHTML = "";
   filtered.forEach(ev => {
     const cfg = CONFIG[ev.tipo] || CONFIG.outro, day = ev.start.split("-")[2], mon = MONTH_SHORT[parseInt(ev.start.split("-")[1])-1];
-    const isPast = ev.end < today, isNow = isHappeningNow(ev);
+    const isNow = isHappeningNow(ev);
     const dateRange = ev.start === (ev.end||ev.start) ? `${day}/${MONTH_SHORT[parseInt(ev.start.split("-")[1])-1]}` : `${ev.start.split("-")[2]}/${MONTH_SHORT[parseInt(ev.start.split("-")[1])-1]} → ${(ev.end||ev.start).split("-")[2]}/${MONTH_SHORT[parseInt((ev.end||ev.start).split("-")[1])-1]}`;
     const card = document.createElement("div");
     card.className = `ev-card${isNow ? " happening-now" : ""}`;
-    card.style.opacity = isPast ? "0.5" : "1";
-    card.innerHTML = `${isNow ? '<div class="happening-badge">🔴 ACONTECENDO AGORA</div>' : ''}<div class="ev-date-badge" style="background:${cfg.soft};color:${cfg.color}"><div class="day">${day}</div><div class="month">${mon}</div></div><div class="ev-info"><div class="ev-title">${ev.title}</div><div class="ev-time">${dateRange} ${ev.time&&ev.duration!=="Dia inteiro"?" · "+ev.time:""}</div><div class="ev-meta"><span class="ev-tag" style="background:${cfg.soft};color:${cfg.color}">${cfg.icon} ${cfg.label}</span>${ev.duration ? `<span class="ev-tag" style="background:rgba(255,255,255,0.05);color:var(--text3)">⏱ ${ev.duration}</span>` : ""}${isPast ? `<span class="ev-tag" style="background:rgba(255,255,255,0.04);color:var(--text3)">✓ Concluído</span>` : ""}</div>${ev.obs ? `<div class="ev-obs-preview">📝 ${ev.obs.substring(0,55)}${ev.obs.length>55?"…":""}</div>` : ""}</div>`;
-    const stripe = document.createElement("div"); stripe.style.cssText = `position:absolute;left:0;top:0;bottom:0;width:3px;background:${cfg.color};border-radius:3px 0 0 3px`; card.style.position = "relative"; card.appendChild(stripe);
+    card.innerHTML = `${isNow ? '<div class="happening-badge">🔴 ACONTECENDO AGORA</div>' : ''}<div class="ev-date-badge" style="background:${cfg.soft};color:${cfg.color}"><div class="day">${day}</div><div class="month">${mon}</div></div><div class="ev-info"><div class="ev-title">${ev.title}</div><div class="ev-time">${dateRange} ${ev.time&&ev.duration!=="Dia inteiro"?" • "+ev.time:""}</div><div class="ev-meta"><span class="ev-tag" style="background:${cfg.soft};color:${cfg.color}">${cfg.icon} ${cfg.label}</span>${ev.duration ? `<span class="ev-tag" style="background:rgba(255,255,255,0.05)">⏱ ${ev.duration}</span>` : ""}</div>${ev.obs ? `<div class="ev-obs-preview">📝 ${ev.obs.substring(0,60)}${ev.obs.length>60?"…":""}</div>` : ""}</div>`;
     card.addEventListener("click", () => openEdit(ev.id));
     list.appendChild(card);
   });
 }
 
-function render() { renderCalendar(); renderList(); updateHeaderDate(); }
+function render() { renderCalendar(); renderList(); }
 
 function openModal(date = null) {
-  editId = null; $("modalTitle").textContent = "Novo Compromisso"; $("deleteBtn").style.display = "none"; $("saveBtn").textContent = "💾 Salvar Compromisso";
-  clearForm();
-  if (date) { $("startInput").value = date; $("endInput").value = date; }
-  selectType("reuniao"); $("modalOverlay").classList.add("open"); setTimeout(() => $("titleInput").focus(), 150);
+  editId = null; $("modalTitle").textContent = "Novo Compromisso"; $("deleteBtn").style.display = "none"; $("saveBtn").textContent = "💾 Salvar";
+  if ($("titleInput")) $("titleInput").value = "";
+  if ($("startInput")) $("startInput").value = date || "";
+  if ($("endInput")) $("endInput").value = date || "";
+  if ($("timeInput")) $("timeInput").value = "";
+  if ($("durationInput")) $("durationInput").value = "30 min";
+  if ($("obsInput")) $("obsInput").value = "";
+  selectType("reuniao");
+  $("modalOverlay").classList.add("open");
 }
 function openEdit(id) {
   const ev = allEvents.find(e => e.id === id); if (!ev) return;
-  editId = id; $("modalTitle").textContent = "Editar Compromisso"; $("deleteBtn").style.display = "block"; $("saveBtn").textContent = "💾 Atualizar";
+  editId = id; $("modalTitle").textContent = "Editar"; $("deleteBtn").style.display = "block"; $("saveBtn").textContent = "💾 Atualizar";
   $("titleInput").value = ev.title; $("startInput").value = ev.start; $("endInput").value = ev.end || ev.start;
   $("timeInput").value = ev.time || ""; $("durationInput").value = ev.duration || "30 min"; $("obsInput").value = ev.obs || "";
-  selectType(ev.tipo || "reuniao"); $("modalOverlay").classList.add("open");
+  selectType(ev.tipo || "reuniao");
+  $("modalOverlay").classList.add("open");
 }
 function closeModal() { $("modalOverlay").classList.remove("open"); editId = null; }
-function clearForm() { ["titleInput","startInput","endInput","timeInput","obsInput"].forEach(id => { if($(id)) $(id).value = ""; }); if($("durationInput")) $("durationInput").value = "30 min"; }
 function selectType(type) { $("tipoInput").value = type; ["reuniao","evento","chg","outro"].forEach(t => { const btn = $(`tb-${t}`); if(btn) btn.className = `type-btn${t===type?" active-"+t:""}`; }); }
-$("saveBtn")?.addEventListener("click", () => { const title = $("titleInput").value.trim(), start = $("startInput").value; if (!title || !start) { toast("Título e data obrigatórios", "error"); return; } saveEvent({ id: editId || Date.now(), title, tipo: $("tipoInput").value, start, end: $("endInput").value || start, time: $("durationInput").value === "Dia inteiro" ? "" : $("timeInput").value, duration: $("durationInput").value, obs: $("obsInput").value.trim() }); });
+
+$("saveBtn")?.addEventListener("click", () => {
+  const title = $("titleInput")?.value.trim(), start = $("startInput")?.value;
+  if (!title || !start) { toast("Título e data obrigatórios", "error"); return; }
+  saveEvent({ id: editId || Date.now(), title, tipo: $("tipoInput").value, start, end: $("endInput").value || start, time: $("durationInput").value === "Dia inteiro" ? "" : $("timeInput").value, duration: $("durationInput").value, obs: $("obsInput").value.trim() });
+});
 $("deleteBtn")?.addEventListener("click", deleteEvent);
 $("cancelBtn")?.addEventListener("click", closeModal);
 $("modalCloseBtn")?.addEventListener("click", closeModal);
 $("modalOverlay")?.addEventListener("click", e => { if (e.target === $("modalOverlay")) closeModal(); });
-$("prevBtn")?.addEventListener("click", () => { currentDate.setMonth(currentDate.getMonth()-1); render(); updateTimeline(); });
-$("nextBtn")?.addEventListener("click", () => { currentDate.setMonth(currentDate.getMonth()+1); render(); updateTimeline(); });
-$("todayBtn")?.addEventListener("click", () => { currentDate = new Date(); render(); updateTimeline(); toast("Hoje", "info"); });
+$("prevBtn")?.addEventListener("click", () => { currentDate.setMonth(currentDate.getMonth()-1); render(); });
+$("nextBtn")?.addEventListener("click", () => { currentDate.setMonth(currentDate.getMonth()+1); render(); });
+$("todayBtn")?.addEventListener("click", () => { currentDate = new Date(); render(); });
 $("addBtn")?.addEventListener("click", () => openModal());
 $("fabMobileBtn")?.addEventListener("click", () => openModal());
-document.querySelectorAll(".filter-tab").forEach(btn => { btn.addEventListener("click", () => { document.querySelectorAll(".filter-tab").forEach(b => b.classList.remove("active")); btn.classList.add("active"); activeFilter = btn.dataset.filter; renderList(); }); });
-$("searchInput")?.addEventListener("input", e => { searchTerm = e.target.value.trim(); renderList(); });
-function updateHeaderDate() { const now = new Date(); if($("headerDate")) $("headerDate").textContent = now.toLocaleDateString("pt-BR", { weekday:"long", day:"numeric", month:"long" }); }
-document.addEventListener("keydown", e => { if(e.key === "Escape") closeModal(); if(e.key === "n" && !$("modalOverlay")?.classList.contains("open") && e.target.tagName !== "INPUT") openModal(); });
+
 loadEvents();
 </script>
 </body>
