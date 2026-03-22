@@ -3,81 +3,85 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Agenda Workplace - Smart Edition</title>
+<title>Agenda Workplace - Premium</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 /* =============================================
-   DESIGN SYSTEM — AGENDA WORKPLACE
+   DESIGN SYSTEM — PALETA HARMONIZADA
    ============================================= */
 :root {
-  --bg:           #080810;
-  --bg2:          #0f0f1a;
-  --surface:      #14141f;
-  --surface2:     #1a1a2e;
-  --surface3:     #1e1e30;
-  --border:       rgba(255,255,255,0.07);
-  --border-hover: rgba(123,44,255,0.4);
-
-  --purple:       #7c3aed;
-  --purple-light: #a78bfa;
-  --purple-glow:  rgba(124,58,237,0.35);
-  --purple-soft:  rgba(124,58,237,0.12);
-  --gradient:     linear-gradient(135deg, #7c3aed 0%, #c026d3 100%);
-
-  --blue:         #3b82f6;
-  --blue-soft:    rgba(59,130,246,0.15);
-  --green:        #10b981;
-  --green-soft:   rgba(16,185,129,0.15);
-  --red:          #ef4444;
-  --red-soft:     rgba(239,68,68,0.15);
-  --pink:         #ec4899;
-  --pink-soft:    rgba(236,72,153,0.15);
-  --cyan:         #06b6d4;
-  --cyan-soft:    rgba(6,182,212,0.15);
-
-  --text:         #f0f0ff;
-  --text2:        #a0a0c0;
-  --text3:        #606080;
-
-  --radius-sm:    8px;
-  --radius:       12px;
-  --radius-lg:    16px;
-  --radius-xl:    20px;
-  --radius-full:  9999px;
-
-  --shadow-sm:    0 2px 8px rgba(0,0,0,0.4);
-  --shadow:       0 4px 20px rgba(0,0,0,0.5);
-  --shadow-glow:  0 0 30px rgba(124,58,237,0.25);
-  --shadow-lg:    0 8px 40px rgba(0,0,0,0.6);
-
-  --transition:   all 0.2s cubic-bezier(0.4,0,0.2,1);
-  --sidebar-w:    480px;
-  --header-h:     64px;
+  /* Cores primárias harmonizadas */
+  --primary:       #8b5cf6;
+  --primary-dark:  #7c3aed;
+  --primary-light: #a78bfa;
+  --primary-glow:  rgba(139,92,246,0.35);
+  --primary-soft:  rgba(139,92,246,0.12);
+  
+  /* Cores de categoria harmonizadas */
+  --reuniao:       #3b82f6;
+  --reuniao-soft:  rgba(59,130,246,0.12);
+  --evento:        #10b981;
+  --evento-soft:   rgba(16,185,129,0.12);
+  --chg:           #f43f5e;
+  --chg-soft:      rgba(244,63,94,0.12);
+  --outro:         #f59e0b;
+  --outro-soft:    rgba(245,158,11,0.12);
+  
+  /* Tons neutros */
+  --bg:            #0a0a0f;
+  --bg2:           #111117;
+  --surface:       #16161f;
+  --surface2:      #1e1e2a;
+  --surface3:      #262632;
+  --border:        rgba(255,255,255,0.06);
+  --border-hover:  rgba(139,92,246,0.4);
+  
+  --text:          #f0f0ff;
+  --text2:         #a0a0c0;
+  --text3:         #6a6a8a;
+  
+  /* Gradiente animado para fundo */
+  --gradient-bg:   linear-gradient(135deg, #0a0a0f 0%, #12121a 50%, #1a1a2a 100%);
+  
+  --radius-sm:     6px;
+  --radius:        10px;
+  --radius-lg:     14px;
+  --radius-xl:     18px;
+  --radius-full:   9999px;
+  
+  --shadow-sm:     0 2px 8px rgba(0,0,0,0.3);
+  --shadow:        0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg:     0 8px 32px rgba(0,0,0,0.5);
+  
+  --transition:    all 0.2s ease;
+  --sidebar-w:     520px;
+  --header-h:      64px;
 }
 
-/* MODO CLARO */
+/* MODO CLARO HARMONIZADO */
 body.light-mode {
-  --bg:           #f5f5f7;
-  --bg2:          #e8e8ec;
-  --surface:      #ffffff;
-  --surface2:     #f0f0f4;
-  --surface3:     #e8e8ec;
-  --border:       rgba(0,0,0,0.1);
-  --border-hover: rgba(123,44,255,0.3);
-  --text:         #1a1a2e;
-  --text2:        #4a4a6a;
-  --text3:        #6a6a8a;
-  --shadow-sm:    0 2px 8px rgba(0,0,0,0.1);
-  --shadow:       0 4px 20px rgba(0,0,0,0.1);
+  --bg:            #f8fafc;
+  --bg2:           #f1f5f9;
+  --surface:       #ffffff;
+  --surface2:      #f8fafc;
+  --surface3:      #f1f5f9;
+  --border:        rgba(0,0,0,0.08);
+  --border-hover:  rgba(139,92,246,0.3);
+  --text:          #0f172a;
+  --text2:         #334155;
+  --text3:         #64748b;
+  --gradient-bg:   linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  --shadow-sm:     0 2px 8px rgba(0,0,0,0.05);
+  --shadow:        0 4px 16px rgba(0,0,0,0.08);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  background: var(--bg);
+  background: var(--gradient-bg);
   color: var(--text);
   font-size: 13px;
   line-height: 1.5;
@@ -85,18 +89,35 @@ body {
   overflow: hidden;
   height: 100vh;
   transition: var(--transition);
+  position: relative;
 }
 
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.4); border-radius: 99px; }
+/* Fundo animado com partículas */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(139,92,246,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(139,92,246,0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.light-mode::before {
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(139,92,246,0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(139,92,246,0.02) 0%, transparent 50%);
+}
 
 .app {
   display: grid;
   grid-template-rows: var(--header-h) 1fr;
   grid-template-columns: 1fr var(--sidebar-w);
   height: 100vh;
-  background: var(--bg);
+  background: transparent;
+  position: relative;
+  z-index: 1;
 }
 
 /* HEADER */
@@ -106,19 +127,11 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
-  background: var(--surface);
+  background: rgba(var(--surface-rgb), 0.7);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   position: relative;
   z-index: 50;
-}
-
-.header::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--purple), var(--pink), transparent);
-  opacity: 0.6;
 }
 
 .header-brand {
@@ -130,18 +143,18 @@ body {
 .logo-icon {
   width: 36px; height: 36px;
   border-radius: var(--radius-sm);
-  background: var(--gradient);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  box-shadow: 0 0 16px var(--purple-glow);
+  box-shadow: 0 0 16px var(--primary-glow);
 }
 
 .brand-name {
   font-size: 15px;
   font-weight: 700;
-  background: var(--gradient);
+  background: linear-gradient(135deg, var(--primary-light), var(--primary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -171,9 +184,9 @@ body {
   transition: var(--transition);
 }
 .nav-btn:hover {
-  background: var(--purple-soft);
-  border-color: var(--purple);
-  color: var(--purple-light);
+  background: var(--primary-soft);
+  border-color: var(--primary);
+  color: var(--primary-light);
 }
 
 .month-display {
@@ -185,13 +198,13 @@ body {
 }
 
 .month-display span {
-  color: var(--purple-light);
+  color: var(--primary-light);
 }
 
 .btn-today {
-  background: var(--purple-soft);
-  border: 1px solid var(--purple);
-  color: var(--purple-light);
+  background: var(--primary-soft);
+  border: 1px solid var(--primary);
+  color: var(--primary-light);
   padding: 6px 14px;
   border-radius: var(--radius-full);
   cursor: pointer;
@@ -200,7 +213,7 @@ body {
   transition: var(--transition);
 }
 .btn-today:hover {
-  background: var(--purple);
+  background: var(--primary);
   color: #fff;
 }
 
@@ -225,9 +238,9 @@ body {
   gap: 6px;
 }
 .action-btn:hover {
-  background: var(--purple-soft);
-  border-color: var(--purple);
-  color: var(--purple-light);
+  background: var(--primary-soft);
+  border-color: var(--primary);
+  color: var(--primary-light);
 }
 
 .add-btn {
@@ -236,7 +249,7 @@ body {
   gap: 8px;
   padding: 8px 16px;
   border-radius: var(--radius-sm);
-  background: var(--gradient);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border: none;
   color: #fff;
   font-size: 12px;
@@ -246,7 +259,7 @@ body {
 }
 .add-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(124,58,237,0.5);
+  box-shadow: 0 4px 20px var(--primary-glow);
 }
 
 /* CALENDÁRIO */
@@ -254,7 +267,6 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: var(--bg);
   padding: 12px 16px 12px;
   gap: 8px;
   height: 100%;
@@ -277,7 +289,8 @@ body {
 }
 
 .weekday-label.weekend {
-  color: var(--purple-light);
+  color: var(--primary-light);
+  opacity: 0.7;
 }
 
 .calendar-grid {
@@ -302,7 +315,7 @@ body {
 }
 
 .day-cell:hover {
-  border-color: var(--purple);
+  border-color: var(--primary);
   background: var(--surface2);
 }
 
@@ -311,8 +324,8 @@ body {
 }
 
 .day-cell.today {
-  border-color: var(--purple);
-  background: rgba(124,58,237,0.1);
+  border-color: var(--primary);
+  background: var(--primary-soft);
 }
 
 .day-num {
@@ -323,7 +336,7 @@ body {
 }
 
 .day-cell.today .day-num {
-  color: var(--purple-light);
+  color: var(--primary-light);
   font-weight: 800;
 }
 
@@ -346,14 +359,7 @@ body {
   cursor: pointer;
 }
 
-.ev-more {
-  font-size: 8px;
-  color: var(--text3);
-  cursor: pointer;
-  padding: 2px 0;
-}
-
-/* SIDEBAR */
+/* SIDEBAR - CARDS EM 2 COLUNAS */
 .sidebar {
   background: var(--surface);
   border-left: 1px solid var(--border);
@@ -361,6 +367,7 @@ body {
   flex-direction: column;
   overflow: hidden;
   height: 100%;
+  backdrop-filter: blur(4px);
 }
 
 .sidebar-header {
@@ -372,28 +379,29 @@ body {
 .sidebar-title {
   font-size: 14px;
   font-weight: 700;
-  color: var(--purple-light);
+  color: var(--primary-light);
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .sidebar-title .count {
-  background: var(--purple-soft);
+  background: var(--primary-soft);
   padding: 2px 8px;
   border-radius: var(--radius-full);
   font-size: 11px;
-  color: var(--purple-light);
+  color: var(--primary-light);
 }
 
+/* LISTA EM 2 COLUNAS - MAIS COMPACTA */
 .events-list {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 12px 16px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
   min-height: 0;
 }
 
@@ -405,7 +413,7 @@ body {
   border-radius: 3px;
 }
 .events-list::-webkit-scrollbar-thumb {
-  background: var(--purple);
+  background: var(--primary);
   border-radius: 3px;
 }
 
@@ -413,7 +421,7 @@ body {
   background: var(--surface2);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 14px;
+  padding: 12px;
   cursor: pointer;
   transition: var(--transition);
   position: relative;
@@ -422,30 +430,54 @@ body {
 }
 
 .ev-card:hover {
-  border-color: var(--purple);
-  transform: translateX(3px);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Badge de notificação de 15 minutos */
+.ev-card.reminder-15 {
+  position: relative;
+  overflow: visible;
+}
+
+.reminder-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: linear-gradient(135deg, #f97316, #ef4444);
+  color: white;
+  font-size: 8px;
+  font-weight: 800;
+  padding: 3px 6px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(239,68,68,0.4);
+  z-index: 10;
+  animation: badge-pulse 1s infinite;
+  white-space: nowrap;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.9; }
 }
 
 .ev-card.happening-now {
-  border-left: 4px solid var(--green);
-  background: linear-gradient(135deg, var(--surface2), rgba(16,185,129,0.1));
-  animation: pulse-border 1.5s infinite;
-}
-
-@keyframes pulse-border {
-  0%, 100% { border-left-color: var(--green); box-shadow: 0 0 0 0 rgba(16,185,129,0.3); }
-  50% { border-left-color: #2ecc71; box-shadow: 0 0 0 3px rgba(16,185,129,0.2); }
+  border-left: 3px solid var(--evento);
+  background: var(--evento-soft);
 }
 
 .happening-badge {
   position: absolute;
-  top: -10px;
-  right: 12px;
+  top: -8px;
+  right: -8px;
   background: linear-gradient(135deg, #10b981, #059669);
   color: white;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 700;
-  padding: 3px 10px;
+  padding: 3px 8px;
   border-radius: 20px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -455,93 +487,99 @@ body {
   animation: badge-pulse 1s infinite;
 }
 
-@keyframes badge-pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.05); opacity: 0.9; }
-}
-
 .ev-date-badge {
-  width: 48px; height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-sm);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-weight: 800;
-  margin-right: 12px;
+  font-weight: 700;
+  margin-right: 10px;
   float: left;
 }
-.ev-date-badge .day { font-size: 18px; font-weight: 800; }
-.ev-date-badge .month { font-size: 9px; font-weight: 700; text-transform: uppercase; opacity: 0.8; }
+.ev-date-badge .day { font-size: 16px; font-weight: 800; }
+.ev-date-badge .month { font-size: 8px; font-weight: 600; text-transform: uppercase; opacity: 0.8; }
 
 .ev-info {
-  margin-left: 60px;
+  margin-left: 50px;
 }
 
 .ev-title {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--text);
-  margin-bottom: 4px;
+  margin-bottom: 3px;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ev-time {
-  font-size: 10px;
+  font-size: 9px;
   color: var(--text3);
   font-weight: 500;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 
 .ev-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 6px;
+  gap: 4px;
+  margin-top: 4px;
 }
 
 .ev-tag {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 2px 8px;
+  gap: 3px;
+  padding: 2px 6px;
   border-radius: var(--radius-full);
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 600;
 }
 
 .ev-location-tag {
-  background: var(--cyan-soft);
-  color: var(--cyan);
+  background: rgba(139,92,246,0.15);
+  color: var(--primary-light);
+  font-size: 8px;
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
 }
 
 .ev-obs-preview {
-  font-size: 11px;
-  color: var(--text);
-  margin-top: 8px;
-  padding-top: 6px;
+  font-size: 9px;
+  color: var(--text2);
+  margin-top: 5px;
+  padding-top: 4px;
   border-top: 1px solid var(--border);
-  line-height: 1.4;
-  font-weight: 400;
-  background: rgba(0,0,0,0.1);
-  padding: 6px 8px;
-  border-radius: var(--radius-sm);
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .empty-state {
+  grid-column: span 2;
   text-align: center;
   padding: 40px 20px;
   color: var(--text3);
 }
 
-.empty-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.5; }
-.empty-text { font-size: 13px; font-weight: 500; }
+.empty-icon { font-size: 40px; margin-bottom: 10px; opacity: 0.5; }
+.empty-text { font-size: 12px; font-weight: 500; }
 
 /* MODAL */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.75);
+  background: rgba(0,0,0,0.8);
   display: none;
   align-items: center;
   justify-content: center;
@@ -566,7 +604,7 @@ body {
 .modal-title {
   font-size: 17px;
   font-weight: 700;
-  background: var(--gradient);
+  background: linear-gradient(135deg, var(--primary-light), var(--primary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -580,14 +618,12 @@ body {
 }
 .modal-body { padding: 20px 24px 24px; }
 
-/* Type selector */
 .type-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
   margin-bottom: 20px;
 }
-
 .type-btn {
   padding: 10px 8px;
   border-radius: var(--radius-sm);
@@ -603,28 +639,18 @@ body {
   gap: 6px;
   transition: var(--transition);
 }
-.type-btn .t-icon { font-size: 18px; }
-.type-btn:hover {
-  border-color: var(--purple);
-  transform: translateY(-2px);
-}
-.type-btn.active {
-  border-color: var(--purple);
-  box-shadow: 0 0 0 1px var(--purple);
-}
-.type-btn[data-type="reuniao"].active { background: var(--blue-soft); color: var(--blue); }
-.type-btn[data-type="evento"].active { background: var(--green-soft); color: var(--green); }
-.type-btn[data-type="chg"].active { background: var(--red-soft); color: var(--red); }
-.type-btn[data-type="outro"].active { background: var(--pink-soft); color: var(--pink); }
+.type-btn .t-icon { font-size: 16px; }
+.type-btn.active[data-type="reuniao"] { background: var(--reuniao-soft); border-color: var(--reuniao); color: var(--reuniao); }
+.type-btn.active[data-type="evento"] { background: var(--evento-soft); border-color: var(--evento); color: var(--evento); }
+.type-btn.active[data-type="chg"] { background: var(--chg-soft); border-color: var(--chg); color: var(--chg); }
+.type-btn.active[data-type="outro"] { background: var(--outro-soft); border-color: var(--outro); color: var(--outro); }
 
-/* Locations grid - múltipla seleção */
 .locations-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
   margin-bottom: 16px;
 }
-
 .location-checkbox {
   display: flex;
   align-items: center;
@@ -634,42 +660,20 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: var(--transition);
 }
-.location-checkbox:hover {
-  border-color: var(--purple);
-  background: var(--purple-soft);
-}
-.location-checkbox.selected {
-  border-color: var(--green);
-  background: var(--green-soft);
-}
-.location-checkbox input {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  accent-color: var(--green);
-}
-.location-checkbox label {
-  flex: 1;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text2);
-}
-.location-checkbox.selected label {
-  color: var(--green);
-}
+.location-checkbox.selected { border-color: var(--primary); background: var(--primary-soft); }
+.location-checkbox input { width: 16px; height: 16px; cursor: pointer; accent-color: var(--primary); }
+.location-checkbox label { flex: 1; cursor: pointer; font-size: 12px; color: var(--text2); }
 
 .field { margin-bottom: 16px; }
 .field-label {
   display: block;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--text3);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 .field-input {
   width: 100%;
@@ -679,14 +683,9 @@ body {
   padding: 10px 12px;
   color: var(--text);
   font-size: 13px;
-  font-family: 'Inter', sans-serif;
 }
-.field-input:focus {
-  outline: none;
-  border-color: var(--purple);
-}
+.field-input:focus { outline: none; border-color: var(--primary); }
 .date-row, .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
 .duration-select {
   width: 100%;
   background: var(--surface2);
@@ -695,40 +694,30 @@ body {
   padding: 10px 12px;
   color: var(--text);
   font-size: 13px;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
 }
-.duration-select:focus {
-  outline: none;
-  border-color: var(--purple);
-}
-
-.modal-actions { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); }
+.modal-actions { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
 .btn-save {
   width: 100%;
   padding: 12px;
-  background: var(--gradient);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border: none;
   border-radius: var(--radius-sm);
   color: #fff;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  transition: var(--transition);
 }
-.btn-save:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(124,58,237,0.5); }
 .btn-row { display: flex; gap: 8px; margin-top: 8px; }
 .btn-del {
   flex: 1;
   padding: 10px;
-  background: var(--red-soft);
-  border: 1px solid rgba(239,68,68,0.3);
+  background: var(--chg-soft);
+  border: 1px solid var(--chg);
   border-radius: var(--radius-sm);
-  color: var(--red);
+  color: var(--chg);
   cursor: pointer;
   font-weight: 600;
 }
-.btn-del:hover { background: var(--red); color: #fff; }
 .btn-cancel {
   flex: 1;
   padding: 10px;
@@ -737,9 +726,7 @@ body {
   border-radius: var(--radius-sm);
   color: var(--text2);
   cursor: pointer;
-  font-weight: 600;
 }
-.btn-cancel:hover { border-color: var(--purple); color: var(--purple-light); }
 
 .toast-stack {
   position: fixed;
@@ -755,13 +742,9 @@ body {
   margin-top: 8px;
   animation: fadeIn 0.3s;
 }
-.toast-success { background: #10b981; }
-.toast-error { background: #ef4444; }
-.toast-info { background: #7c3aed; }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateX(100%); }
-  to { opacity: 1; transform: translateX(0); }
-}
+.toast-success { background: var(--evento); }
+.toast-error { background: var(--chg); }
+.toast-info { background: var(--primary); }
 
 .loading-overlay {
   position: fixed;
@@ -776,11 +759,15 @@ body {
 .spinner {
   width: 40px; height: 40px;
   border: 3px solid var(--surface2);
-  border-top-color: var(--purple);
+  border-top-color: var(--primary);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
 
 .fab-mobile {
   display: none;
@@ -790,7 +777,7 @@ body {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: var(--gradient);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: #fff;
   font-size: 28px;
   border: none;
@@ -798,7 +785,7 @@ body {
   z-index: 200;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(124,58,237,0.5);
+  box-shadow: 0 4px 12px var(--primary-glow);
 }
 
 .share-modal { max-width: 480px; }
@@ -810,12 +797,11 @@ body {
   word-break: break-all;
   margin: 16px 0;
   border: 1px solid var(--border);
-  color: var(--text2);
 }
 .copy-btn {
   width: 100%;
   padding: 10px;
-  background: var(--purple);
+  background: var(--primary);
   border: none;
   border-radius: var(--radius-sm);
   color: #fff;
@@ -823,26 +809,25 @@ body {
   font-weight: 600;
 }
 
+@media (max-width: 900px) {
+  .events-list {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 768px) {
   body { overflow: auto; height: auto; }
   .app { display: flex; flex-direction: column; height: auto; min-height: 100vh; }
-  .header { position: sticky; top: 0; z-index: 100; padding: 0 12px; flex-shrink: 0; }
+  .header { position: sticky; top: 0; z-index: 100; padding: 0 12px; }
   .header .add-btn, .header .action-btn { display: none; }
-  .header-center { gap: 4px; }
   .month-display { font-size: 12px; min-width: 120px; }
   .nav-btn { width: 32px; height: 32px; font-size: 12px; }
   .btn-today { padding: 4px 10px; font-size: 10px; }
   .brand-sub { display: none; }
   .main { display: none; }
-  .sidebar { width: 100%; border-left: none; border-top: 1px solid var(--border); height: auto; flex: 1; display: flex; flex-direction: column; overflow: visible; }
-  .sidebar-header { padding: 12px 16px; flex-shrink: 0; position: sticky; top: 0; background: var(--surface); z-index: 10; }
-  .sidebar-title { font-size: 16px; }
-  .events-list { padding: 12px 16px 80px; gap: 16px; overflow-y: visible; height: auto; flex: 1; }
-  .ev-card { padding: 16px; }
-  .ev-date-badge { width: 52px; height: 52px; }
-  .ev-date-badge .day { font-size: 20px; }
-  .ev-info { margin-left: 64px; }
-  .ev-title { font-size: 14px; }
+  .sidebar { width: 100%; border-left: none; border-top: 1px solid var(--border); height: auto; }
+  .sidebar-header { position: sticky; top: 0; background: var(--surface); z-index: 10; }
+  .events-list { grid-template-columns: 1fr; padding-bottom: 80px; }
   .fab-mobile { display: flex; align-items: center; justify-content: center; }
   .locations-grid { grid-template-columns: 1fr; }
 }
@@ -857,8 +842,8 @@ body {
 <div class="app">
   <header class="header">
     <div class="header-brand">
-      <div class="logo-icon">📅</div>
-      <div><div class="brand-name">Agenda Workplace</div><div class="brand-sub">Smart</div></div>
+      <div class="logo-icon">✨</div>
+      <div><div class="brand-name">Agenda Workplace</div><div class="brand-sub">Premium</div></div>
     </div>
     <div class="header-center">
       <button class="nav-btn" id="prevBtn">◀</button>
@@ -896,9 +881,7 @@ body {
   <div class="modal-box">
     <div class="modal-header"><div class="modal-title" id="modalTitle">Novo Compromisso</div><button class="modal-close" id="modalCloseBtn">✕</button></div>
     <div class="modal-body">
-      <!-- Tipo de evento -->
-      <div class="field">
-        <label class="field-label">📌 Tipo</label>
+      <div class="field"><label class="field-label">📌 Tipo</label>
         <div class="type-grid" id="typeGrid">
           <button class="type-btn" data-type="reuniao"><span class="t-icon">🤝</span>Reunião</button>
           <button class="type-btn" data-type="evento"><span class="t-icon">🎯</span>Evento</button>
@@ -907,85 +890,16 @@ body {
         </div>
         <input type="hidden" id="tipoInput" value="reuniao">
       </div>
-
-      <!-- Título -->
-      <div class="field">
-        <label class="field-label">📝 Título *</label>
-        <input type="text" id="titleInput" class="field-input" placeholder="Nome do compromisso…">
-      </div>
-
-      <!-- Datas -->
-      <div class="field">
-        <label class="field-label">📅 Período</label>
-        <div class="date-row">
-          <div><label style="font-size:10px">Início *</label><input type="date" id="startInput" class="field-input"></div>
-          <div><label style="font-size:10px">Fim</label><input type="date" id="endInput" class="field-input"></div>
-        </div>
-      </div>
-
-      <!-- Hora e Duração -->
-      <div class="field">
-        <label class="field-label">⏰ Horário</label>
-        <div class="time-row">
-          <div><label style="font-size:10px">Hora</label><input type="time" id="timeInput" class="field-input"></div>
-          <div><label style="font-size:10px">Duração</label>
-            <select id="durationInput" class="duration-select">
-              <option>Dia inteiro</option>
-              <option>30 min</option>
-              <option>1 hora</option>
-              <option>2 horas</option>
-              <option>3 horas</option>
-              <option>4 horas</option>
-              <option>5 horas</option>
-              <option>6 horas</option>
-              <option>8 horas</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- LOCAIS - MÚLTIPLA SELEÇÃO -->
-      <div class="field">
-        <label class="field-label">📍 Locais (pode marcar mais de um)</label>
-        <div class="locations-grid" id="locationsGrid">
-          <div class="location-checkbox" data-location="workvivo">
-            <input type="checkbox" id="loc_workvivo" value="Workvivo">
-            <label for="loc_workvivo">💻 Workvivo</label>
-          </div>
-          <div class="location-checkbox" data-location="teams">
-            <input type="checkbox" id="loc_teams" value="Microsoft Teams">
-            <label for="loc_teams">🎥 Microsoft Teams</label>
-          </div>
-          <div class="location-checkbox" data-location="auditorio_berrini">
-            <input type="checkbox" id="loc_berrini" value="Auditório Berrini">
-            <label for="loc_berrini">🏢 Auditório Berrini</label>
-          </div>
-          <div class="location-checkbox" data-location="auditorio_chucri">
-            <input type="checkbox" id="loc_chucri" value="Auditório Chucri">
-            <label for="loc_chucri">🏛️ Auditório Chucri</label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Observações -->
-      <div class="field">
-        <label class="field-label">📝 Observações</label>
-        <textarea id="obsInput" class="field-input" rows="3" placeholder="Detalhes importantes..."></textarea>
-      </div>
-
-      <!-- Ações -->
-      <div class="modal-actions">
-        <button class="btn-save" id="saveBtn">💾 Salvar</button>
-        <div class="btn-row">
-          <button class="btn-del" id="deleteBtn" style="display:none">🗑 Excluir</button>
-          <button class="btn-cancel" id="cancelBtn">Fechar</button>
-        </div>
-      </div>
+      <div class="field"><label class="field-label">📝 Título *</label><input type="text" id="titleInput" class="field-input" placeholder="Nome do compromisso…"></div>
+      <div class="field"><div class="date-row"><div><label style="font-size:10px">Início *</label><input type="date" id="startInput" class="field-input"></div><div><label style="font-size:10px">Fim</label><input type="date" id="endInput" class="field-input"></div></div></div>
+      <div class="field"><div class="time-row"><div><label style="font-size:10px">Hora</label><input type="time" id="timeInput" class="field-input"></div><div><label style="font-size:10px">Duração</label><select id="durationInput" class="duration-select"><option>Dia inteiro</option><option>30 min</option><option>1 hora</option><option>2 horas</option><option>3 horas</option><option>4 horas</option><option>5 horas</option><option>6 horas</option><option>8 horas</option></select></div></div></div>
+      <div class="field"><label class="field-label">📍 Locais</label><div class="locations-grid" id="locationsGrid"><div class="location-checkbox" data-location="workvivo"><input type="checkbox" id="loc_workvivo" value="Workvivo"><label for="loc_workvivo">💻 Workvivo</label></div><div class="location-checkbox" data-location="teams"><input type="checkbox" id="loc_teams" value="Microsoft Teams"><label for="loc_teams">🎥 Microsoft Teams</label></div><div class="location-checkbox" data-location="auditorio_berrini"><input type="checkbox" id="loc_berrini" value="Auditório Berrini"><label for="loc_berrini">🏢 Auditório Berrini</label></div><div class="location-checkbox" data-location="auditorio_chucri"><input type="checkbox" id="loc_chucri" value="Auditório Chucri"><label for="loc_chucri">🏛️ Auditório Chucri</label></div></div></div>
+      <div class="field"><label class="field-label">📝 Observações</label><textarea id="obsInput" class="field-input" rows="3" placeholder="Detalhes importantes..."></textarea></div>
+      <div class="modal-actions"><button class="btn-save" id="saveBtn">💾 Salvar</button><div class="btn-row"><button class="btn-del" id="deleteBtn" style="display:none">🗑 Excluir</button><button class="btn-cancel" id="cancelBtn">Fechar</button></div></div>
     </div>
   </div>
 </div>
 
-<!-- MODAL DE COMPARTILHAR -->
 <div class="modal-overlay" id="shareModalOverlay">
   <div class="modal-box share-modal">
     <div class="modal-header"><div class="modal-title">🔗 Compartilhar Agenda</div><button class="modal-close" id="shareModalCloseBtn">✕</button></div>
@@ -1001,16 +915,16 @@ body {
 
 <script>
 // ================================================================
-//  CONFIG
+//  CONFIG SUPABASE
 // ================================================================
 const SUPABASE_URL = "https://wffjntjupnsvtvqxfihw.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_7Ma1Z2nNPHPxKtdfasln_w_ptK2--lb";
 
 const CONFIG = {
-  reuniao: { color: "#3b82f6", soft: "rgba(59,130,246,0.15)", icon: "🤝", label: "Reunião" },
-  evento:  { color: "#10b981", soft: "rgba(16,185,129,0.15)", icon: "🎯", label: "Evento" },
-  chg:     { color: "#ef4444", soft: "rgba(239,68,68,0.15)", icon: "⚙️", label: "CHG" },
-  outro:   { color: "#ec4899", soft: "rgba(236,72,153,0.15)", icon: "📌", label: "Outro" }
+  reuniao: { color: "#3b82f6", soft: "rgba(59,130,246,0.12)", icon: "🤝", label: "Reunião" },
+  evento:  { color: "#10b981", soft: "rgba(16,185,129,0.12)", icon: "🎯", label: "Evento" },
+  chg:     { color: "#f43f5e", soft: "rgba(244,63,94,0.12)", icon: "⚙️", label: "CHG" },
+  outro:   { color: "#f59e0b", soft: "rgba(245,158,11,0.12)", icon: "📌", label: "Outro" }
 };
 
 const MONTH_NAMES = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
@@ -1018,6 +932,7 @@ const MONTH_SHORT = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out"
 const WEEK_DAYS = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
 
 let allEvents = [], currentDate = new Date(), editId = null;
+let reminderCheckInterval = null;
 
 const $ = id => document.getElementById(id);
 function toLocalStr(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
@@ -1039,6 +954,7 @@ async function loadEvents() {
     if (!r.ok) throw new Error();
     allEvents = await r.json();
     render();
+    startReminderCheck();
   } catch { toast("Erro ao carregar", "error"); }
   finally { $("loadingOverlay")?.classList.add("hidden"); }
 }
@@ -1048,37 +964,22 @@ async function saveEvent(ev) {
     let r;
     if (editId) {
       r = await fetch(`${SUPABASE_URL}/rest/v1/eventos?id=eq.${editId}`, { 
-        method: "PATCH", 
-        headers, 
+        method: "PATCH", headers, 
         body: JSON.stringify({
-          title: ev.title,
-          tipo: ev.tipo,
-          start: ev.start,
-          end: ev.end,
-          time: ev.time,
-          duration: ev.duration,
-          obs: ev.obs,
-          locations: ev.locations || null
+          title: ev.title, tipo: ev.tipo, start: ev.start, end: ev.end,
+          time: ev.time, duration: ev.duration, obs: ev.obs, locations: ev.locations || null
         })
       });
     } else {
-      r = await fetch(`${SUPABASE_URL}/rest/v1/eventos`, { 
-        method: "POST", 
-        headers, 
-        body: JSON.stringify(ev)
-      });
+      r = await fetch(`${SUPABASE_URL}/rest/v1/eventos`, { method: "POST", headers, body: JSON.stringify(ev) });
     }
-    if (!r.ok) {
-      const errorData = await r.text();
-      console.error("Erro Supabase:", errorData);
-      throw new Error(errorData);
-    }
+    if (!r.ok) throw new Error();
     toast(editId ? "Atualizado! 🎉" : "Criado! 🎉", "success");
     await loadEvents();
     closeModal();
   } catch (err) {
-    console.error("Erro ao salvar:", err);
-    toast("Erro ao salvar compromisso. Verifique os dados.", "error");
+    console.error(err);
+    toast("Erro ao salvar", "error");
   }
 }
 
@@ -1091,6 +992,39 @@ async function deleteEvent() {
     await loadEvents();
     closeModal();
   } catch { toast("Erro", "error"); }
+}
+
+// ================================================================
+//  NOTIFICAÇÃO DE 15 MINUTOS
+// ================================================================
+function isWithin15Minutes(ev) {
+  const now = new Date();
+  const today = toLocalStr(now);
+  if (!occursOn(ev, today)) return false;
+  if (ev.duration === "Dia inteiro") return false;
+  if (!ev.time) return false;
+  
+  const [hour, minute] = ev.time.split(':');
+  const evTime = new Date(now);
+  evTime.setHours(parseInt(hour), parseInt(minute), 0);
+  const diffMinutes = (evTime - now) / (1000 * 60);
+  return diffMinutes > 0 && diffMinutes <= 15;
+}
+
+function startReminderCheck() {
+  if (reminderCheckInterval) clearInterval(reminderCheckInterval);
+  reminderCheckInterval = setInterval(() => {
+    const now = new Date();
+    const eventsToRemind = allEvents.filter(ev => isWithin15Minutes(ev));
+    eventsToRemind.forEach(ev => {
+      if (!ev._reminded) {
+        ev._reminded = true;
+        toast(`🔔 Em até 15 minutos: ${ev.title}`, "info");
+        setTimeout(() => { ev._reminded = false; }, 60000);
+      }
+    });
+    renderList();
+  }, 30000);
 }
 
 function isHappeningNow(ev) {
@@ -1154,39 +1088,31 @@ function renderList() {
   filtered.forEach(ev => {
     const cfg = CONFIG[ev.tipo] || CONFIG.outro, day = ev.start.split("-")[2], mon = MONTH_SHORT[parseInt(ev.start.split("-")[1])-1];
     const isNow = isHappeningNow(ev);
+    const isReminder = isWithin15Minutes(ev);
     const dateRange = ev.start === (ev.end||ev.start) ? `${day}/${MONTH_SHORT[parseInt(ev.start.split("-")[1])-1]}` : `${ev.start.split("-")[2]}/${MONTH_SHORT[parseInt(ev.start.split("-")[1])-1]} → ${(ev.end||ev.start).split("-")[2]}/${MONTH_SHORT[parseInt((ev.end||ev.start).split("-")[1])-1]}`;
     const card = document.createElement("div");
-    card.className = `ev-card${isNow ? " happening-now" : ""}`;
+    card.className = `ev-card${isNow ? " happening-now" : ""}${isReminder ? " reminder-15" : ""}`;
+    
+    let badgeHtml = '';
+    if (isNow) badgeHtml = '<div class="happening-badge">🔴 ACONTECENDO AGORA</div>';
+    else if (isReminder) badgeHtml = '<div class="reminder-badge">⏰ EM ATÉ 15MIN</div>';
     
     let locationsHtml = '';
     if (ev.locations) {
       const locs = ev.locations.split(',').map(l => l.trim());
-      locationsHtml = `<div class="ev-meta">${locs.map(loc => `<span class="ev-tag ev-location-tag">📍 ${loc}</span>`).join('')}</div>`;
+      locationsHtml = `<div class="ev-meta">${locs.map(loc => `<span class="ev-location-tag">📍 ${loc}</span>`).join('')}</div>`;
     }
     
-    card.innerHTML = `${isNow ? '<div class="happening-badge">🔴 ACONTECENDO AGORA</div>' : ''}<div class="ev-date-badge" style="background:${cfg.soft};color:${cfg.color}"><div class="day">${day}</div><div class="month">${mon}</div></div><div class="ev-info"><div class="ev-title">${escapeHtml(ev.title)}</div><div class="ev-time">${dateRange} ${ev.time&&ev.duration!=="Dia inteiro"?" • "+ev.time:""}</div><div class="ev-meta"><span class="ev-tag" style="background:${cfg.soft};color:${cfg.color}">${cfg.icon} ${cfg.label}</span>${ev.duration ? `<span class="ev-tag" style="background:rgba(255,255,255,0.05)">⏱ ${ev.duration}</span>` : ""}</div>${locationsHtml}${ev.obs ? `<div class="ev-obs-preview">📝 ${escapeHtml(ev.obs.substring(0,120))}${ev.obs.length>120?"…":""}</div>` : ""}</div>`;
+    card.innerHTML = `${badgeHtml}<div class="ev-date-badge" style="background:${cfg.soft};color:${cfg.color}"><div class="day">${day}</div><div class="month">${mon}</div></div><div class="ev-info"><div class="ev-title">${escapeHtml(ev.title)}</div><div class="ev-time">${dateRange} ${ev.time&&ev.duration!=="Dia inteiro"?" • "+ev.time:""}</div><div class="ev-meta"><span class="ev-tag" style="background:${cfg.soft};color:${cfg.color}">${cfg.icon} ${cfg.label}</span>${ev.duration ? `<span class="ev-tag" style="background:rgba(255,255,255,0.05)">⏱ ${ev.duration}</span>` : ""}</div>${locationsHtml}${ev.obs ? `<div class="ev-obs-preview">📝 ${escapeHtml(ev.obs.substring(0,80))}${ev.obs.length>80?"…":""}</div>` : ""}</div>`;
     card.addEventListener("click", () => openEdit(ev.id));
     list.appendChild(card);
   });
 }
 
-function escapeHtml(str) {
-  if (!str) return "";
-  return str.replace(/[&<>]/g, function(m) {
-    if (m === '&') return '&amp;';
-    if (m === '<') return '&lt;';
-    if (m === '>') return '&gt;';
-    return m;
-  });
-}
-
+function escapeHtml(str) { if (!str) return ""; return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
 function render() { renderCalendar(); renderList(); }
 
-// ================================================================
-//  FUNÇÕES DO MODAL - TIPO E LOCAIS
-// ================================================================
-let selectedType = "reuniao";
-let selectedLocations = [];
+let selectedType = "reuniao", selectedLocations = [];
 
 function initTypeButtons() {
   document.querySelectorAll('.type-btn').forEach(btn => {
@@ -1202,68 +1128,34 @@ function initTypeButtons() {
 }
 
 function initLocationCheckboxes() {
-  const locationItems = document.querySelectorAll('.location-checkbox');
-  locationItems.forEach(item => {
-    const checkbox = item.querySelector('input');
-    checkbox.addEventListener('change', () => {
-      const locationName = checkbox.value;
-      if (checkbox.checked) {
-        if (!selectedLocations.includes(locationName)) {
-          selectedLocations.push(locationName);
-        }
-        item.classList.add('selected');
-      } else {
-        selectedLocations = selectedLocations.filter(l => l !== locationName);
-        item.classList.remove('selected');
-      }
+  document.querySelectorAll('.location-checkbox').forEach(item => {
+    const cb = item.querySelector('input');
+    cb.addEventListener('change', () => {
+      if (cb.checked) { if (!selectedLocations.includes(cb.value)) selectedLocations.push(cb.value); item.classList.add('selected'); }
+      else { selectedLocations = selectedLocations.filter(l => l !== cb.value); item.classList.remove('selected'); }
     });
   });
 }
 
-function resetLocations() {
-  selectedLocations = [];
-  document.querySelectorAll('.location-checkbox input').forEach(cb => {
-    cb.checked = false;
-    cb.closest('.location-checkbox').classList.remove('selected');
-  });
-}
-
+function resetLocations() { selectedLocations = []; document.querySelectorAll('.location-checkbox input').forEach(cb => { cb.checked = false; cb.closest('.location-checkbox').classList.remove('selected'); }); }
 function setLocationsFromEvent(locations) {
   resetLocations();
   if (locations) {
-    const locsArray = locations.split(',').map(l => l.trim());
-    locsArray.forEach(loc => {
-      const checkbox = document.querySelector(`.location-checkbox input[value="${loc}"]`);
-      if (checkbox) {
-        checkbox.checked = true;
-        checkbox.closest('.location-checkbox').classList.add('selected');
-        selectedLocations.push(loc);
-      }
+    locations.split(',').map(l => l.trim()).forEach(loc => {
+      const cb = document.querySelector(`.location-checkbox input[value="${loc}"]`);
+      if (cb) { cb.checked = true; cb.closest('.location-checkbox').classList.add('selected'); selectedLocations.push(loc); }
     });
   }
 }
 
-// ================================================================
-//  MODAL PRINCIPAL
-// ================================================================
 function openModal(date = null) {
   editId = null; $("modalTitle").textContent = "Novo Compromisso"; $("deleteBtn").style.display = "none"; $("saveBtn").textContent = "💾 Salvar";
-  if ($("titleInput")) $("titleInput").value = "";
-  if ($("startInput")) $("startInput").value = date || "";
-  if ($("endInput")) $("endInput").value = date || "";
-  if ($("timeInput")) $("timeInput").value = "";
-  if ($("durationInput")) $("durationInput").value = "30 min";
-  if ($("obsInput")) $("obsInput").value = "";
-  
+  $("titleInput").value = ""; $("startInput").value = date || ""; $("endInput").value = date || ""; $("timeInput").value = ""; $("durationInput").value = "30 min"; $("obsInput").value = "";
   selectedType = "reuniao";
-  document.querySelectorAll('.type-btn').forEach(btn => {
-    btn.classList.remove('active');
-    if (btn.dataset.type === "reuniao") btn.classList.add('active');
-  });
+  document.querySelectorAll('.type-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelector('.type-btn[data-type="reuniao"]').classList.add('active');
   $("tipoInput").value = "reuniao";
-  
   resetLocations();
-  
   $("modalOverlay").classList.add("open");
 }
 
@@ -1272,90 +1164,42 @@ function openEdit(id) {
   editId = id; $("modalTitle").textContent = "Editar"; $("deleteBtn").style.display = "block"; $("saveBtn").textContent = "💾 Atualizar";
   $("titleInput").value = ev.title; $("startInput").value = ev.start; $("endInput").value = ev.end || ev.start;
   $("timeInput").value = ev.time || ""; $("durationInput").value = ev.duration || "30 min"; $("obsInput").value = ev.obs || "";
-  
   const tipo = ev.tipo || "reuniao";
   selectedType = tipo;
-  document.querySelectorAll('.type-btn').forEach(btn => {
-    btn.classList.remove('active');
-    if (btn.dataset.type === tipo) btn.classList.add('active');
-  });
+  document.querySelectorAll('.type-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelector(`.type-btn[data-type="${tipo}"]`).classList.add('active');
   $("tipoInput").value = tipo;
-  
   setLocationsFromEvent(ev.locations);
-  
   $("modalOverlay").classList.add("open");
 }
-
 function closeModal() { $("modalOverlay").classList.remove("open"); editId = null; }
 
-// ================================================================
-//  SALVAR EVENTO
-// ================================================================
 $("saveBtn")?.addEventListener("click", () => {
   const title = $("titleInput")?.value.trim(), start = $("startInput")?.value;
   if (!title || !start) { toast("Título e data obrigatórios", "error"); return; }
-  
-  const eventData = {
-    id: editId || Date.now(),
-    title,
-    tipo: $("tipoInput").value,
-    start,
-    end: $("endInput").value || start,
-    time: $("durationInput").value === "Dia inteiro" ? "" : $("timeInput").value,
-    duration: $("durationInput").value,
-    obs: $("obsInput").value.trim(),
-    locations: selectedLocations.length > 0 ? selectedLocations.join(", ") : null
-  };
-  saveEvent(eventData);
+  saveEvent({ id: editId || Date.now(), title, tipo: $("tipoInput").value, start, end: $("endInput").value || start, time: $("durationInput").value === "Dia inteiro" ? "" : $("timeInput").value, duration: $("durationInput").value, obs: $("obsInput").value.trim(), locations: selectedLocations.length ? selectedLocations.join(", ") : null });
 });
-
 $("deleteBtn")?.addEventListener("click", deleteEvent);
 $("cancelBtn")?.addEventListener("click", closeModal);
 $("modalCloseBtn")?.addEventListener("click", closeModal);
 $("modalOverlay")?.addEventListener("click", e => { if (e.target === $("modalOverlay")) closeModal(); });
-
-// ================================================================
-//  NAVEGAÇÃO
-// ================================================================
 $("prevBtn")?.addEventListener("click", () => { currentDate.setMonth(currentDate.getMonth()-1); render(); });
 $("nextBtn")?.addEventListener("click", () => { currentDate.setMonth(currentDate.getMonth()+1); render(); });
 $("todayBtn")?.addEventListener("click", () => { currentDate = new Date(); render(); });
 $("addBtn")?.addEventListener("click", () => openModal());
 $("fabMobileBtn")?.addEventListener("click", () => openModal());
 
-// ================================================================
-//  TEMA E COMPARTILHAR
-// ================================================================
-function initTheme() {
-  const savedTheme = localStorage.getItem('agendaTheme');
-  if (savedTheme === 'light') document.body.classList.add('light-mode');
-}
-function toggleTheme() {
-  document.body.classList.toggle('light-mode');
-  const isLight = document.body.classList.contains('light-mode');
-  localStorage.setItem('agendaTheme', isLight ? 'light' : 'dark');
-  toast(isLight ? 'Modo claro ativado' : 'Modo escuro ativado', 'info');
-}
-
-function getShareUrl() { return window.location.href; }
-function openShareModal() { $("shareUrlDisplay").textContent = getShareUrl(); $("shareModalOverlay").classList.add("open"); }
+function initTheme() { if (localStorage.getItem('agendaTheme') === 'light') document.body.classList.add('light-mode'); }
+function toggleTheme() { document.body.classList.toggle('light-mode'); localStorage.setItem('agendaTheme', document.body.classList.contains('light-mode') ? 'light' : 'dark'); toast(document.body.classList.contains('light-mode') ? 'Modo claro' : 'Modo escuro', 'info'); }
+function openShareModal() { $("shareUrlDisplay").textContent = window.location.href; $("shareModalOverlay").classList.add("open"); }
 function closeShareModal() { $("shareModalOverlay").classList.remove("open"); }
-function copyShareLink() {
-  navigator.clipboard.writeText($("shareUrlDisplay").textContent).then(() => {
-    toast("Link copiado! Compartilhe com sua equipe 📋", "success");
-    closeShareModal();
-  }).catch(() => toast("Erro ao copiar", "error"));
-}
-
+function copyShareLink() { navigator.clipboard.writeText($("shareUrlDisplay").textContent).then(() => { toast("Link copiado! 📋", "success"); closeShareModal(); }).catch(() => toast("Erro", "error")); }
 $("themeToggleBtn")?.addEventListener("click", toggleTheme);
 $("shareBtn")?.addEventListener("click", openShareModal);
 $("shareModalCloseBtn")?.addEventListener("click", closeShareModal);
 $("copyShareBtn")?.addEventListener("click", copyShareLink);
 $("shareModalOverlay")?.addEventListener("click", e => { if (e.target === $("shareModalOverlay")) closeShareModal(); });
 
-// ================================================================
-//  INICIALIZAÇÃO
-// ================================================================
 initTypeButtons();
 initLocationCheckboxes();
 initTheme();
