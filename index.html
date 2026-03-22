@@ -17,11 +17,6 @@
   --warning: #f59e0b;
 }
 
-/* 🔥 ALTERAÇÃO ÚNICA (proporção 18 → 14) */
-html {
-  font-size: 78%;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -31,6 +26,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: var(--bg);
   color: var(--text);
+  font-size: 12px;
 }
 
 /* ==================== VISÃO DESKTOP (PADRÃO) ==================== */
@@ -65,7 +61,7 @@ body {
   padding: 8px 16px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 14px;
   transition: all 0.2s;
 }
 
@@ -75,7 +71,7 @@ body {
 }
 
 .month-title {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   color: var(--purple);
 }
@@ -95,6 +91,7 @@ body {
   color: var(--purple);
   background: var(--card);
   border-radius: 8px;
+  font-size: 12px;
 }
 
 .grid {
@@ -129,7 +126,7 @@ body {
 }
 
 .day-number {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
   margin-bottom: 5px;
   color: var(--muted);
@@ -173,7 +170,7 @@ body {
 .panel h3 {
   margin-top: 0;
   color: var(--purple);
-  font-size: 18px;
+  font-size: 14px;
   font-weight: bold;
   margin-bottom: 16px;
 }
@@ -201,8 +198,16 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 16px;
   color: #fff;
+}
+
+.item strong {
+  font-size: 12px;
+}
+
+.item small {
+  font-size: 10px;
 }
 
 /* Botão flutuante + */
@@ -210,13 +215,13 @@ body {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  width: 60px;
-  height: 60px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: var(--purple);
   color: white;
   border: none;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: bold;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(123, 44, 255, 0.4);
@@ -273,6 +278,7 @@ body {
 .box h2 {
   margin: 0 0 20px 0;
   color: var(--purple);
+  font-size: 18px;
 }
 
 input, select, textarea {
@@ -284,6 +290,7 @@ input, select, textarea {
   background: var(--bg);
   color: var(--text);
   font-family: inherit;
+  font-size: 12px;
 }
 
 input:focus, select:focus, textarea:focus {
@@ -298,6 +305,7 @@ button {
   cursor: pointer;
   font-weight: bold;
   transition: all 0.2s;
+  font-size: 12px;
 }
 
 button:active {
@@ -328,6 +336,7 @@ button:active {
   color: #fff;
   animation: slideIn 0.3s ease;
   z-index: 2000;
+  font-size: 12px;
 }
 
 .toast.success { background: var(--success); }
@@ -372,10 +381,11 @@ button:active {
   }
   
   .panel h3 {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
   }
   
+  /* Esconde elementos pesados no mobile */
   .weekdays, .grid, .calendar-header {
     display: none;
   }
@@ -386,18 +396,428 @@ button:active {
   }
   
   .floating-btn {
-    width: 56px;
-    height: 56px;
-    font-size: 28px;
+    width: 52px;
+    height: 52px;
+    font-size: 26px;
     bottom: 20px;
     right: 20px;
+  }
+  
+  .item strong {
+    font-size: 12px;
+  }
+  
+  .item small {
+    font-size: 10px;
+  }
+  
+  .dateBox {
+    min-width: 44px;
+    height: 44px;
+    font-size: 14px;
   }
 }
 </style>
 </head>
 <body>
 
-<!-- TODO SEU HTML + JS CONTINUA IGUAL (não alterei nada) -->
+<div class="layout">
+  <div class="main">
+    <!-- VISÃO DESKTOP (NORMAL) -->
+    <div class="desktop-view">
+      <div class="calendar-header">
+        <button onclick="calendar.prevMonth()" aria-label="Mês anterior">◀</button>
+        <div class="month-title" id="monthTitle"></div>
+        <button onclick="calendar.nextMonth()" aria-label="Próximo mês">▶</button>
+      </div>
+      <div class="weekdays" id="weekdays"></div>
+      <div id="grid" class="grid"></div>
+    </div>
+  </div>
 
+  <div class="panel">
+    <h3>🔗 Conexões Workplace</h3>
+    <div id="list"></div>
+  </div>
+</div>
+
+<!-- Botão flutuante + para criar eventos -->
+<button class="floating-btn" onclick="openModal()">+</button>
+
+<div id="modal" class="modal" role="dialog" aria-modal="true">
+  <div class="box">
+    <h2 id="modalTitle">Novo Compromisso</h2>
+    <form onsubmit="event.preventDefault(); save();">
+      <input id="title" placeholder="Título" required autocomplete="off">
+      
+      <select id="tipo">
+        <option value="reuniao">Reunião</option>
+        <option value="evento">Evento</option>
+        <option value="chg">Mudança (CHG)</option>
+        <option value="outro">Outros</option>
+      </select>
+      
+      <input type="date" id="start" required>
+      <input type="date" id="end">
+      <input type="time" id="time">
+      
+      <select id="duration">
+        <option>Dia inteiro</option>
+        <option selected>30 min</option>
+        <option>1 hora</option>
+      </select>
+      
+      <textarea id="obs" placeholder="Observações" rows="3"></textarea>
+      
+      <button type="submit" class="btn-primary" style="width:100%">Salvar</button>
+      <button type="button" onclick="deleteEvent()" class="btn-danger" style="width:100%;margin-top:8px;">Excluir</button>
+      <button type="button" onclick="closeModal()" class="btn-secondary" style="width:100%;margin-top:8px;">Fechar</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// ==================== CONFIGURAÇÃO DO SUPABASE ====================
+const SUPABASE_URL = "https://wffjntjupnsvtvqxfihw.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_7Ma1Z2nNPHPxKtdfasln_w_ptK2--lb";
+
+// ==================== CORES ====================
+const COLORS = {
+  reuniao: "#3b82f6",
+  evento: "#22c55e",
+  chg: "#ef4444",
+  outro: "#a855f7"
+};
+
+const BG_COLORS = {
+  reuniao: "rgba(59,130,246,0.15)",
+  evento: "rgba(34,197,94,0.15)",
+  chg: "rgba(239,68,68,0.15)",
+  outro: "rgba(168,85,247,0.15)"
+};
+
+let events = [];
+let editId = null;
+let currentDate = new Date();
+
+// ==================== FUNÇÕES SUPABASE ====================
+async function loadEventsFromSupabase() {
+  try {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/eventos?select=*`, {
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      }
+    });
+    events = await response.json();
+    render();
+  } catch (error) {
+    console.error("Erro ao carregar:", error);
+    showToast("Erro ao carregar eventos", "error");
+  }
+}
+
+async function saveToSupabase(event) {
+  try {
+    let response;
+    if (editId) {
+      response = await fetch(`${SUPABASE_URL}/rest/v1/eventos?id=eq.${editId}`, {
+        method: 'PATCH',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(event)
+      });
+    } else {
+      response = await fetch(`${SUPABASE_URL}/rest/v1/eventos`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(event)
+      });
+    }
+    
+    if (response.ok) {
+      showToast(editId ? "Evento atualizado!" : "Evento criado!", "success");
+      await loadEventsFromSupabase();
+      closeModal();
+    } else {
+      throw new Error("Erro no servidor");
+    }
+  } catch (error) {
+    console.error("Erro ao salvar:", error);
+    showToast("Erro ao salvar evento", "error");
+  }
+}
+
+async function deleteFromSupabase() {
+  if (!editId) return;
+  
+  if (confirm("Tem certeza que deseja excluir este compromisso?")) {
+    try {
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/eventos?id=eq.${editId}`, {
+        method: 'DELETE',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+        }
+      });
+      
+      if (response.ok) {
+        showToast("Evento excluído!", "info");
+        await loadEventsFromSupabase();
+        closeModal();
+      } else {
+        throw new Error("Erro ao excluir");
+      }
+    } catch (error) {
+      console.error("Erro ao excluir:", error);
+      showToast("Erro ao excluir evento", "error");
+    }
+  }
+}
+
+// ==================== FUNÇÕES AUXILIARES ====================
+function formatDateLocal(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function showToast(message, type = "info") {
+  const toast = document.createElement("div");
+  toast.className = `toast ${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+function occursOnDay(event, dateStr) {
+  return dateStr >= event.start && dateStr <= event.end;
+}
+
+// ==================== CRUD ====================
+function save() {
+  const event = {
+    id: editId || Date.now(),
+    title: document.getElementById("title").value.trim(),
+    tipo: document.getElementById("tipo").value,
+    start: document.getElementById("start").value,
+    end: document.getElementById("end").value || document.getElementById("start").value,
+    time: document.getElementById("duration").value === "Dia inteiro" ? "" : document.getElementById("time").value,
+    duration: document.getElementById("duration").value,
+    obs: document.getElementById("obs").value
+  };
+  
+  if (!event.title || !event.start) {
+    showToast("Título e data são obrigatórios", "error");
+    return;
+  }
+  
+  saveToSupabase(event);
+}
+
+function deleteEvent() {
+  deleteFromSupabase();
+}
+
+function edit(id) {
+  const event = events.find(e => e.id === id);
+  if (!event) return;
+  
+  editId = id;
+  document.getElementById("modalTitle").textContent = "Editar Compromisso";
+  document.getElementById("title").value = event.title;
+  document.getElementById("tipo").value = event.tipo;
+  document.getElementById("start").value = event.start;
+  document.getElementById("end").value = event.end;
+  document.getElementById("time").value = event.time || "";
+  document.getElementById("duration").value = event.duration;
+  document.getElementById("obs").value = event.obs || "";
+  
+  openModal();
+}
+
+function openModal(date = null) {
+  const modal = document.getElementById("modal");
+  modal.style.display = "flex";
+  
+  if (date) {
+    document.getElementById("start").value = date;
+    document.getElementById("end").value = date;
+  }
+  
+  setTimeout(() => document.getElementById("title").focus(), 100);
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+  editId = null;
+  document.getElementById("modalTitle").textContent = "Novo Compromisso";
+  document.getElementById("title").value = "";
+  document.getElementById("obs").value = "";
+}
+
+// ==================== RENDERIZAÇÃO ====================
+function renderWeekdays() {
+  const weekdays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+  const container = document.getElementById("weekdays");
+  if (container) {
+    container.innerHTML = weekdays.map(day => 
+      `<div class="weekday">${day}</div>`
+    ).join("");
+  }
+}
+
+function renderCalendar() {
+  const grid = document.getElementById("grid");
+  if (!grid) return;
+  grid.innerHTML = "";
+  
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const todayStr = formatDateLocal(new Date());
+  
+  const firstDay = new Date(year, month, 1);
+  const startDate = new Date(year, month, -firstDay.getDay());
+  
+  for (let i = 0; i < 42; i++) {
+    const date = new Date(startDate);
+    date.setDate(startDate.getDate() + i);
+    
+    const dateStr = formatDateLocal(date);
+    const isCurrentMonth = date.getMonth() === month;
+    const isToday = dateStr === todayStr;
+    
+    const cell = document.createElement("div");
+    cell.className = "cell";
+    if (!isCurrentMonth) cell.classList.add("other-month");
+    if (isToday) cell.classList.add("today");
+    
+    cell.onclick = () => openModal(dateStr);
+    
+    const dayNumber = document.createElement("div");
+    dayNumber.className = "day-number";
+    dayNumber.textContent = date.getDate();
+    cell.appendChild(dayNumber);
+    
+    const eventsContainer = document.createElement("div");
+    eventsContainer.className = "events-container";
+    
+    const dayEvents = events.filter(ev => occursOnDay(ev, dateStr));
+    
+    dayEvents.slice(0, 3).forEach(ev => {
+      const eventEl = document.createElement("div");
+      eventEl.className = "event";
+      eventEl.style.background = COLORS[ev.tipo];
+      eventEl.textContent = ev.duration === "Dia inteiro" 
+        ? `📅 ${ev.title}`
+        : `${ev.time || "00:00"} ${ev.title}`;
+      eventEl.onclick = (e) => {
+        e.stopPropagation();
+        edit(ev.id);
+      };
+      eventsContainer.appendChild(eventEl);
+    });
+    
+    if (dayEvents.length > 3) {
+      const moreEl = document.createElement("div");
+      moreEl.className = "event";
+      moreEl.style.background = "var(--muted)";
+      moreEl.textContent = `+${dayEvents.length - 3} mais`;
+      moreEl.onclick = (e) => {
+        e.stopPropagation();
+        showToast(`${dayEvents.length} eventos neste dia`, "info");
+      };
+      eventsContainer.appendChild(moreEl);
+    }
+    
+    cell.appendChild(eventsContainer);
+    grid.appendChild(cell);
+  }
+  
+  const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                      "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+  const monthTitle = document.getElementById("monthTitle");
+  if (monthTitle) {
+    monthTitle.textContent = `${monthNames[month]} ${year}`;
+  }
+}
+
+function renderList() {
+  const list = document.getElementById("list");
+  if (!list) return;
+  list.innerHTML = "";
+  
+  const sorted = [...events].sort((a, b) => a.start.localeCompare(b.start));
+  
+  if (sorted.length === 0) {
+    list.innerHTML = '<div style="text-align:center;color:var(--muted);padding:40px;">Nenhum compromisso agendado</div>';
+    return;
+  }
+  
+  sorted.forEach(ev => {
+    const item = document.createElement("div");
+    item.className = "item";
+    item.style.borderLeft = `5px solid ${COLORS[ev.tipo]}`;
+    item.style.background = BG_COLORS[ev.tipo];
+    item.onclick = () => edit(ev.id);
+    
+    const dayNumber = ev.start.split("-")[2];
+    const dateRange = ev.start === ev.end ? ev.start : `${ev.start} → ${ev.end}`;
+    
+    item.innerHTML = `
+      <div class="dateBox" style="background:${COLORS[ev.tipo]}">${dayNumber}</div>
+      <div style="flex:1">
+        <strong>${ev.title}</strong><br>
+        <small>${dateRange}</small><br>
+        <small>${ev.time || "Dia inteiro"} • ${ev.tipo}</small>
+        ${ev.obs ? `<br><small style="color:var(--muted)">📝 ${ev.obs.substring(0, 50)}</small>` : ""}
+      </div>
+    `;
+    
+    list.appendChild(item);
+  });
+}
+
+function render() {
+  renderCalendar();
+  renderList();
+}
+
+// ==================== NAVEGAÇÃO ====================
+const calendar = {
+  prevMonth() {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    renderCalendar();
+  },
+  nextMonth() {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    renderCalendar();
+  }
+};
+
+// ==================== EVENTOS ====================
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
+});
+
+const modal = document.getElementById("modal");
+if (modal) {
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+}
+
+// ==================== INICIALIZAÇÃO ====================
+renderWeekdays();
+loadEventsFromSupabase();
+</script>
 </body>
 </html>
