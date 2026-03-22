@@ -34,8 +34,6 @@
   --red-soft:     rgba(239,68,68,0.15);
   --pink:         #ec4899;
   --pink-soft:    rgba(236,72,153,0.15);
-  --orange:       #f97316;
-  --orange-soft:  rgba(249,115,22,0.15);
   --cyan:         #06b6d4;
   --cyan-soft:    rgba(6,182,212,0.15);
 
@@ -513,8 +511,8 @@ body {
 }
 
 .ev-location-tag {
-  background: rgba(6,182,212,0.15);
-  color: #06b6d4;
+  background: var(--cyan-soft);
+  color: var(--cyan);
 }
 
 .ev-obs-preview {
@@ -925,7 +923,7 @@ body {
         </div>
       </div>
 
-      <!-- Hora e Duração com mais opções -->
+      <!-- Hora e Duração -->
       <div class="field">
         <label class="field-label">⏰ Horário</label>
         <div class="time-row">
@@ -1048,8 +1046,28 @@ async function loadEvents() {
 async function saveEvent(ev) {
   try {
     let r;
-    if (editId) r = await fetch(`${SUPABASE_URL}/rest/v1/eventos?id=eq.${editId}`, { method:"PATCH", headers, body: JSON.stringify(ev) });
-    else r = await fetch(`${SUPABASE_URL}/rest/v1/eventos`, { method:"POST", headers, body: JSON.stringify(ev) });
+    if (editId) {
+      r = await fetch(`${SUPABASE_URL}/rest/v1/eventos?id=eq.${editId}`, { 
+        method: "PATCH", 
+        headers, 
+        body: JSON.stringify({
+          title: ev.title,
+          tipo: ev.tipo,
+          start: ev.start,
+          end: ev.end,
+          time: ev.time,
+          duration: ev.duration,
+          obs: ev.obs,
+          locations: ev.locations || null
+        })
+      });
+    } else {
+      r = await fetch(`${SUPABASE_URL}/rest/v1/eventos`, { 
+        method: "POST", 
+        headers, 
+        body: JSON.stringify(ev)
+      });
+    }
     if (!r.ok) {
       const errorData = await r.text();
       console.error("Erro Supabase:", errorData);
@@ -1140,10 +1158,10 @@ function renderList() {
     const card = document.createElement("div");
     card.className = `ev-card${isNow ? " happening-now" : ""}`;
     
-    // Extrai os locais das observações se existirem
     let locationsHtml = '';
-    if (ev.locations && ev.locations.length) {
-      locationsHtml = `<div class="ev-meta">${ev.locations.map(loc => `<span class="ev-tag ev-location-tag">📍 ${loc}</span>`).join('')}</div>`;
+    if (ev.locations) {
+      const locs = ev.locations.split(',').map(l => l.trim());
+      locationsHtml = `<div class="ev-meta">${locs.map(loc => `<span class="ev-tag ev-location-tag">📍 ${loc}</span>`).join('')}</div>`;
     }
     
     card.innerHTML = `${isNow ? '<div class="happening-badge">🔴 ACONTECENDO AGORA</div>' : ''}<div class="ev-date-badge" style="background:${cfg.soft};color:${cfg.color}"><div class="day">${day}</div><div class="month">${mon}</div></div><div class="ev-info"><div class="ev-title">${escapeHtml(ev.title)}</div><div class="ev-time">${dateRange} ${ev.time&&ev.duration!=="Dia inteiro"?" • "+ev.time:""}</div><div class="ev-meta"><span class="ev-tag" style="background:${cfg.soft};color:${cfg.color}">${cfg.icon} ${cfg.label}</span>${ev.duration ? `<span class="ev-tag" style="background:rgba(255,255,255,0.05)">⏱ ${ev.duration}</span>` : ""}</div>${locationsHtml}${ev.obs ? `<div class="ev-obs-preview">📝 ${escapeHtml(ev.obs.substring(0,120))}${ev.obs.length>120?"…":""}</div>` : ""}</div>`;
@@ -1179,7 +1197,6 @@ function initTypeButtons() {
       $("tipoInput").value = selectedType;
     });
   });
-  // Ativar o primeiro por padrão
   document.querySelector('.type-btn[data-type="reuniao"]').classList.add('active');
   $("tipoInput").value = "reuniao";
 }
@@ -1213,8 +1230,9 @@ function resetLocations() {
 
 function setLocationsFromEvent(locations) {
   resetLocations();
-  if (locations && locations.length) {
-    locations.forEach(loc => {
+  if (locations) {
+    const locsArray = locations.split(',').map(l => l.trim());
+    locsArray.forEach(loc => {
       const checkbox = document.querySelector(`.location-checkbox input[value="${loc}"]`);
       if (checkbox) {
         checkbox.checked = true;
@@ -1237,7 +1255,6 @@ function openModal(date = null) {
   if ($("durationInput")) $("durationInput").value = "30 min";
   if ($("obsInput")) $("obsInput").value = "";
   
-  // Reset tipo
   selectedType = "reuniao";
   document.querySelectorAll('.type-btn').forEach(btn => {
     btn.classList.remove('active');
@@ -1245,7 +1262,6 @@ function openModal(date = null) {
   });
   $("tipoInput").value = "reuniao";
   
-  // Reset locais
   resetLocations();
   
   $("modalOverlay").classList.add("open");
@@ -1257,7 +1273,6 @@ function openEdit(id) {
   $("titleInput").value = ev.title; $("startInput").value = ev.start; $("endInput").value = ev.end || ev.start;
   $("timeInput").value = ev.time || ""; $("durationInput").value = ev.duration || "30 min"; $("obsInput").value = ev.obs || "";
   
-  // Set tipo
   const tipo = ev.tipo || "reuniao";
   selectedType = tipo;
   document.querySelectorAll('.type-btn').forEach(btn => {
@@ -1266,8 +1281,7 @@ function openEdit(id) {
   });
   $("tipoInput").value = tipo;
   
-  // Set locais
-  setLocationsFromEvent(ev.locations || []);
+  setLocationsFromEvent(ev.locations);
   
   $("modalOverlay").classList.add("open");
 }
@@ -1275,18 +1289,11 @@ function openEdit(id) {
 function closeModal() { $("modalOverlay").classList.remove("open"); editId = null; }
 
 // ================================================================
-//  SALVAR EVENTO - COM LOCAIS
+//  SALVAR EVENTO
 // ================================================================
 $("saveBtn")?.addEventListener("click", () => {
   const title = $("titleInput")?.value.trim(), start = $("startInput")?.value;
   if (!title || !start) { toast("Título e data obrigatórios", "error"); return; }
-  
-  // Combina locais com observações
-  let obsText = $("obsInput").value.trim();
-  if (selectedLocations.length > 0) {
-    const locationsText = `📍 Locais: ${selectedLocations.join(", ")}`;
-    obsText = obsText ? `${locationsText}\n\n${obsText}` : locationsText;
-  }
   
   const eventData = {
     id: editId || Date.now(),
@@ -1296,8 +1303,8 @@ $("saveBtn")?.addEventListener("click", () => {
     end: $("endInput").value || start,
     time: $("durationInput").value === "Dia inteiro" ? "" : $("timeInput").value,
     duration: $("durationInput").value,
-    obs: obsText,
-    locations: selectedLocations
+    obs: $("obsInput").value.trim(),
+    locations: selectedLocations.length > 0 ? selectedLocations.join(", ") : null
   };
   saveEvent(eventData);
 });
