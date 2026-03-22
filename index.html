@@ -6,7 +6,6 @@
 <title>Agenda Workplace - Smart Edition</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
 <style>
 /* =============================================
@@ -319,7 +318,7 @@ body {
   overflow: hidden;
 }
 
-/* HEADER DO SIDEBAR COM BADGE */
+/* HEADER DO SIDEBAR */
 .sidebar-header {
   padding: 16px 16px 8px;
   border-bottom: 1px solid var(--border);
@@ -349,7 +348,7 @@ body {
   padding: 12px 16px 16px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .ev-card {
@@ -368,7 +367,7 @@ body {
   transform: translateX(3px);
 }
 
-/* BADGE ACONTECENDO AGORA - CORRIGIDO */
+/* BADGE ACONTECENDO AGORA */
 .ev-card.happening-now {
   border-left: 4px solid var(--green);
   background: linear-gradient(135deg, var(--surface2), rgba(16,185,129,0.1));
@@ -453,12 +452,18 @@ body {
   font-weight: 600;
 }
 
+/* OBSERVAÇÕES - AGORA EM BRANCO E LEGÍVEL */
 .ev-obs-preview {
-  font-size: 10px;
-  color: var(--text3);
-  margin-top: 6px;
-  padding-top: 4px;
-  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: #ffffff;  /* BRANCO PURO - FICOU MAIS LEGÍVEL */
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  line-height: 1.4;
+  font-weight: 400;
+  background: rgba(0,0,0,0.2);
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
 }
 
 .empty-state {
@@ -470,7 +475,7 @@ body {
 .empty-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.5; }
 .empty-text { font-size: 13px; font-weight: 500; }
 
-/* MODAL (mesmo anterior) */
+/* MODAL */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -659,6 +664,7 @@ body {
   .ev-date-badge { width: 40px; height: 40px; }
   .ev-date-badge .day { font-size: 14px; }
   .ev-info { margin-left: 52px; }
+  .ev-obs-preview { font-size: 10px; }
 }
 </style>
 </head>
@@ -719,7 +725,7 @@ body {
       <div class="field"><label class="field-label">Título *</label><input type="text" id="titleInput" class="field-input" placeholder="Nome do compromisso…"></div>
       <div class="field"><div class="date-row"><div><label class="field-label">Início *</label><input type="date" id="startInput" class="field-input"></div><div><label class="field-label">Fim</label><input type="date" id="endInput" class="field-input"></div></div></div>
       <div class="field"><div class="time-row"><div><label class="field-label">Hora</label><input type="time" id="timeInput" class="field-input"></div><div><label class="field-label">Duração</label><select id="durationInput" class="field-input"><option>Dia inteiro</option><option selected>30 min</option><option>1 hora</option></select></div></div></div>
-      <div class="field"><label class="field-label">Observações</label><textarea id="obsInput" class="field-input" rows="2"></textarea></div>
+      <div class="field"><label class="field-label">Observações</label><textarea id="obsInput" class="field-input" rows="2" placeholder="Detalhes importantes..."></textarea></div>
       <div class="modal-actions"><button class="btn-save" id="saveBtn">💾 Salvar</button><div class="btn-row"><button class="btn-del" id="deleteBtn" style="display:none">🗑 Excluir</button><button class="btn-cancel" id="cancelBtn">Fechar</button></div></div>
     </div>
   </div>
@@ -845,7 +851,6 @@ function renderCalendar() {
 function renderList() {
   const list = $("eventsList");
   if (!list) return;
-  const today = toLocalStr(new Date());
   let filtered = [...allEvents].sort((a,b) => a.start.localeCompare(b.start));
   if (!filtered.length) { list.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">Nenhum compromisso</div></div>`; $("totalCount").textContent = "0"; return; }
   $("totalCount").textContent = filtered.length;
@@ -856,9 +861,19 @@ function renderList() {
     const dateRange = ev.start === (ev.end||ev.start) ? `${day}/${MONTH_SHORT[parseInt(ev.start.split("-")[1])-1]}` : `${ev.start.split("-")[2]}/${MONTH_SHORT[parseInt(ev.start.split("-")[1])-1]} → ${(ev.end||ev.start).split("-")[2]}/${MONTH_SHORT[parseInt((ev.end||ev.start).split("-")[1])-1]}`;
     const card = document.createElement("div");
     card.className = `ev-card${isNow ? " happening-now" : ""}`;
-    card.innerHTML = `${isNow ? '<div class="happening-badge">🔴 ACONTECENDO AGORA</div>' : ''}<div class="ev-date-badge" style="background:${cfg.soft};color:${cfg.color}"><div class="day">${day}</div><div class="month">${mon}</div></div><div class="ev-info"><div class="ev-title">${ev.title}</div><div class="ev-time">${dateRange} ${ev.time&&ev.duration!=="Dia inteiro"?" • "+ev.time:""}</div><div class="ev-meta"><span class="ev-tag" style="background:${cfg.soft};color:${cfg.color}">${cfg.icon} ${cfg.label}</span>${ev.duration ? `<span class="ev-tag" style="background:rgba(255,255,255,0.05)">⏱ ${ev.duration}</span>` : ""}</div>${ev.obs ? `<div class="ev-obs-preview">📝 ${ev.obs.substring(0,60)}${ev.obs.length>60?"…":""}</div>` : ""}</div>`;
+    card.innerHTML = `${isNow ? '<div class="happening-badge">🔴 ACONTECENDO AGORA</div>' : ''}<div class="ev-date-badge" style="background:${cfg.soft};color:${cfg.color}"><div class="day">${day}</div><div class="month">${mon}</div></div><div class="ev-info"><div class="ev-title">${escapeHtml(ev.title)}</div><div class="ev-time">${dateRange} ${ev.time&&ev.duration!=="Dia inteiro"?" • "+ev.time:""}</div><div class="ev-meta"><span class="ev-tag" style="background:${cfg.soft};color:${cfg.color}">${cfg.icon} ${cfg.label}</span>${ev.duration ? `<span class="ev-tag" style="background:rgba(255,255,255,0.05)">⏱ ${ev.duration}</span>` : ""}</div>${ev.obs ? `<div class="ev-obs-preview">📝 ${escapeHtml(ev.obs.substring(0,120))}${ev.obs.length>120?"…":""}</div>` : ""}</div>`;
     card.addEventListener("click", () => openEdit(ev.id));
     list.appendChild(card);
+  });
+}
+
+function escapeHtml(str) {
+  if (!str) return "";
+  return str.replace(/[&<>]/g, function(m) {
+    if (m === '&') return '&amp;';
+    if (m === '<') return '&lt;';
+    if (m === '>') return '&gt;';
+    return m;
   });
 }
 
