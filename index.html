@@ -51,13 +51,11 @@
   --shadow-lg:    0 8px 40px rgba(0,0,0,0.6);
 
   --transition:   all 0.2s cubic-bezier(0.4,0,0.2,1);
-  --sidebar-w:    420px;
+  --sidebar-w:    480px; /* SIDEBAR MAIOR */
   --header-h:     64px;
 }
 
-/* =============================================
-   MODO CLARO
-   ============================================= */
+/* MODO CLARO */
 body.light-mode {
   --bg:           #f5f5f7;
   --bg2:          #e8e8ec;
@@ -210,7 +208,6 @@ body {
   gap: 12px;
 }
 
-/* Botões de ação */
 .action-btn {
   background: var(--surface2);
   border: 1px solid var(--border);
@@ -250,20 +247,21 @@ body {
   box-shadow: 0 4px 20px rgba(124,58,237,0.5);
 }
 
-/* CALENDÁRIO REDUZIDO */
+/* CALENDÁRIO REDUZIDO (MENOS ALTURA) */
 .main {
   display: flex;
   flex-direction: column;
   overflow: hidden;
   background: var(--bg);
-  padding: 12px 16px 12px;
-  gap: 8px;
+  padding: 10px 12px 10px;
+  gap: 6px;
+  max-height: 100%;
 }
 
 .weekdays-row {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+  gap: 3px;
 }
 
 .weekday-label {
@@ -285,6 +283,8 @@ body {
   gap: 3px;
   flex: 1;
   min-height: 0;
+  max-height: 280px;
+  overflow-y: auto;
 }
 
 .day-cell {
@@ -296,7 +296,7 @@ body {
   transition: var(--transition);
   display: flex;
   flex-direction: column;
-  min-height: 65px;
+  min-height: 55px;
 }
 
 .day-cell:hover {
@@ -349,7 +349,7 @@ body {
   cursor: pointer;
 }
 
-/* SIDEBAR - APENAS COMPROMISSOS COM SCROLL */
+/* SIDEBAR MAIOR COM SCROLL */
 .sidebar {
   background: var(--surface);
   border-left: 1px solid var(--border);
@@ -359,7 +359,6 @@ body {
   height: 100%;
 }
 
-/* HEADER DO SIDEBAR */
 .sidebar-header {
   padding: 16px 16px 8px;
   border-bottom: 1px solid var(--border);
@@ -383,7 +382,7 @@ body {
   color: var(--purple-light);
 }
 
-/* LISTA DE COMPROMISSOS COM SCROLL */
+/* LISTA DE COMPROMISSOS COM SCROLL - TODOS OS EVENTOS APARECEM */
 .events-list {
   flex: 1;
   overflow-y: auto;
@@ -395,7 +394,6 @@ body {
   min-height: 0;
 }
 
-/* Força o scroll a aparecer quando necessário */
 .events-list::-webkit-scrollbar {
   width: 6px;
 }
@@ -738,17 +736,125 @@ body {
   font-weight: 600;
 }
 
+/* =============================================
+   MOBILE - REMOVE SIDEBAR, EXPANDE COMPROMISSOS
+   ============================================= */
 @media (max-width: 768px) {
-  .app { display: flex; flex-direction: column; height: auto; }
-  .header .add-btn { display: none; }
-  .header .action-btn { display: none; }
-  .main { display: none; }
-  .sidebar { width: 100%; border-left: none; border-top: 1px solid var(--border); height: auto; min-height: 60vh; }
-  .fab-mobile { display: flex; align-items: center; justify-content: center; }
-  .ev-date-badge { width: 40px; height: 40px; }
-  .ev-date-badge .day { font-size: 14px; }
-  .ev-info { margin-left: 52px; }
-  .ev-obs-preview { font-size: 10px; }
+  .app {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0 12px;
+  }
+  
+  .header .add-btn {
+    display: none;
+  }
+  
+  .header .action-btn {
+    display: none;
+  }
+  
+  .header-center {
+    gap: 4px;
+  }
+  
+  .month-display {
+    font-size: 12px;
+    min-width: 120px;
+  }
+  
+  .nav-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+  
+  .btn-today {
+    padding: 4px 10px;
+    font-size: 10px;
+  }
+  
+  .brand-sub {
+    display: none;
+  }
+  
+  /* ESCONDE CALENDÁRIO NO MOBILE */
+  .main {
+    display: none;
+  }
+  
+  /* SIDEBAR VIRA CONTEÚDO PRINCIPAL EM TELA CHEIA */
+  .sidebar {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid var(--border);
+    height: auto;
+    min-height: calc(100vh - 64px);
+    flex: 1;
+  }
+  
+  .sidebar-header {
+    padding: 12px 16px;
+  }
+  
+  .sidebar-title {
+    font-size: 16px;
+  }
+  
+  .events-list {
+    padding: 12px 16px 80px;
+    gap: 16px;
+  }
+  
+  .ev-card {
+    padding: 16px;
+  }
+  
+  .ev-date-badge {
+    width: 52px;
+    height: 52px;
+  }
+  
+  .ev-date-badge .day {
+    font-size: 20px;
+  }
+  
+  .ev-info {
+    margin-left: 64px;
+  }
+  
+  .ev-title {
+    font-size: 14px;
+  }
+  
+  .ev-time {
+    font-size: 11px;
+  }
+  
+  .ev-obs-preview {
+    font-size: 12px;
+  }
+  
+  .happening-badge {
+    font-size: 10px;
+    padding: 4px 12px;
+    top: -12px;
+    right: 16px;
+  }
+  
+  .fab-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 </style>
 </head>
