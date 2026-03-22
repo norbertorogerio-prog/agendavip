@@ -689,7 +689,6 @@ body {
 }
 .date-row, .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-/* Duração com mais opções */
 .duration-select {
   width: 100%;
   background: var(--surface2);
@@ -956,7 +955,7 @@ body {
             <label for="loc_workvivo">💻 Workvivo</label>
           </div>
           <div class="location-checkbox" data-location="teams">
-            <input type="checkbox" id="loc_teams" value="Teams">
+            <input type="checkbox" id="loc_teams" value="Microsoft Teams">
             <label for="loc_teams">🎥 Microsoft Teams</label>
           </div>
           <div class="location-checkbox" data-location="auditorio_berrini">
@@ -1051,11 +1050,18 @@ async function saveEvent(ev) {
     let r;
     if (editId) r = await fetch(`${SUPABASE_URL}/rest/v1/eventos?id=eq.${editId}`, { method:"PATCH", headers, body: JSON.stringify(ev) });
     else r = await fetch(`${SUPABASE_URL}/rest/v1/eventos`, { method:"POST", headers, body: JSON.stringify(ev) });
-    if (!r.ok) throw new Error();
-    toast(editId ? "Atualizado!" : "Criado!", "success");
+    if (!r.ok) {
+      const errorData = await r.text();
+      console.error("Erro Supabase:", errorData);
+      throw new Error(errorData);
+    }
+    toast(editId ? "Atualizado! 🎉" : "Criado! 🎉", "success");
     await loadEvents();
     closeModal();
-  } catch { toast("Erro ao salvar", "error"); }
+  } catch (err) {
+    console.error("Erro ao salvar:", err);
+    toast("Erro ao salvar compromisso. Verifique os dados.", "error");
+  }
 }
 
 async function deleteEvent() {
@@ -1134,7 +1140,7 @@ function renderList() {
     const card = document.createElement("div");
     card.className = `ev-card${isNow ? " happening-now" : ""}`;
     
-    // Monta os locais selecionados
+    // Extrai os locais das observações se existirem
     let locationsHtml = '';
     if (ev.locations && ev.locations.length) {
       locationsHtml = `<div class="ev-meta">${ev.locations.map(loc => `<span class="ev-tag ev-location-tag">📍 ${loc}</span>`).join('')}</div>`;
@@ -1269,11 +1275,18 @@ function openEdit(id) {
 function closeModal() { $("modalOverlay").classList.remove("open"); editId = null; }
 
 // ================================================================
-//  SALVAR EVENTO
+//  SALVAR EVENTO - COM LOCAIS
 // ================================================================
 $("saveBtn")?.addEventListener("click", () => {
   const title = $("titleInput")?.value.trim(), start = $("startInput")?.value;
   if (!title || !start) { toast("Título e data obrigatórios", "error"); return; }
+  
+  // Combina locais com observações
+  let obsText = $("obsInput").value.trim();
+  if (selectedLocations.length > 0) {
+    const locationsText = `📍 Locais: ${selectedLocations.join(", ")}`;
+    obsText = obsText ? `${locationsText}\n\n${obsText}` : locationsText;
+  }
   
   const eventData = {
     id: editId || Date.now(),
@@ -1283,8 +1296,8 @@ $("saveBtn")?.addEventListener("click", () => {
     end: $("endInput").value || start,
     time: $("durationInput").value === "Dia inteiro" ? "" : $("timeInput").value,
     duration: $("durationInput").value,
-    obs: $("obsInput").value.trim(),
-    locations: [...selectedLocations] // salva os locais selecionados
+    obs: obsText,
+    locations: selectedLocations
   };
   saveEvent(eventData);
 });
