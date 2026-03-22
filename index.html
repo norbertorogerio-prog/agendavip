@@ -56,7 +56,7 @@
   --transition:   all 0.2s cubic-bezier(0.4,0,0.2,1);
   --transition-slow: all 0.35s cubic-bezier(0.4,0,0.2,1);
 
-  --sidebar-w:    360px;
+  --sidebar-w:    380px;
   --header-h:     64px;
 }
 
@@ -270,26 +270,26 @@ body {
 .add-btn .icon { font-size: 14px; }
 
 /* =============================================
-   MAIN CALENDAR AREA
+   MAIN CALENDAR AREA (REDUZIDO)
    ============================================= */
 .main {
   display: flex;
   flex-direction: column;
   overflow: hidden;
   background: var(--bg);
-  padding: 20px 20px 12px;
-  gap: 12px;
+  padding: 16px 20px 12px;
+  gap: 10px;
 }
 
 .weekdays-row {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
+  gap: 5px;
 }
 
 .weekday-label {
   text-align: center;
-  padding: 8px 4px;
+  padding: 6px 4px;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -306,16 +306,17 @@ body {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(6, 1fr);
-  gap: 5px;
+  gap: 4px;
   flex: 1;
   overflow: hidden;
+  min-height: 0;
 }
 
 .day-cell {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 8px;
+  padding: 6px;
   cursor: pointer;
   transition: var(--transition);
   display: flex;
@@ -355,15 +356,15 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 800;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .day-num {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--text2);
   line-height: 1;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -388,9 +389,9 @@ body {
 }
 
 .ev-pill {
-  font-size: 9.5px;
+  font-size: 9px;
   font-weight: 500;
-  padding: 2px 6px;
+  padding: 2px 5px;
   border-radius: 4px;
   white-space: nowrap;
   overflow: hidden;
@@ -400,7 +401,7 @@ body {
   display: flex;
   align-items: center;
   gap: 4px;
-  line-height: 1.4;
+  line-height: 1.3;
 }
 
 .ev-pill:hover {
@@ -416,16 +417,16 @@ body {
 }
 
 .ev-more {
-  font-size: 9px;
+  font-size: 8px;
   color: var(--text3);
   font-weight: 600;
-  padding: 1px 5px;
+  padding: 1px 4px;
   cursor: pointer;
 }
 .ev-more:hover { color: var(--purple-light); }
 
 /* =============================================
-   SIDEBAR
+   SIDEBAR (MAIOR)
    ============================================= */
 .sidebar {
   background: var(--surface);
@@ -586,14 +587,6 @@ body {
   align-items: flex-start;
   position: relative;
   overflow: hidden;
-}
-
-.ev-card::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  border-radius: 3px 0 0 3px;
 }
 
 .ev-card:hover {
@@ -992,7 +985,7 @@ body {
 }
 
 /* =============================================
-   MOBILE (≤768px)
+   MOBILE (≤768px) — APENAS LISTA DE COMPROMISSOS
    ============================================= */
 @media (max-width: 768px) {
   body { overflow: auto; }
@@ -1013,44 +1006,62 @@ body {
 
   .header-stats { display: none; }
   .header-date  { display: none; }
+  .brand-sub    { display: none; }
   .header-center { gap: 6px; }
   .month-display { font-size: 14px; min-width: 140px; }
 
-  .brand-sub { display: none; }
-
+  /* ESCONDE O CALENDÁRIO NO MOBILE */
   .main {
-    padding: 12px;
-    overflow: visible;
-    order: 2;
+    display: none;
   }
 
-  .calendar-grid {
-    grid-template-rows: none;
-    height: auto;
-  }
-
-  .day-cell { min-height: 55px; }
-  .ev-pill  { display: none; }
-  .day-num  { font-size: 11px; font-weight: 700; justify-content: center; margin-bottom: 0; }
-
-  .day-cell.has-events::after {
-    content: '';
-    display: block;
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--purple);
-    margin: 3px auto 0;
-  }
-
+  /* SIDEBAR OCUPA A TELA TODA NO MOBILE */
   .sidebar {
-    order: 3;
+    order: 2;
     border-left: none;
     border-top: 1px solid var(--border);
+    width: 100%;
     max-height: none;
     overflow: visible;
+    flex: 1;
   }
 
-  .events-list { max-height: none; overflow: visible; }
+  .events-list {
+    max-height: none;
+    overflow: visible;
+    padding-bottom: 80px;
+  }
+
+  /* ESCONDE O BOTÃO NOVO EVENTO DO HEADER (JÁ TEM O FAB) */
+  .add-btn {
+    display: none;
+  }
+
+  /* Ajuste do FAB (floating button) */
+  .fab-mobile {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--gradient);
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(124,58,237,0.5);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  
+  .fab-mobile:active {
+    transform: scale(0.95);
+  }
 
   .toast-stack { bottom: 16px; right: 12px; left: 12px; }
   .toast-item { max-width: 100%; }
@@ -1060,60 +1071,10 @@ body {
   .date-row, .time-row { grid-template-columns: 1fr; }
 }
 
-/* =============================================
-   CONTEXT MENU (click-day popover)
-   ============================================= */
-.day-popover {
-  position: fixed;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 8px;
-  min-width: 180px;
-  box-shadow: var(--shadow-lg);
-  z-index: 500;
-  animation: fadeIn 0.15s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-.popover-header {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--purple-light);
-  padding: 4px 6px 8px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 4px;
-}
-
-.popover-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 8px;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--text2);
-  transition: var(--transition);
-}
-.popover-item:hover {
-  background: var(--surface2);
-  color: var(--text);
-}
-.popover-item .pi { font-size: 13px; }
-
-/* gradient line decoration */
-.grad-line {
-  height: 2px;
-  background: var(--gradient);
-  border-radius: 2px;
-  margin: 12px 0;
-  opacity: 0.5;
+@media (min-width: 769px) {
+  .fab-mobile {
+    display: none;
+  }
 }
 </style>
 </head>
@@ -1209,6 +1170,9 @@ body {
     <div class="events-list" id="eventsList"></div>
   </aside>
 </div>
+
+<!-- FAB para mobile -->
+<button class="fab-mobile" id="fabMobileBtn">+</button>
 
 <!-- ===== MODAL ===== -->
 <div class="modal-overlay" id="modalOverlay">
@@ -1389,8 +1353,10 @@ async function loadEvents() {
     toast("Erro ao carregar eventos", "error");
   } finally {
     const overlay = $("loadingOverlay");
-    overlay.classList.add("hidden");
-    setTimeout(() => overlay.remove(), 500);
+    if (overlay) {
+      overlay.classList.add("hidden");
+      setTimeout(() => overlay.remove(), 500);
+    }
   }
 }
 
@@ -1408,7 +1374,8 @@ async function saveEvent(ev) {
     toast(editId ? "Compromisso atualizado! 🎉" : "Compromisso criado! 🎉", "success");
     await loadEvents();
     closeModal();
-  } catch {
+  } catch (err) {
+    console.error(err);
     toast("Erro ao salvar compromisso", "error");
   }
 }
@@ -1434,6 +1401,8 @@ async function deleteEvent() {
 function renderCalendar() {
   const grid   = $("calendarGrid");
   const wr     = $("weekdaysRow");
+  if (!grid || !wr) return;
+  
   const year   = currentDate.getFullYear();
   const month  = currentDate.getMonth();
   const today  = toLocalStr(new Date());
@@ -1510,6 +1479,7 @@ function renderCalendar() {
 // ================================================================
 function renderList() {
   const list = $("eventsList");
+  if (!list) return;
   list.innerHTML = "";
 
   const today = toLocalStr(new Date());
@@ -1564,9 +1534,7 @@ function renderList() {
     const isPast = ev.end < today;
     const card = document.createElement("div");
     card.className = "ev-card";
-    card.style.cssText = `border-left-color:${cfg.color};opacity:${isPast?0.5:1}`;
-    card.style.setProperty("--ev-color", cfg.color);
-    card.querySelector?.(".ev-card::before")?.style.setProperty("background", cfg.color);
+    card.style.opacity = isPast ? "0.5" : "1";
 
     const dateRange = ev.start === (ev.end||ev.start)
       ? `${day}/${MONTH_SHORT[parseInt(ev.start.split("-")[1])-1]}`
@@ -1578,18 +1546,17 @@ function renderList() {
         <div class="month">${mon}</div>
       </div>
       <div class="ev-info">
-        <div class="ev-title">${ev.title}</div>
+        <div class="ev-title">${escapeHtml(ev.title)}</div>
         <div class="ev-time">${dateRange} ${ev.time&&ev.duration!=="Dia inteiro"?" · "+ev.time:""}</div>
         <div class="ev-meta">
           <span class="ev-tag" style="background:${cfg.soft};color:${cfg.color}">${cfg.icon} ${cfg.label}</span>
           ${ev.duration ? `<span class="ev-tag" style="background:rgba(255,255,255,0.05);color:var(--text3)">⏱ ${ev.duration}</span>` : ""}
           ${isPast ? `<span class="ev-tag" style="background:rgba(255,255,255,0.04);color:var(--text3)">✓ Concluído</span>` : ""}
         </div>
-        ${ev.obs ? `<div class="ev-obs-preview">📝 ${ev.obs.substring(0,55)}${ev.obs.length>55?"…":""}</div>` : ""}
+        ${ev.obs ? `<div class="ev-obs-preview">📝 ${escapeHtml(ev.obs.substring(0,55))}${ev.obs.length>55?"…":""}</div>` : ""}
       </div>`;
 
-    card.style.cssText += `; --before-bg: ${cfg.color}`;
-    // simulate ::before via a pseudo element via inline element
+    // stripe
     const stripe = document.createElement("div");
     stripe.style.cssText = `position:absolute;left:0;top:0;bottom:0;width:3px;background:${cfg.color};border-radius:3px 0 0 3px`;
     card.style.position = "relative";
@@ -1597,6 +1564,16 @@ function renderList() {
 
     card.addEventListener("click", () => openEdit(ev.id));
     list.appendChild(card);
+  });
+}
+
+function escapeHtml(str) {
+  if (!str) return "";
+  return str.replace(/[&<>]/g, function(m) {
+    if (m === '&') return '&amp;';
+    if (m === '<') return '&lt;';
+    if (m === '>') return '&gt;';
+    return m;
   });
 }
 
@@ -1653,70 +1630,84 @@ function closeModal() {
 
 function clearForm() {
   ["titleInput","startInput","endInput","timeInput","obsInput"].forEach(id => {
-    $(id).value = "";
+    if ($(id)) $(id).value = "";
   });
-  $("durationInput").value = "30 min";
+  if ($("durationInput")) $("durationInput").value = "30 min";
 }
 
 function selectType(type) {
   $("tipoInput").value = type;
   ["reuniao","evento","chg","outro"].forEach(t => {
     const btn = $(`tb-${t}`);
-    btn.className = `type-btn${t===type?" active-"+t:""}`;
+    if (btn) {
+      btn.className = `type-btn${t===type?" active-"+t:""}`;
+    }
   });
 }
 
 // Type buttons
 ["reuniao","evento","chg","outro"].forEach(t => {
-  $(`tb-${t}`).addEventListener("click", () => selectType(t));
+  const btn = $(`tb-${t}`);
+  if (btn) {
+    btn.addEventListener("click", () => selectType(t));
+  }
 });
 
 // Save
-$("saveBtn").addEventListener("click", () => {
-  const title = $("titleInput").value.trim();
-  const start = $("startInput").value;
-  if (!title || !start) { toast("Título e data de início são obrigatórios", "error"); return; }
+if ($("saveBtn")) {
+  $("saveBtn").addEventListener("click", () => {
+    const title = $("titleInput").value.trim();
+    const start = $("startInput").value;
+    if (!title || !start) { toast("Título e data de início são obrigatórios", "error"); return; }
 
-  const ev = {
-    id:       editId || Date.now(),
-    title,
-    tipo:     $("tipoInput").value,
-    start,
-    end:      $("endInput").value || start,
-    time:     $("durationInput").value === "Dia inteiro" ? "" : $("timeInput").value,
-    duration: $("durationInput").value,
-    obs:      $("obsInput").value.trim()
-  };
-  saveEvent(ev);
-});
+    const ev = {
+      id:       editId || Date.now(),
+      title,
+      tipo:     $("tipoInput").value,
+      start,
+      end:      $("endInput").value || start,
+      time:     $("durationInput").value === "Dia inteiro" ? "" : $("timeInput").value,
+      duration: $("durationInput").value,
+      obs:      $("obsInput").value.trim()
+    };
+    saveEvent(ev);
+  });
+}
 
-$("deleteBtn").addEventListener("click", deleteEvent);
-$("cancelBtn").addEventListener("click", closeModal);
-$("modalCloseBtn").addEventListener("click", closeModal);
+if ($("deleteBtn")) $("deleteBtn").addEventListener("click", deleteEvent);
+if ($("cancelBtn")) $("cancelBtn").addEventListener("click", closeModal);
+if ($("modalCloseBtn")) $("modalCloseBtn").addEventListener("click", closeModal);
 
 // click outside closes
-$("modalOverlay").addEventListener("click", e => {
-  if (e.target === $("modalOverlay")) closeModal();
-});
+if ($("modalOverlay")) {
+  $("modalOverlay").addEventListener("click", e => {
+    if (e.target === $("modalOverlay")) closeModal();
+  });
+}
 
 // ================================================================
 //  NAVIGATION
 // ================================================================
-$("prevBtn").addEventListener("click", () => {
+if ($("prevBtn")) $("prevBtn").addEventListener("click", () => {
   currentDate.setMonth(currentDate.getMonth()-1);
   render();
 });
-$("nextBtn").addEventListener("click", () => {
+if ($("nextBtn")) $("nextBtn").addEventListener("click", () => {
   currentDate.setMonth(currentDate.getMonth()+1);
   render();
 });
-$("todayBtn").addEventListener("click", () => {
+if ($("todayBtn")) $("todayBtn").addEventListener("click", () => {
   currentDate = new Date();
   render();
   toast("Navegando para hoje", "info");
 });
 
-$("addBtn").addEventListener("click", () => openModal());
+if ($("addBtn")) $("addBtn").addEventListener("click", () => openModal());
+
+// FAB mobile
+if ($("fabMobileBtn")) {
+  $("fabMobileBtn").addEventListener("click", () => openModal());
+}
 
 // ================================================================
 //  FILTERS & SEARCH
@@ -1730,17 +1721,19 @@ document.querySelectorAll(".filter-tab").forEach(btn => {
   });
 });
 
-$("searchInput").addEventListener("input", e => {
-  searchTerm = e.target.value.trim();
-  renderList();
-});
+if ($("searchInput")) {
+  $("searchInput").addEventListener("input", e => {
+    searchTerm = e.target.value.trim();
+    renderList();
+  });
+}
 
 // ================================================================
 //  KEYBOARD
 // ================================================================
 document.addEventListener("keydown", e => {
   if (e.key === "Escape") closeModal();
-  if (e.key === "n" && !$("modalOverlay").classList.contains("open") && e.target.tagName !== "INPUT") {
+  if (e.key === "n" && !$("modalOverlay")?.classList.contains("open") && e.target.tagName !== "INPUT") {
     openModal();
   }
 });
@@ -1751,7 +1744,7 @@ document.addEventListener("keydown", e => {
 function updateHeaderDate() {
   const now = new Date();
   const opts = { weekday:"long", day:"numeric", month:"long" };
-  $("headerDate").textContent = now.toLocaleDateString("pt-BR", opts);
+  if ($("headerDate")) $("headerDate").textContent = now.toLocaleDateString("pt-BR", opts);
 }
 
 // ================================================================
