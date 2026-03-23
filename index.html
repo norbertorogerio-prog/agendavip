@@ -45,8 +45,6 @@ body {
   color: var(--text);
   height: 100vh;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
 body.light-mode {
@@ -69,13 +67,12 @@ body.light-mode {
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
   height: 56px;
-  gap: 12px;
 }
 
 .top-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .logo {
@@ -86,12 +83,12 @@ body.light-mode {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .title {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 600;
   background: linear-gradient(135deg, var(--primary-light), var(--primary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -102,17 +99,15 @@ body.light-mode {
   align-items: center;
   gap: 8px;
   background: var(--card-bg);
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border);
 }
 
 .mini-calendar .month-year {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--primary-light);
-  min-width: 110px;
-  text-align: center;
 }
 
 .mini-calendar .nav-mini {
@@ -120,116 +115,100 @@ body.light-mode {
   border: none;
   color: var(--text2);
   cursor: pointer;
-  font-size: 16px;
-  padding: 0 6px;
+  font-size: 14px;
+  padding: 0 4px;
 }
-
-.search-bar input {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-full);
-  padding: 8px 16px;
-  color: var(--text);
-  font-size: 13px;
-  width: 240px;
-  outline: none;
-}
-
-.search-bar input::placeholder { color: var(--text3); }
 
 .add-button {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border: none;
   color: white;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: var(--radius-full);
-  font-size: 22px;
+  font-size: 20px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
 }
 
 .top-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .theme-btn, .share-btn {
   background: var(--card-bg);
   border: 1px solid var(--border);
   color: var(--text2);
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: var(--radius-full);
   cursor: pointer;
-  font-size: 18px;
-  flex-shrink: 0;
+  font-size: 16px;
 }
 
-/* CONTEÚDO PRINCIPAL */
+/* GRADE DE COMPROMISSOS */
 .compromissos-container {
   flex: 1;
   overflow-y: auto;
-  padding: 20px;
+  padding: 16px 20px;
 }
 
 .compromissos-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 14px;
 }
 
 .event-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 14px;
-  transition: all 0.22s ease;
+  padding: 12px;
+  transition: all 0.2s;
   cursor: pointer;
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .event-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   border-color: var(--primary);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
 }
 
 .badge-now {
   position: absolute;
-  top: -12px;
-  right: 12px;
+  top: -10px;
+  right: 10px;
   background: linear-gradient(135deg, #10b981, #059669);
   color: white;
   font-size: 11px;
   font-weight: 800;
-  padding: 5px 14px;
+  padding: 4px 12px;
   border-radius: 20px;
   z-index: 5;
-  animation: pulse-now 1.6s infinite;
+  animation: pulse-now 1.5s infinite;
 }
 
 @keyframes pulse-now {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.06); }
+  50% { transform: scale(1.05); }
 }
 
 .badge-reminder {
   position: absolute;
-  top: -10px;
-  right: 12px;
+  top: -8px;
+  right: 10px;
   background: linear-gradient(135deg, #f97316, #ef4444);
   color: white;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 700;
-  padding: 3px 10px;
+  padding: 2px 8px;
   border-radius: 20px;
   z-index: 5;
 }
@@ -239,22 +218,22 @@ body.light-mode {
   justify-content: space-between;
   align-items: baseline;
   border-bottom: 1px solid var(--border);
-  padding-bottom: 6px;
+  padding-bottom: 5px;
 }
 
 .card-day {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 800;
   color: var(--primary-light);
 }
 
 .card-date-range {
-  font-size: 10px;
+  font-size: 9px;
   color: var(--text3);
 }
 
 .card-title {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   white-space: nowrap;
   overflow: hidden;
@@ -264,17 +243,17 @@ body.light-mode {
 .card-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 4px;
 }
 
 .meta-tag {
-  font-size: 9px;
-  padding: 3px 8px;
+  font-size: 8px;
+  padding: 2px 6px;
   border-radius: var(--radius-full);
   font-weight: 600;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
 }
 
 .location-tag {
@@ -283,10 +262,10 @@ body.light-mode {
 }
 
 .card-obs {
-  font-size: 10px;
+  font-size: 9px;
   color: var(--text2);
   margin-top: 4px;
-  padding-top: 6px;
+  padding-top: 4px;
   border-top: 1px solid var(--border);
   white-space: nowrap;
   overflow: hidden;
@@ -296,85 +275,81 @@ body.light-mode {
 .empty-state {
   grid-column: 1 / -1;
   text-align: center;
-  padding: 80px 20px;
+  padding: 60px;
   color: var(--text3);
 }
 
 .empty-icon {
-  font-size: 56px;
-  margin-bottom: 20px;
-  opacity: 0.6;
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
 }
 
 /* MODAL */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.82);
+  background: rgba(0,0,0,0.8);
   display: none;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
 }
 .modal-overlay.open { display: flex; }
 .modal-box {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 20px;
-  width: 92%;
-  max-width: 520px;
-  max-height: 88vh;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 85vh;
   overflow-y: auto;
 }
 .modal-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 18px 24px 0;
+  padding: 16px 20px 0;
 }
 .modal-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   background: linear-gradient(135deg, var(--primary-light), var(--primary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .modal-close {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: var(--card-bg);
   color: var(--text3);
   cursor: pointer;
-  font-size: 18px;
 }
-.modal-body { padding: 20px 24px 28px; }
+.modal-body { padding: 16px 20px 20px; }
 
 .type-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin-bottom: 20px;
+  gap: 6px;
+  margin-bottom: 16px;
 }
 .type-btn {
-  padding: 10px 6px;
+  padding: 8px 4px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: var(--card-bg);
   color: var(--text2);
   cursor: pointer;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  transition: all 0.2s;
+  gap: 4px;
 }
-.type-btn .t-icon { font-size: 18px; }
-.type-btn:hover { background: rgba(139,92,246,0.08); }
+.type-btn .t-icon { font-size: 14px; }
 .type-btn.active[data-type="reuniao"] { background: var(--reuniao-soft); border-color: var(--reuniao); color: var(--reuniao); }
 .type-btn.active[data-type="evento"] { background: var(--evento-soft); border-color: var(--evento); color: var(--evento); }
 .type-btn.active[data-type="chg"] { background: var(--chg-soft); border-color: var(--chg); color: var(--chg); }
@@ -383,111 +358,91 @@ body.light-mode {
 .locations-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 6px;
+  margin-bottom: 12px;
 }
 .location-checkbox {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
+  gap: 6px;
+  padding: 6px 10px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: all 0.2s;
 }
 .location-checkbox.selected { border-color: var(--primary); background: var(--primary-soft); }
-.location-checkbox input { width: 16px; height: 16px; cursor: pointer; }
-.location-checkbox label { flex: 1; cursor: pointer; font-size: 12px; }
+.location-checkbox input { width: 14px; height: 14px; cursor: pointer; }
+.location-checkbox label { flex: 1; cursor: pointer; font-size: 11px; }
 
-.field { margin-bottom: 16px; }
+.field { margin-bottom: 12px; }
 .field-label {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--text3);
-  margin-bottom: 6px;
-  display: block;
+  margin-bottom: 5px;
 }
-.field-input, .duration-select {
+.field-input {
   width: 100%;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  padding: 10px 12px;
+  padding: 8px 10px;
   color: var(--text);
-  font-size: 13px;
+  font-size: 12px;
 }
-.date-row, .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.modal-actions { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+.date-row, .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.duration-select {
+  width: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  color: var(--text);
+  font-size: 12px;
+}
+.modal-actions { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }
 .btn-save {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border: none;
   border-radius: var(--radius-sm);
   color: #fff;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
 }
-.btn-row { display: flex; gap: 10px; margin-top: 12px; }
+.btn-row { display: flex; gap: 8px; margin-top: 8px; }
 .btn-del, .btn-cancel {
   flex: 1;
-  padding: 10px;
+  padding: 8px;
   border-radius: var(--radius-sm);
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 600;
   cursor: pointer;
 }
 .btn-del { background: var(--chg-soft); border: 1px solid var(--chg); color: var(--chg); }
 .btn-cancel { background: var(--card-bg); border: 1px solid var(--border); color: var(--text2); }
 
-/* MODAL COMPARTILHAR */
-.share-modal { max-width: 440px; }
-.share-url {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  padding: 16px;
-  border-radius: var(--radius-sm);
-  font-family: monospace;
-  font-size: 14px;
-  word-break: break-all;
-  margin-bottom: 16px;
-  color: var(--text2);
-}
-.copy-btn {
-  width: 100%;
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  color: white;
-  padding: 14px;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-weight: 700;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-/* TOASTS */
 .toast-stack {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: 20px;
+  right: 20px;
   z-index: 9999;
 }
 .toast-item {
-  padding: 10px 16px;
+  padding: 8px 14px;
   border-radius: var(--radius);
   color: #fff;
-  font-size: 13px;
-  margin-top: 8px;
-  animation: fadeIn 0.4s;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  font-size: 11px;
+  margin-top: 6px;
+  animation: fadeIn 0.3s;
 }
 .toast-success { background: var(--evento); }
-.toast-error   { background: var(--chg); }
-.toast-info    { background: var(--primary); }
+.toast-error { background: var(--chg); }
+.toast-info { background: var(--primary); }
 
 .loading-overlay {
   position: fixed;
@@ -500,43 +455,199 @@ body.light-mode {
 }
 .loading-overlay.hidden { display: none; }
 .spinner {
-  width: 40px; height: 40px;
-  border: 4px solid var(--card-bg);
+  width: 36px; height: 36px;
+  border: 3px solid var(--card-bg);
   border-top-color: var(--primary);
   border-radius: 50%;
-  animation: spin 0.9s linear infinite;
+  animation: spin 0.8s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateX(120%); }
-  to   { opacity: 1; transform: translateX(0); }
+  from { opacity: 0; transform: translateX(100%); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-/* RESPONSIVE */
+/* =============================================
+   MOBILE - AJUSTES PARA NÃO QUEBRAR
+   ============================================= */
 @media (max-width: 768px) {
-  body { overflow: auto; height: auto; }
+  body {
+    overflow: auto;
+    height: auto;
+  }
   
   .top-bar {
-    padding: 12px;
+    padding: 8px 12px;
     height: auto;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 8px;
     position: sticky;
     top: 0;
     z-index: 100;
   }
   
-  .top-left { flex: 1; }
-  .search-bar input { width: 100%; }
-  .mini-calendar { order: 3; width: 100%; justify-content: center; margin: 8px 0 4px; }
+  .top-left {
+    flex: 1;
+  }
   
-  .compromissos-container { padding: 16px; }
-  .compromissos-grid { grid-template-columns: 1fr; gap: 14px; }
+  .logo {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
   
-  .type-grid { grid-template-columns: repeat(2, 1fr); }
-  .locations-grid { grid-template-columns: 1fr; }
+  .title {
+    font-size: 12px;
+  }
   
-  .toast-stack { bottom: 16px; right: 16px; left: 16px; }
+  .mini-calendar {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 4px;
+  }
+  
+  .mini-calendar .month-year {
+    font-size: 11px;
+  }
+  
+  .top-right {
+    gap: 6px;
+  }
+  
+  .theme-btn, .share-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+  
+  .add-button {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+  
+  .compromissos-container {
+    padding: 12px;
+    overflow-y: visible;
+  }
+  
+  .compromissos-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .event-card {
+    padding: 12px;
+    margin: 0;
+  }
+  
+  .card-day {
+    font-size: 18px;
+  }
+  
+  .card-title {
+    font-size: 13px;
+    white-space: normal;
+    line-height: 1.4;
+  }
+  
+  .card-meta {
+    gap: 6px;
+  }
+  
+  .meta-tag {
+    font-size: 9px;
+    padding: 3px 8px;
+  }
+  
+  .location-tag {
+    font-size: 9px;
+  }
+  
+  .card-obs {
+    font-size: 10px;
+    white-space: normal;
+    line-height: 1.4;
+  }
+  
+  .badge-now {
+    font-size: 9px;
+    padding: 3px 10px;
+    top: -8px;
+    right: 8px;
+  }
+  
+  .badge-reminder {
+    font-size: 7px;
+    padding: 2px 6px;
+  }
+  
+  .modal-box {
+    width: 95%;
+    margin: 0 auto;
+  }
+  
+  .type-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .locations-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .toast-stack {
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+  }
+  
+  .toast-item {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-bar {
+    padding: 8px 10px;
+  }
+  
+  .top-left {
+    gap: 6px;
+  }
+  
+  .title {
+    font-size: 11px;
+  }
+  
+  .compromissos-container {
+    padding: 10px;
+  }
+  
+  .event-card {
+    padding: 10px;
+  }
+  
+  .card-day {
+    font-size: 16px;
+  }
+  
+  .card-title {
+    font-size: 12px;
+  }
+  
+  .card-date-range {
+    font-size: 8px;
+  }
+  
+  .meta-tag {
+    font-size: 8px;
+    padding: 2px 6px;
+  }
+  
+  .card-obs {
+    font-size: 9px;
+  }
 }
 </style>
 </head>
@@ -558,14 +669,10 @@ body.light-mode {
     <button class="nav-mini" id="nextMonthMini">▶</button>
   </div>
   
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Buscar por título ou observação...">
-  </div>
-  
   <div class="top-right">
-    <button class="theme-btn" id="themeToggleBtn" aria-label="Alternar tema">🌓</button>
-    <button class="share-btn" id="shareBtn" aria-label="Compartilhar agenda">🔗</button>
-    <button class="add-button" id="addBtn" aria-label="Novo compromisso">+</button>
+    <button class="theme-btn" id="themeToggleBtn">🌓</button>
+    <button class="share-btn" id="shareBtn">🔗</button>
+    <button class="add-button" id="addBtn">+</button>
   </div>
 </div>
 
@@ -573,16 +680,12 @@ body.light-mode {
   <div class="compromissos-grid" id="eventsGrid"></div>
 </div>
 
-<!-- MODAL NOVO/EDITAR -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-box">
-    <div class="modal-header">
-      <div class="modal-title" id="modalTitle">Novo Compromisso</div>
-      <button class="modal-close" id="modalCloseBtn">✕</button>
-    </div>
+    <div class="modal-header"><div class="modal-title" id="modalTitle">Novo Compromisso</div><button class="modal-close" id="modalCloseBtn">✕</button></div>
     <div class="modal-body">
-      <div class="field">
-        <label class="field-label">📌 Tipo</label>
+      <div class="field"><label class="field-label">📌 Tipo</label>
         <div class="type-grid" id="typeGrid">
           <button class="type-btn" data-type="reuniao"><span class="t-icon">🤝</span>Reunião</button>
           <button class="type-btn" data-type="evento"><span class="t-icon">🎯</span>Evento</button>
@@ -592,58 +695,18 @@ body.light-mode {
         <input type="hidden" id="tipoInput" value="reuniao">
       </div>
       <div class="field"><label class="field-label">📝 Título *</label><input type="text" id="titleInput" class="field-input" placeholder="Nome do compromisso…"></div>
-      <div class="field">
-        <div class="date-row">
-          <div><label class="field-label">Início *</label><input type="date" id="startInput" class="field-input"></div>
-          <div><label class="field-label">Fim</label><input type="date" id="endInput" class="field-input"></div>
-        </div>
-      </div>
-      <div class="field">
-        <div class="time-row">
-          <div><label class="field-label">Hora</label><input type="time" id="timeInput" class="field-input"></div>
-          <div><label class="field-label">Duração</label>
-            <select id="durationInput" class="duration-select">
-              <option>Dia inteiro</option>
-              <option>30 min</option>
-              <option>1 hora</option>
-              <option>2 horas</option>
-              <option>3 horas</option>
-              <option>4 horas</option>
-              <option>5 horas</option>
-              <option>6 horas</option>
-              <option>8 horas</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="field">
-        <label class="field-label">📍 Locais</label>
-        <div class="locations-grid" id="locationsGrid">
-          <div class="location-checkbox" data-location="workvivo"><input type="checkbox" id="loc_workvivo" value="Workvivo"><label for="loc_workvivo">💻 Workvivo</label></div>
-          <div class="location-checkbox" data-location="teams"><input type="checkbox" id="loc_teams" value="Microsoft Teams"><label for="loc_teams">🎥 Teams</label></div>
-          <div class="location-checkbox" data-location="auditorio_berrini"><input type="checkbox" id="loc_berrini" value="Auditório Berrini"><label for="loc_berrini">🏢 Auditório Berrini</label></div>
-          <div class="location-checkbox" data-location="auditorio_chucri"><input type="checkbox" id="loc_chucri" value="Auditório Chucri"><label for="loc_chucri">🏛️ Auditório Chucri</label></div>
-        </div>
-      </div>
-      <div class="field"><label class="field-label">📝 Observações</label><textarea id="obsInput" class="field-input" rows="3" placeholder="Detalhes importantes..."></textarea></div>
-      <div class="modal-actions">
-        <button class="btn-save" id="saveBtn">💾 Salvar</button>
-        <div class="btn-row">
-          <button class="btn-del" id="deleteBtn" style="display:none">🗑 Excluir</button>
-          <button class="btn-cancel" id="cancelBtn">Cancelar</button>
-        </div>
-      </div>
+      <div class="field"><div class="date-row"><div><label style="font-size:10px">Início *</label><input type="date" id="startInput" class="field-input"></div><div><label style="font-size:10px">Fim</label><input type="date" id="endInput" class="field-input"></div></div></div>
+      <div class="field"><div class="time-row"><div><label style="font-size:10px">Hora</label><input type="time" id="timeInput" class="field-input"></div><div><label style="font-size:10px">Duração</label><select id="durationInput" class="duration-select"><option>Dia inteiro</option><option>30 min</option><option>1 hora</option><option>2 horas</option><option>3 horas</option><option>4 horas</option><option>5 horas</option><option>6 horas</option><option>8 horas</option></select></div></div></div>
+      <div class="field"><label class="field-label">📍 Locais</label><div class="locations-grid" id="locationsGrid"><div class="location-checkbox" data-location="workvivo"><input type="checkbox" id="loc_workvivo" value="Workvivo"><label for="loc_workvivo">💻 Workvivo</label></div><div class="location-checkbox" data-location="teams"><input type="checkbox" id="loc_teams" value="Microsoft Teams"><label for="loc_teams">🎥 Teams</label></div><div class="location-checkbox" data-location="auditorio_berrini"><input type="checkbox" id="loc_berrini" value="Auditório Berrini"><label for="loc_berrini">🏢 Auditório Berrini</label></div><div class="location-checkbox" data-location="auditorio_chucri"><input type="checkbox" id="loc_chucri" value="Auditório Chucri"><label for="loc_chucri">🏛️ Auditório Chucri</label></div></div></div>
+      <div class="field"><label class="field-label">📝 Observações</label><textarea id="obsInput" class="field-input" rows="2" placeholder="Detalhes importantes..."></textarea></div>
+      <div class="modal-actions"><button class="btn-save" id="saveBtn">💾 Salvar</button><div class="btn-row"><button class="btn-del" id="deleteBtn" style="display:none">🗑 Excluir</button><button class="btn-cancel" id="cancelBtn">Fechar</button></div></div>
     </div>
   </div>
 </div>
 
-<!-- MODAL COMPARTILHAR -->
 <div class="modal-overlay" id="shareModalOverlay">
   <div class="modal-box share-modal">
-    <div class="modal-header">
-      <div class="modal-title">🔗 Compartilhar Agenda</div>
-      <button class="modal-close" id="shareModalCloseBtn">✕</button>
-    </div>
+    <div class="modal-header"><div class="modal-title">🔗 Compartilhar</div><button class="modal-close" id="shareModalCloseBtn">✕</button></div>
     <div class="modal-body">
       <div class="share-url" id="shareUrlDisplay">Carregando...</div>
       <button class="copy-btn" id="copyShareBtn">📋 Copiar Link</button>
@@ -655,7 +718,7 @@ body.light-mode {
 
 <script>
 // ================================================================
-//  CONFIG & VARIÁVEIS GLOBAIS
+//  CONFIG SUPABASE
 // ================================================================
 const SUPABASE_URL = "https://wffjntjupnsvtvqxfihw.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_7Ma1Z2nNPHPxKtdfasln_w_ptK2--lb";
@@ -670,97 +733,71 @@ const CONFIG = {
 const MONTH_NAMES = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
 const MONTH_SHORT = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
 
-let allEvents = [];
-let currentDate = new Date();
-let editId = null;
-let searchTerm = "";
+let allEvents = [], currentDate = new Date(), editId = null;
 let reminderCheckInterval = null;
 
 const $ = id => document.getElementById(id);
 
-function toLocalStr(d) {
-  return d.toISOString().split('T')[0];
+function toLocalStr(d) { 
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
 }
 
-function occursOn(ev, dateStr) {
-  return dateStr >= ev.start && dateStr <= (ev.end || ev.start);
-}
+function occursOn(ev, dateStr) { return dateStr >= ev.start && dateStr <= (ev.end || ev.start); }
 
 function toast(msg, type = "info") {
   const el = document.createElement("div");
   el.className = `toast-item toast-${type}`;
   el.textContent = msg;
   $("toastStack").appendChild(el);
-  setTimeout(() => el.remove(), 3800);
+  setTimeout(() => el.remove(), 3000);
 }
 
-const headers = {
-  "apikey": SUPABASE_ANON_KEY,
-  "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-  "Content-Type": "application/json"
-};
+const headers = { "apikey": SUPABASE_ANON_KEY, "Authorization": `Bearer ${SUPABASE_ANON_KEY}`, "Content-Type": "application/json" };
 
 async function loadEvents() {
   try {
     const r = await fetch(`${SUPABASE_URL}/rest/v1/eventos?select=*&order=start.asc`, { headers });
-    if (!r.ok) throw new Error(r.status);
+    if (!r.ok) throw new Error();
     allEvents = await r.json();
     render();
     startReminderCheck();
-  } catch (err) {
-    console.error(err);
-    toast("Erro ao carregar compromissos", "error");
-  } finally {
-    $("loadingOverlay")?.classList.add("hidden");
-  }
+  } catch { toast("Erro ao carregar", "error"); }
+  finally { $("loadingOverlay")?.classList.add("hidden"); }
 }
 
 async function saveEvent(ev) {
   try {
     let r;
     if (editId) {
-      r = await fetch(`${SUPABASE_URL}/rest/v1/eventos?id=eq.${editId}`, {
-        method: "PATCH",
-        headers,
+      r = await fetch(`${SUPABASE_URL}/rest/v1/eventos?id=eq.${editId}`, { 
+        method: "PATCH", headers, 
         body: JSON.stringify({
-          title: ev.title,
-          tipo: ev.tipo,
-          start: ev.start,
-          end: ev.end,
-          time: ev.time,
-          duration: ev.duration,
-          obs: ev.obs,
-          locations: ev.locations || null
+          title: ev.title, tipo: ev.tipo, start: ev.start, end: ev.end,
+          time: ev.time, duration: ev.duration, obs: ev.obs, locations: ev.locations || null
         })
       });
     } else {
-      r = await fetch(`${SUPABASE_URL}/rest/v1/eventos`, {
-        method: "POST",
-        headers,
-        body: JSON.stringify(ev)  // sem id — Supabase gera
-      });
+      r = await fetch(`${SUPABASE_URL}/rest/v1/eventos`, { method: "POST", headers, body: JSON.stringify(ev) });
     }
-    if (!r.ok) throw new Error(await r.text());
-    toast(editId ? "Compromisso atualizado!" : "Compromisso criado!", "success");
+    if (!r.ok) throw new Error();
+    toast(editId ? "Atualizado!" : "Criado!", "success");
     await loadEvents();
     closeModal();
-  } catch (err) {
-    console.error(err);
-    toast("Erro ao salvar", "error");
-  }
+  } catch { toast("Erro ao salvar", "error"); }
 }
 
 async function deleteEvent() {
-  if (!editId || !confirm("Deseja realmente excluir?")) return;
+  if (!editId) return;
+  if (!confirm("Excluir?")) return;
   try {
-    const r = await fetch(`${SUPABASE_URL}/rest/v1/eventos?id=eq.${editId}`, { method:"DELETE", headers });
-    if (!r.ok) throw new Error();
-    toast("Compromisso removido", "info");
+    await fetch(`${SUPABASE_URL}/rest/v1/eventos?id=eq.${editId}`, { method:"DELETE", headers });
+    toast("Removido", "info");
     await loadEvents();
     closeModal();
-  } catch {
-    toast("Erro ao excluir", "error");
-  }
+  } catch { toast("Erro", "error"); }
 }
 
 function isWithin15Minutes(ev) {
@@ -769,24 +806,25 @@ function isWithin15Minutes(ev) {
   if (!occursOn(ev, today)) return false;
   if (ev.duration === "Dia inteiro") return false;
   if (!ev.time) return false;
-  const [h, m] = ev.time.split(':').map(Number);
+  const [hour, minute] = ev.time.split(':');
   const evTime = new Date(now);
-  evTime.setHours(h, m, 0, 0);
-  const diffMin = (evTime - now) / 60000;
-  return diffMin > 0 && diffMin <= 15;
+  evTime.setHours(parseInt(hour), parseInt(minute), 0);
+  const diffMinutes = (evTime - now) / (1000 * 60);
+  return diffMinutes > 0 && diffMinutes <= 15;
 }
 
 function startReminderCheck() {
   if (reminderCheckInterval) clearInterval(reminderCheckInterval);
   reminderCheckInterval = setInterval(() => {
-    allEvents.forEach(ev => {
-      if (isWithin15Minutes(ev) && !ev._reminded) {
+    const eventsToRemind = allEvents.filter(ev => isWithin15Minutes(ev));
+    eventsToRemind.forEach(ev => {
+      if (!ev._reminded) {
         ev._reminded = true;
-        toast(`🔔 ${ev.title} começa em até 15 minutos`, "info");
-        setTimeout(() => { ev._reminded = false; }, 90000);
+        toast(`🔔 Em até 15min: ${ev.title}`, "info");
+        setTimeout(() => { ev._reminded = false; }, 60000);
       }
     });
-    renderList(); // atualiza badges
+    renderList();
   }, 30000);
 }
 
@@ -796,87 +834,63 @@ function isHappeningNow(ev) {
   if (!occursOn(ev, today)) return false;
   if (ev.duration === "Dia inteiro") return true;
   if (!ev.time) return false;
-  const [h, m] = ev.time.split(':').map(Number);
+  const [hour, minute] = ev.time.split(':');
   const evTime = new Date(now);
-  evTime.setHours(h, m, 0, 0);
-  return Math.abs(now - evTime) < 30 * 60 * 1000;
-}
-
-function getMonthFilter(date) {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, '0');
-  return `${y}-${m}`;
+  evTime.setHours(parseInt(hour), parseInt(minute), 0);
+  const diff = Math.abs(now - evTime);
+  return diff < 30 * 60 * 1000;
 }
 
 function updateMiniCalendar() {
-  const monthYear = $("miniMonthYear");
+  const monthYear = document.getElementById("miniMonthYear");
   if (monthYear) {
     monthYear.textContent = `${MONTH_NAMES[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
   }
 }
 
 function formatEventDate(ev) {
-  const s = ev.start.split('-').map(Number);
-  const startDate = new Date(s[0], s[1]-1, s[2]);
-  const e = (ev.end || ev.start).split('-').map(Number);
-  const endDate = new Date(e[0], e[1]-1, e[2]);
-
+  const startParts = ev.start.split('-');
+  const startDate = new Date(parseInt(startParts[0]), parseInt(startParts[1]) - 1, parseInt(startParts[2]));
+  const endParts = (ev.end || ev.start).split('-');
+  const endDate = new Date(parseInt(endParts[0]), parseInt(endParts[1]) - 1, parseInt(endParts[2]));
   const startDay = startDate.getDate();
   const startMonth = MONTH_SHORT[startDate.getMonth()];
   const endDay = endDate.getDate();
   const endMonth = MONTH_SHORT[endDate.getMonth()];
-
+  
   if (startDate.toDateString() === endDate.toDateString()) {
-    return { day: startDay, range: `${startDay} ${startMonth}` };
+    return { day: startDay, month: startMonth, range: `${startDay} ${startMonth}` };
+  } else {
+    return { day: startDay, month: startMonth, range: `${startDay}/${startMonth} → ${endDay}/${endMonth}` };
   }
-  return { day: startDay, range: `${startDay}/${startMonth} → ${endDay}/${endMonth}` };
-}
-
-function escapeHtml(str) {
-  if (!str) return "";
-  return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 
 function renderList() {
   const grid = $("eventsGrid");
   if (!grid) return;
-
-  const filterMonth = getMonthFilter(currentDate);
-
-  let filtered = allEvents.filter(ev => {
-    const evMonth = ev.start.substring(0,7);
-    if (evMonth !== filterMonth) return false;
-    if (!searchTerm) return true;
-    const term = searchTerm.toLowerCase();
-    return ev.title.toLowerCase().includes(term) || (ev.obs && ev.obs.toLowerCase().includes(term));
-  }).sort((a,b) => a.start.localeCompare(b.start));
-
+  let filtered = [...allEvents].sort((a,b) => a.start.localeCompare(b.start));
   if (!filtered.length) {
-    grid.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div>Nenhum compromisso encontrado</div></div>`;
+    grid.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">Nenhum compromisso agendado</div></div>`;
     return;
   }
-
   grid.innerHTML = "";
   filtered.forEach(ev => {
     const cfg = CONFIG[ev.tipo] || CONFIG.outro;
-    const { day, range } = formatEventDate(ev);
+    const { day, month, range } = formatEventDate(ev);
     const isNow = isHappeningNow(ev);
     const isReminder = isWithin15Minutes(ev);
-
-    let badge = '';
-    if (isNow) badge = '<div class="badge-now">🔴 ACONTECENDO AGORA</div>';
-    else if (isReminder) badge = '<div class="badge-reminder">⏰ EM ATÉ 15 MIN</div>';
-
-    let locHtml = '';
+    let badgeHtml = '';
+    if (isNow) badgeHtml = '<div class="badge-now">🔴 ACONTECENDO AGORA</div>';
+    else if (isReminder) badgeHtml = '<div class="badge-reminder">⏰ EM ATÉ 15MIN</div>';
+    let locationsHtml = '';
     if (ev.locations) {
       const locs = ev.locations.split(',').map(l => l.trim());
-      locHtml = `<div class="card-meta">${locs.map(l => `<span class="meta-tag location-tag">📍 ${l}</span>`).join('')}</div>`;
+      locationsHtml = `<div class="card-meta">${locs.map(loc => `<span class="meta-tag location-tag">📍 ${loc}</span>`).join('')}</div>`;
     }
-
     const card = document.createElement("div");
     card.className = "event-card";
     card.innerHTML = `
-      ${badge}
+      ${badgeHtml}
       <div class="card-header">
         <span class="card-day">${day}</span>
         <span class="card-date-range">${range}</span>
@@ -885,26 +899,20 @@ function renderList() {
       <div class="card-meta">
         <span class="meta-tag" style="background:${cfg.soft};color:${cfg.color}">${cfg.icon} ${cfg.label}</span>
         ${ev.time && ev.duration !== "Dia inteiro" ? `<span class="meta-tag">⏰ ${ev.time}</span>` : ''}
-        ${ev.duration ? `<span class="meta-tag">⏱ ${ev.duration}</span>` : ''}
+        ${ev.duration && ev.duration !== "Dia inteiro" ? `<span class="meta-tag">⏱ ${ev.duration}</span>` : ev.duration === "Dia inteiro" ? `<span class="meta-tag">📅 Dia inteiro</span>` : ''}
       </div>
-      ${locHtml}
-      ${ev.obs ? `<div class="card-obs">📝 ${escapeHtml(ev.obs.substring(0,90))}${ev.obs.length>90?'…':''}</div>` : ''}
+      ${locationsHtml}
+      ${ev.obs ? `<div class="card-obs">📝 ${escapeHtml(ev.obs.substring(0,80))}${ev.obs.length>80?"…":""}</div>` : ''}
     `;
     card.addEventListener("click", () => openEdit(ev.id));
     grid.appendChild(card);
   });
 }
 
-function render() {
-  renderList();
-  updateMiniCalendar();
-}
+function escapeHtml(str) { if (!str) return ""; return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+function render() { renderList(); updateMiniCalendar(); }
 
-// --------------------------------------------------
-//  MODAL CONTROLS
-// --------------------------------------------------
-let selectedType = "reuniao";
-let selectedLocations = [];
+let selectedType = "reuniao", selectedLocations = [];
 
 function initTypeButtons() {
   document.querySelectorAll('.type-btn').forEach(btn => {
@@ -916,180 +924,88 @@ function initTypeButtons() {
     });
   });
   document.querySelector('.type-btn[data-type="reuniao"]').classList.add('active');
+  $("tipoInput").value = "reuniao";
 }
 
 function initLocationCheckboxes() {
   document.querySelectorAll('.location-checkbox').forEach(item => {
     const cb = item.querySelector('input');
     cb.addEventListener('change', () => {
-      if (cb.checked) {
-        if (!selectedLocations.includes(cb.value)) selectedLocations.push(cb.value);
-        item.classList.add('selected');
-      } else {
-        selectedLocations = selectedLocations.filter(l => l !== cb.value);
-        item.classList.remove('selected');
-      }
+      if (cb.checked) { if (!selectedLocations.includes(cb.value)) selectedLocations.push(cb.value); item.classList.add('selected'); }
+      else { selectedLocations = selectedLocations.filter(l => l !== cb.value); item.classList.remove('selected'); }
     });
   });
 }
 
-function resetForm() {
-  selectedType = "reuniao";
-  selectedLocations = [];
-  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector('.type-btn[data-type="reuniao"]').classList.add('active');
-  $("tipoInput").value = "reuniao";
-  document.querySelectorAll('.location-checkbox input').forEach(cb => {
-    cb.checked = false;
-    cb.closest('.location-checkbox').classList.remove('selected');
-  });
+function resetLocations() { selectedLocations = []; document.querySelectorAll('.location-checkbox input').forEach(cb => { cb.checked = false; cb.closest('.location-checkbox').classList.remove('selected'); }); }
+function setLocationsFromEvent(locations) {
+  resetLocations();
+  if (locations) {
+    locations.split(',').map(l => l.trim()).forEach(loc => {
+      const cb = document.querySelector(`.location-checkbox input[value="${loc}"]`);
+      if (cb) { cb.checked = true; cb.closest('.location-checkbox').classList.add('selected'); selectedLocations.push(loc); }
+    });
+  }
 }
 
-function openModal(preDate = null) {
-  editId = null;
-  $("modalTitle").textContent = "Novo Compromisso";
-  $("deleteBtn").style.display = "none";
-  $("saveBtn").textContent = "💾 Salvar";
-  $("titleInput").value = "";
-  const today = preDate || toLocalStr(new Date());
-  $("startInput").value = today;
-  $("endInput").value = today;
-  $("timeInput").value = "";
-  $("durationInput").value = "30 min";
-  $("obsInput").value = "";
-  resetForm();
+function openModal(date = null) {
+  editId = null; $("modalTitle").textContent = "Novo Compromisso"; $("deleteBtn").style.display = "none"; $("saveBtn").textContent = "💾 Salvar";
+  $("titleInput").value = ""; $("startInput").value = date || ""; $("endInput").value = date || ""; $("timeInput").value = ""; $("durationInput").value = "30 min"; $("obsInput").value = "";
+  selectedType = "reuniao";
+  document.querySelectorAll('.type-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelector('.type-btn[data-type="reuniao"]').classList.add('active');
+  $("tipoInput").value = "reuniao";
+  resetLocations();
   $("modalOverlay").classList.add("open");
 }
 
 function openEdit(id) {
-  const ev = allEvents.find(e => e.id === id);
-  if (!ev) return;
-  editId = id;
-  $("modalTitle").textContent = "Editar Compromisso";
-  $("deleteBtn").style.display = "inline-block";
-  $("saveBtn").textContent = "💾 Atualizar";
-  $("titleInput").value = ev.title;
-  $("startInput").value = ev.start;
-  $("endInput").value = ev.end || ev.start;
-  $("timeInput").value = ev.time || "";
-  $("durationInput").value = ev.duration || "30 min";
-  $("obsInput").value = ev.obs || "";
+  const ev = allEvents.find(e => e.id === id); if (!ev) return;
+  editId = id; $("modalTitle").textContent = "Editar"; $("deleteBtn").style.display = "block"; $("saveBtn").textContent = "💾 Atualizar";
+  $("titleInput").value = ev.title; $("startInput").value = ev.start; $("endInput").value = ev.end || ev.start;
+  $("timeInput").value = ev.time || ""; $("durationInput").value = ev.duration || "30 min"; $("obsInput").value = ev.obs || "";
   const tipo = ev.tipo || "reuniao";
   selectedType = tipo;
-  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector(`.type-btn[data-type="${tipo}"]`)?.classList.add('active');
+  document.querySelectorAll('.type-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelector(`.type-btn[data-type="${tipo}"]`).classList.add('active');
   $("tipoInput").value = tipo;
-  selectedLocations = [];
-  if (ev.locations) {
-    ev.locations.split(',').map(l => l.trim()).forEach(loc => {
-      const cb = document.querySelector(`.location-checkbox input[value="${loc}"]`);
-      if (cb) {
-        cb.checked = true;
-        cb.closest('.location-checkbox').classList.add('selected');
-        selectedLocations.push(loc);
-      }
-    });
-  }
+  setLocationsFromEvent(ev.locations);
   $("modalOverlay").classList.add("open");
 }
+function closeModal() { $("modalOverlay").classList.remove("open"); editId = null; }
 
-function closeModal() {
-  $("modalOverlay").classList.remove("open");
-  editId = null;
-}
-
-// --------------------------------------------------
-//  EVENT LISTENERS
-// --------------------------------------------------
-$("saveBtn").addEventListener("click", () => {
-  const title = $("titleInput").value.trim();
-  const start = $("startInput").value;
-  const end   = $("endInput").value || start;
-
-  if (!title || !start) {
-    toast("Título e data de início são obrigatórios", "error");
-    return;
-  }
-
-  if (new Date(end) < new Date(start)) {
-    toast("A data final não pode ser anterior à inicial", "error");
-    return;
-  }
-
-  const duration = $("durationInput").value;
-  const time = duration === "Dia inteiro" ? "" : $("timeInput").value;
-
-  const ev = {
-    title,
-    tipo: $("tipoInput").value,
-    start,
-    end,
-    time,
-    duration,
-    obs: $("obsInput").value.trim(),
-    locations: selectedLocations.length ? selectedLocations.join(", ") : null
-  };
-
-  saveEvent(ev);
+$("saveBtn")?.addEventListener("click", () => {
+  const title = $("titleInput")?.value.trim(), start = $("startInput")?.value;
+  if (!title || !start) { toast("Título e data obrigatórios", "error"); return; }
+  saveEvent({ id: editId || Date.now(), title, tipo: $("tipoInput").value, start, end: $("endInput").value || start, time: $("durationInput").value === "Dia inteiro" ? "" : $("timeInput").value, duration: $("durationInput").value, obs: $("obsInput").value.trim(), locations: selectedLocations.length ? selectedLocations.join(", ") : null });
 });
+$("deleteBtn")?.addEventListener("click", deleteEvent);
+$("cancelBtn")?.addEventListener("click", closeModal);
+$("modalCloseBtn")?.addEventListener("click", closeModal);
+$("modalOverlay")?.addEventListener("click", e => { if (e.target === $("modalOverlay")) closeModal(); });
 
-$("deleteBtn").addEventListener("click", deleteEvent);
-$("cancelBtn").addEventListener("click", closeModal);
-$("modalCloseBtn").addEventListener("click", closeModal);
-$("modalOverlay").addEventListener("click", e => { if (e.target === $("modalOverlay")) closeModal(); });
-
-$("prevMonthMini").addEventListener("click", () => {
+$("prevMonthMini")?.addEventListener("click", () => {
   currentDate.setMonth(currentDate.getMonth() - 1);
-  render();
+  updateMiniCalendar();
 });
-
-$("nextMonthMini").addEventListener("click", () => {
+$("nextMonthMini")?.addEventListener("click", () => {
   currentDate.setMonth(currentDate.getMonth() + 1);
-  render();
+  updateMiniCalendar();
 });
+$("addBtn")?.addEventListener("click", () => openModal());
 
-$("addBtn").addEventListener("click", () => openModal());
+function initTheme() { if (localStorage.getItem('agendaTheme') === 'light') document.body.classList.add('light-mode'); }
+function toggleTheme() { document.body.classList.toggle('light-mode'); localStorage.setItem('agendaTheme', document.body.classList.contains('light-mode') ? 'light' : 'dark'); toast(document.body.classList.contains('light-mode') ? 'Modo claro' : 'Modo escuro', 'info'); }
+function openShareModal() { $("shareUrlDisplay").textContent = window.location.href; $("shareModalOverlay").classList.add("open"); }
+function closeShareModal() { $("shareModalOverlay").classList.remove("open"); }
+function copyShareLink() { navigator.clipboard.writeText($("shareUrlDisplay").textContent).then(() => { toast("Link copiado! 📋", "success"); closeShareModal(); }).catch(() => toast("Erro", "error")); }
 
-$("searchInput").addEventListener("input", e => {
-  searchTerm = e.target.value;
-  renderList();
-});
+$("themeToggleBtn")?.addEventListener("click", toggleTheme);
+$("shareBtn")?.addEventListener("click", openShareModal);
+$("shareModalCloseBtn")?.addEventListener("click", closeShareModal);
+$("copyShareBtn")?.addEventListener("click", copyShareLink);
+$("shareModalOverlay")?.addEventListener("click", e => { if (e.target === $("shareModalOverlay")) closeShareModal(); });
 
-function initTheme() {
-  if (localStorage.getItem('agendaTheme') === 'light') document.body.classList.add('light-mode');
-}
-
-function toggleTheme() {
-  document.body.classList.toggle('light-mode');
-  localStorage.setItem('agendaTheme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
-  toast(document.body.classList.contains('light-mode') ? 'Modo claro ativado' : 'Modo escuro ativado', 'info');
-}
-
-function openShareModal() {
-  $("shareUrlDisplay").textContent = window.location.href;
-  $("shareModalOverlay").classList.add("open");
-}
-
-function closeShareModal() {
-  $("shareModalOverlay").classList.remove("open");
-}
-
-function copyShareLink() {
-  navigator.clipboard.writeText($("shareUrlDisplay").textContent)
-    .then(() => {
-      toast("Link copiado com sucesso! 📋", "success");
-      closeShareModal();
-    })
-    .catch(() => toast("Não foi possível copiar", "error"));
-}
-
-$("themeToggleBtn").addEventListener("click", toggleTheme);
-$("shareBtn").addEventListener("click", openShareModal);
-$("shareModalCloseBtn").addEventListener("click", closeShareModal);
-$("copyShareBtn").addEventListener("click", copyShareLink);
-$("shareModalOverlay").addEventListener("click", e => { if (e.target === $("shareModalOverlay")) closeShareModal(); });
-
-// Inicialização
 initTypeButtons();
 initLocationCheckboxes();
 initTheme();
