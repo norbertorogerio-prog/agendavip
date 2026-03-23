@@ -57,7 +57,7 @@ body.light-mode {
   --text3: #6a6a8a;
 }
 
-/* TOPO MINIMAL */
+/* TOPO */
 .top-bar {
   display: flex;
   align-items: center;
@@ -94,7 +94,6 @@ body.light-mode {
   -webkit-text-fill-color: transparent;
 }
 
-/* Mini calendário */
 .mini-calendar {
   display: flex;
   align-items: center;
@@ -120,11 +119,6 @@ body.light-mode {
   padding: 0 4px;
 }
 
-.mini-calendar .nav-mini:hover {
-  color: var(--primary-light);
-}
-
-/* Botão + */
 .add-button {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border: none;
@@ -156,7 +150,7 @@ body.light-mode {
   font-size: 16px;
 }
 
-/* GRADE DE COMPROMISSOS - 3 COLUNAS, AJUSTADA PARA 12 CARDS */
+/* GRADE DE COMPROMISSOS */
 .compromissos-container {
   flex: 1;
   overflow-y: auto;
@@ -169,7 +163,6 @@ body.light-mode {
   gap: 14px;
 }
 
-/* CARD COMPACTO - AJUSTADO PARA CABER 12 CARDS */
 .event-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
@@ -181,8 +174,6 @@ body.light-mode {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  height: auto;
-  min-height: 0;
 }
 
 .event-card:hover {
@@ -190,42 +181,50 @@ body.light-mode {
   border-color: var(--primary);
 }
 
-/* Badges menores */
-.badge-now, .badge-reminder {
+.badge-now {
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 20px;
+  z-index: 5;
+  animation: pulse-now 1.5s infinite;
+}
+
+@keyframes pulse-now {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.badge-reminder {
   position: absolute;
   top: -8px;
   right: 10px;
-  font-size: 7px;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 20px;
+  background: linear-gradient(135deg, #f97316, #ef4444);
   color: white;
+  font-size: 8px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
   z-index: 5;
 }
-.badge-now { background: linear-gradient(135deg, #10b981, #059669); }
-.badge-reminder { background: linear-gradient(135deg, #f97316, #ef4444); }
 
-/* Cabeçalho compacto */
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   border-bottom: 1px solid var(--border);
   padding-bottom: 5px;
-  margin-bottom: 2px;
 }
 
 .card-day {
   font-size: 20px;
   font-weight: 800;
   color: var(--primary-light);
-  line-height: 1;
-}
-
-.card-month {
-  font-size: 9px;
-  color: var(--text3);
-  text-transform: uppercase;
 }
 
 .card-date-range {
@@ -233,23 +232,18 @@ body.light-mode {
   color: var(--text3);
 }
 
-/* Título compacto */
 .card-title {
   font-size: 13px;
   font-weight: 700;
-  line-height: 1.3;
-  margin: 2px 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* Metadados compactos */
 .card-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  margin: 2px 0;
 }
 
 .meta-tag {
@@ -267,16 +261,14 @@ body.light-mode {
   color: var(--primary-light);
 }
 
-/* Observações compactas - 1 linha apenas */
 .card-obs {
   font-size: 9px;
   color: var(--text2);
-  line-height: 1.3;
   margin-top: 4px;
   padding-top: 4px;
   border-top: 1px solid var(--border);
-  overflow: hidden;
   white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
@@ -327,7 +319,8 @@ body.light-mode {
   -webkit-text-fill-color: transparent;
 }
 .modal-close {
-  width: 28px; height: 28px;
+  width: 28px;
+  height: 28px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: var(--card-bg);
@@ -475,17 +468,11 @@ body.light-mode {
 }
 
 @media (max-width: 1000px) {
-  .compromissos-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .compromissos-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 650px) {
-  .compromissos-grid {
-    grid-template-columns: 1fr;
-  }
-  .mini-calendar {
-    display: none;
-  }
+  .compromissos-grid { grid-template-columns: 1fr; }
+  .mini-calendar { display: none; }
 }
 </style>
 </head>
@@ -575,7 +562,14 @@ let allEvents = [], currentDate = new Date(), editId = null;
 let reminderCheckInterval = null;
 
 const $ = id => document.getElementById(id);
-function toLocalStr(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
+
+function toLocalStr(d) { 
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
 function occursOn(ev, dateStr) { return dateStr >= ev.start && dateStr <= (ev.end || ev.start); }
 
 function toast(msg, type = "info") {
@@ -680,15 +674,16 @@ function updateMiniCalendar() {
 }
 
 function formatEventDate(ev) {
-  const start = new Date(ev.start);
-  const end = ev.end ? new Date(ev.end) : start;
+  const startParts = ev.start.split('-');
+  const startDate = new Date(parseInt(startParts[0]), parseInt(startParts[1]) - 1, parseInt(startParts[2]));
+  const endParts = (ev.end || ev.start).split('-');
+  const endDate = new Date(parseInt(endParts[0]), parseInt(endParts[1]) - 1, parseInt(endParts[2]));
+  const startDay = startDate.getDate();
+  const startMonth = MONTH_SHORT[startDate.getMonth()];
+  const endDay = endDate.getDate();
+  const endMonth = MONTH_SHORT[endDate.getMonth()];
   
-  const startDay = start.getDate();
-  const startMonth = MONTH_SHORT[start.getMonth()];
-  const endDay = end.getDate();
-  const endMonth = MONTH_SHORT[end.getMonth()];
-  
-  if (start.toDateString() === end.toDateString()) {
+  if (startDate.toDateString() === endDate.toDateString()) {
     return { day: startDay, month: startMonth, range: `${startDay} ${startMonth}` };
   } else {
     return { day: startDay, month: startMonth, range: `${startDay}/${startMonth} → ${endDay}/${endMonth}` };
@@ -698,31 +693,25 @@ function formatEventDate(ev) {
 function renderList() {
   const grid = $("eventsGrid");
   if (!grid) return;
-  
   let filtered = [...allEvents].sort((a,b) => a.start.localeCompare(b.start));
-  
   if (!filtered.length) {
-    grid.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">Nenhum compromisso agendado</div><div class="empty-text" style="font-size:11px; margin-top:8px;">Clique no botão + para adicionar</div></div>`;
+    grid.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">Nenhum compromisso agendado</div></div>`;
     return;
   }
-  
   grid.innerHTML = "";
   filtered.forEach(ev => {
     const cfg = CONFIG[ev.tipo] || CONFIG.outro;
     const { day, month, range } = formatEventDate(ev);
     const isNow = isHappeningNow(ev);
     const isReminder = isWithin15Minutes(ev);
-    
     let badgeHtml = '';
-    if (isNow) badgeHtml = '<div class="badge-now">🔴 AGORA</div>';
-    else if (isReminder) badgeHtml = '<div class="badge-reminder">⏰ 15MIN</div>';
-    
+    if (isNow) badgeHtml = '<div class="badge-now">🔴 ACONTECENDO AGORA</div>';
+    else if (isReminder) badgeHtml = '<div class="badge-reminder">⏰ EM ATÉ 15MIN</div>';
     let locationsHtml = '';
     if (ev.locations) {
       const locs = ev.locations.split(',').map(l => l.trim());
       locationsHtml = `<div class="card-meta">${locs.map(loc => `<span class="meta-tag location-tag">📍 ${loc}</span>`).join('')}</div>`;
     }
-    
     const card = document.createElement("div");
     card.className = "event-card";
     card.innerHTML = `
@@ -746,10 +735,7 @@ function renderList() {
 }
 
 function escapeHtml(str) { if (!str) return ""; return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
-function render() { 
-  renderList(); 
-  updateMiniCalendar();
-}
+function render() { renderList(); updateMiniCalendar(); }
 
 let selectedType = "reuniao", selectedLocations = [];
 
@@ -838,6 +824,7 @@ function toggleTheme() { document.body.classList.toggle('light-mode'); localStor
 function openShareModal() { $("shareUrlDisplay").textContent = window.location.href; $("shareModalOverlay").classList.add("open"); }
 function closeShareModal() { $("shareModalOverlay").classList.remove("open"); }
 function copyShareLink() { navigator.clipboard.writeText($("shareUrlDisplay").textContent).then(() => { toast("Link copiado! 📋", "success"); closeShareModal(); }).catch(() => toast("Erro", "error")); }
+
 $("themeToggleBtn")?.addEventListener("click", toggleTheme);
 $("shareBtn")?.addEventListener("click", openShareModal);
 $("shareModalCloseBtn")?.addEventListener("click", closeShareModal);
