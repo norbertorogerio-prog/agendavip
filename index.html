@@ -12,14 +12,12 @@
    DESIGN SYSTEM — PALETA HARMONIZADA
    ============================================= */
 :root {
-  /* Cores primárias harmonizadas */
   --primary:       #8b5cf6;
   --primary-dark:  #7c3aed;
   --primary-light: #a78bfa;
   --primary-glow:  rgba(139,92,246,0.35);
   --primary-soft:  rgba(139,92,246,0.12);
   
-  /* Cores de categoria harmonizadas */
   --reuniao:       #3b82f6;
   --reuniao-soft:  rgba(59,130,246,0.12);
   --evento:        #10b981;
@@ -29,7 +27,6 @@
   --outro:         #f59e0b;
   --outro-soft:    rgba(245,158,11,0.12);
   
-  /* Tons neutros */
   --bg:            #0a0a0f;
   --bg2:           #111117;
   --surface:       #16161f;
@@ -42,9 +39,6 @@
   --text2:         #a0a0c0;
   --text3:         #6a6a8a;
   
-  /* Gradiente animado para fundo */
-  --gradient-bg:   linear-gradient(135deg, #0a0a0f 0%, #12121a 50%, #1a1a2a 100%);
-  
   --radius-sm:     6px;
   --radius:        10px;
   --radius-lg:     14px;
@@ -53,14 +47,13 @@
   
   --shadow-sm:     0 2px 8px rgba(0,0,0,0.3);
   --shadow:        0 4px 16px rgba(0,0,0,0.4);
-  --shadow-lg:     0 8px 32px rgba(0,0,0,0.5);
   
   --transition:    all 0.2s ease;
-  --sidebar-w:     520px;
+  --sidebar-w:     380px;
   --header-h:      64px;
 }
 
-/* MODO CLARO HARMONIZADO */
+/* MODO CLARO */
 body.light-mode {
   --bg:            #f8fafc;
   --bg2:           #f1f5f9;
@@ -68,20 +61,17 @@ body.light-mode {
   --surface2:      #f8fafc;
   --surface3:      #f1f5f9;
   --border:        rgba(0,0,0,0.08);
-  --border-hover:  rgba(139,92,246,0.3);
   --text:          #0f172a;
   --text2:         #334155;
   --text3:         #64748b;
-  --gradient-bg:   linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   --shadow-sm:     0 2px 8px rgba(0,0,0,0.05);
-  --shadow:        0 4px 16px rgba(0,0,0,0.08);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  background: var(--gradient-bg);
+  background: linear-gradient(135deg, #0a0a0f 0%, #12121a 50%, #1a1a2a 100%);
   color: var(--text);
   font-size: 13px;
   line-height: 1.5;
@@ -89,35 +79,21 @@ body {
   overflow: hidden;
   height: 100vh;
   transition: var(--transition);
-  position: relative;
 }
 
-/* Fundo animado com partículas */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(139,92,246,0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(139,92,246,0.05) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: 0;
+body.light-mode {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
-body.light-mode::before {
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(139,92,246,0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(139,92,246,0.02) 0%, transparent 50%);
-}
-
+/* =============================================
+   LAYOUT RESPONSIVO
+   ============================================= */
 .app {
   display: grid;
   grid-template-rows: var(--header-h) 1fr;
   grid-template-columns: 1fr var(--sidebar-w);
   height: 100vh;
   background: transparent;
-  position: relative;
-  z-index: 1;
 }
 
 /* HEADER */
@@ -126,58 +102,58 @@ body.light-mode::before {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
-  background: rgba(var(--surface-rgb), 0.7);
+  padding: 0 20px;
+  background: rgba(22,22,31,0.8);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
-  position: relative;
   z-index: 50;
+}
+
+body.light-mode .header {
+  background: rgba(255,255,255,0.8);
 }
 
 .header-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .logo-icon {
-  width: 36px; height: 36px;
+  width: 32px; height: 32px;
   border-radius: var(--radius-sm);
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  box-shadow: 0 0 16px var(--primary-glow);
+  font-size: 16px;
 }
 
 .brand-name {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   background: linear-gradient(135deg, var(--primary-light), var(--primary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .brand-sub {
-  font-size: 10px;
+  font-size: 9px;
   color: var(--text3);
-  font-weight: 500;
   margin-top: -2px;
 }
 
 .header-center {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .nav-btn {
   background: var(--surface2);
   border: 1px solid var(--border);
   color: var(--text2);
-  width: 36px; height: 36px;
+  width: 32px; height: 32px;
   border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: 14px;
@@ -190,10 +166,10 @@ body.light-mode::before {
 }
 
 .month-display {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--text);
-  min-width: 180px;
+  min-width: 150px;
   text-align: center;
 }
 
@@ -205,10 +181,10 @@ body.light-mode::before {
   background: var(--primary-soft);
   border: 1px solid var(--primary);
   color: var(--primary-light);
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: var(--radius-full);
   cursor: pointer;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   transition: var(--transition);
 }
@@ -220,22 +196,22 @@ body.light-mode::before {
 .header-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .action-btn {
   background: var(--surface2);
   border: 1px solid var(--border);
   color: var(--text2);
-  padding: 6px 12px;
+  padding: 5px 10px;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   transition: var(--transition);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 .action-btn:hover {
   background: var(--primary-soft);
@@ -246,20 +222,20 @@ body.light-mode::before {
 .add-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
+  gap: 6px;
+  padding: 6px 14px;
   border-radius: var(--radius-sm);
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border: none;
   color: #fff;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
 }
 .add-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 20px var(--primary-glow);
+  box-shadow: 0 4px 12px var(--primary-glow);
 }
 
 /* CALENDÁRIO */
@@ -267,7 +243,7 @@ body.light-mode::before {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding: 12px 16px 12px;
+  padding: 12px;
   gap: 8px;
   height: 100%;
 }
@@ -276,21 +252,15 @@ body.light-mode::before {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
-  flex-shrink: 0;
 }
 
 .weekday-label {
   text-align: center;
-  padding: 6px 4px;
+  padding: 4px;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--text3);
-}
-
-.weekday-label.weekend {
-  color: var(--primary-light);
-  opacity: 0.7;
 }
 
 .calendar-grid {
@@ -305,13 +275,12 @@ body.light-mode::before {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  padding: 6px 4px;
+  padding: 5px 4px;
   cursor: pointer;
   transition: var(--transition);
   display: flex;
   flex-direction: column;
   min-height: 0;
-  height: 100%;
 }
 
 .day-cell:hover {
@@ -332,12 +301,11 @@ body.light-mode::before {
   font-size: 11px;
   font-weight: 600;
   color: var(--text2);
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 
 .day-cell.today .day-num {
   color: var(--primary-light);
-  font-weight: 800;
 }
 
 .cell-events {
@@ -345,13 +313,12 @@ body.light-mode::before {
   flex-direction: column;
   gap: 2px;
   overflow: hidden;
-  flex: 1;
 }
 
 .ev-pill {
   font-size: 8px;
   font-weight: 500;
-  padding: 2px 4px;
+  padding: 1px 3px;
   border-radius: 3px;
   white-space: nowrap;
   overflow: hidden;
@@ -359,7 +326,7 @@ body.light-mode::before {
   cursor: pointer;
 }
 
-/* SIDEBAR - CARDS EM 2 COLUNAS */
+/* SIDEBAR */
 .sidebar {
   background: var(--surface);
   border-left: 1px solid var(--border);
@@ -367,17 +334,16 @@ body.light-mode::before {
   flex-direction: column;
   overflow: hidden;
   height: 100%;
-  backdrop-filter: blur(4px);
 }
 
 .sidebar-header {
-  padding: 16px 16px 8px;
+  padding: 12px 16px;
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
 
 .sidebar-title {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--primary-light);
   display: flex;
@@ -390,15 +356,13 @@ body.light-mode::before {
   padding: 2px 8px;
   border-radius: var(--radius-full);
   font-size: 11px;
-  color: var(--primary-light);
 }
 
-/* LISTA EM 2 COLUNAS - MAIS COMPACTA */
+/* LISTA EM 2 COLUNAS - COMPACTA */
 .events-list {
   flex: 1;
   overflow-y: auto;
-  overflow-x: hidden;
-  padding: 12px 16px 16px;
+  padding: 12px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
@@ -406,7 +370,7 @@ body.light-mode::before {
 }
 
 .events-list::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 .events-list::-webkit-scrollbar-track {
   background: var(--surface2);
@@ -421,98 +385,60 @@ body.light-mode::before {
   background: var(--surface2);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 12px;
+  padding: 10px;
   cursor: pointer;
   transition: var(--transition);
   position: relative;
-  overflow: visible;
-  flex-shrink: 0;
 }
 
 .ev-card:hover {
   border-color: var(--primary);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
 }
 
-/* Badge de notificação de 15 minutos */
-.ev-card.reminder-15 {
-  position: relative;
-  overflow: visible;
+.reminder-badge, .happening-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-size: 7px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 20px;
+  white-space: nowrap;
+  z-index: 10;
 }
 
 .reminder-badge {
-  position: absolute;
-  top: -8px;
-  right: -8px;
   background: linear-gradient(135deg, #f97316, #ef4444);
   color: white;
-  font-size: 8px;
-  font-weight: 800;
-  padding: 3px 6px;
-  border-radius: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(239,68,68,0.4);
-  z-index: 10;
-  animation: badge-pulse 1s infinite;
-  white-space: nowrap;
-}
-
-@keyframes badge-pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.1); opacity: 0.9; }
-}
-
-.ev-card.happening-now {
-  border-left: 3px solid var(--evento);
-  background: var(--evento-soft);
 }
 
 .happening-badge {
-  position: absolute;
-  top: -8px;
-  right: -8px;
   background: linear-gradient(135deg, #10b981, #059669);
   color: white;
-  font-size: 8px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(16,185,129,0.4);
-  z-index: 10;
-  animation: badge-pulse 1s infinite;
 }
 
 .ev-date-badge {
-  width: 40px;
-  height: 40px;
+  width: 36px; height: 36px;
   border-radius: var(--radius-sm);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  font-weight: 700;
-  margin-right: 10px;
   float: left;
+  margin-right: 8px;
 }
-.ev-date-badge .day { font-size: 16px; font-weight: 800; }
-.ev-date-badge .month { font-size: 8px; font-weight: 600; text-transform: uppercase; opacity: 0.8; }
+.ev-date-badge .day { font-size: 14px; font-weight: 800; }
+.ev-date-badge .month { font-size: 7px; font-weight: 600; text-transform: uppercase; }
 
 .ev-info {
-  margin-left: 50px;
+  margin-left: 44px;
 }
 
 .ev-title {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  color: var(--text);
-  margin-bottom: 3px;
-  line-height: 1.3;
+  margin-bottom: 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -521,61 +447,53 @@ body.light-mode::before {
 .ev-time {
   font-size: 9px;
   color: var(--text3);
-  font-weight: 500;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 
 .ev-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  margin-top: 4px;
+  margin-top: 3px;
 }
 
 .ev-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  padding: 2px 6px;
-  border-radius: var(--radius-full);
   font-size: 8px;
+  padding: 1px 5px;
+  border-radius: var(--radius-full);
   font-weight: 600;
 }
 
 .ev-location-tag {
-  background: rgba(139,92,246,0.15);
+  background: var(--primary-soft);
   color: var(--primary-light);
   font-size: 8px;
-  padding: 2px 6px;
+  padding: 1px 5px;
   border-radius: var(--radius-full);
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap: 2px;
 }
 
 .ev-obs-preview {
-  font-size: 9px;
+  font-size: 8px;
   color: var(--text2);
-  margin-top: 5px;
-  padding-top: 4px;
+  margin-top: 4px;
+  padding-top: 3px;
   border-top: 1px solid var(--border);
-  line-height: 1.3;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .empty-state {
   grid-column: span 2;
   text-align: center;
-  padding: 40px 20px;
+  padding: 30px;
   color: var(--text3);
 }
 
-.empty-icon { font-size: 40px; margin-bottom: 10px; opacity: 0.5; }
-.empty-text { font-size: 12px; font-weight: 500; }
-
-/* MODAL */
+/* MODAL (simplificado) */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -591,55 +509,54 @@ body.light-mode::before {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
-  width: 92%;
-  max-width: 520px;
-  max-height: 90vh;
+  width: 90%;
+  max-width: 500px;
+  max-height: 85vh;
   overflow-y: auto;
 }
 .modal-header {
   display: flex;
   justify-content: space-between;
-  padding: 20px 24px 0;
+  padding: 16px 20px 0;
 }
 .modal-title {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
   background: linear-gradient(135deg, var(--primary-light), var(--primary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .modal-close {
-  width: 32px; height: 32px;
+  width: 28px; height: 28px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: var(--surface2);
   color: var(--text3);
   cursor: pointer;
 }
-.modal-body { padding: 20px 24px 24px; }
+.modal-body { padding: 16px 20px 20px; }
 
 .type-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin-bottom: 20px;
+  gap: 6px;
+  margin-bottom: 16px;
 }
 .type-btn {
-  padding: 10px 8px;
+  padding: 8px 4px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: var(--surface2);
   color: var(--text2);
   cursor: pointer;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  transition: var(--transition);
+  gap: 4px;
 }
-.type-btn .t-icon { font-size: 16px; }
+.type-btn .t-icon { font-size: 14px; }
 .type-btn.active[data-type="reuniao"] { background: var(--reuniao-soft); border-color: var(--reuniao); color: var(--reuniao); }
 .type-btn.active[data-type="evento"] { background: var(--evento-soft); border-color: var(--evento); color: var(--evento); }
 .type-btn.active[data-type="chg"] { background: var(--chg-soft); border-color: var(--chg); color: var(--chg); }
@@ -648,98 +565,87 @@ body.light-mode::before {
 .locations-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 6px;
+  margin-bottom: 12px;
 }
 .location-checkbox {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
+  gap: 6px;
+  padding: 6px 10px;
   background: var(--surface2);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   cursor: pointer;
 }
 .location-checkbox.selected { border-color: var(--primary); background: var(--primary-soft); }
-.location-checkbox input { width: 16px; height: 16px; cursor: pointer; accent-color: var(--primary); }
-.location-checkbox label { flex: 1; cursor: pointer; font-size: 12px; color: var(--text2); }
+.location-checkbox input { width: 14px; height: 14px; cursor: pointer; }
+.location-checkbox label { flex: 1; cursor: pointer; font-size: 11px; }
 
-.field { margin-bottom: 16px; }
+.field { margin-bottom: 12px; }
 .field-label {
-  display: block;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
   color: var(--text3);
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
 .field-input {
   width: 100%;
   background: var(--surface2);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  padding: 10px 12px;
+  padding: 8px 10px;
   color: var(--text);
-  font-size: 13px;
+  font-size: 12px;
 }
 .field-input:focus { outline: none; border-color: var(--primary); }
-.date-row, .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.date-row, .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .duration-select {
   width: 100%;
   background: var(--surface2);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  padding: 10px 12px;
+  padding: 8px 10px;
   color: var(--text);
-  font-size: 13px;
+  font-size: 12px;
 }
-.modal-actions { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+.modal-actions { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }
 .btn-save {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border: none;
   border-radius: var(--radius-sm);
   color: #fff;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
 }
 .btn-row { display: flex; gap: 8px; margin-top: 8px; }
-.btn-del {
+.btn-del, .btn-cancel {
   flex: 1;
-  padding: 10px;
-  background: var(--chg-soft);
-  border: 1px solid var(--chg);
+  padding: 8px;
   border-radius: var(--radius-sm);
-  color: var(--chg);
-  cursor: pointer;
+  font-size: 11px;
   font-weight: 600;
-}
-.btn-cancel {
-  flex: 1;
-  padding: 10px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  color: var(--text2);
   cursor: pointer;
 }
+.btn-del { background: var(--chg-soft); border: 1px solid var(--chg); color: var(--chg); }
+.btn-cancel { background: var(--surface2); border: 1px solid var(--border); color: var(--text2); }
 
 .toast-stack {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: 20px;
+  right: 20px;
   z-index: 9999;
 }
 .toast-item {
-  padding: 10px 16px;
+  padding: 8px 14px;
   border-radius: var(--radius);
   color: #fff;
-  font-size: 12px;
-  margin-top: 8px;
+  font-size: 11px;
+  margin-top: 6px;
   animation: fadeIn 0.3s;
 }
 .toast-success { background: var(--evento); }
@@ -757,7 +663,7 @@ body.light-mode::before {
 }
 .loading-overlay.hidden { display: none; }
 .spinner {
-  width: 40px; height: 40px;
+  width: 36px; height: 36px;
   border: 3px solid var(--surface2);
   border-top-color: var(--primary);
   border-radius: 50%;
@@ -774,12 +680,12 @@ body.light-mode::before {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 56px;
-  height: 56px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: #fff;
-  font-size: 28px;
+  font-size: 26px;
   border: none;
   cursor: pointer;
   z-index: 200;
@@ -788,48 +694,176 @@ body.light-mode::before {
   box-shadow: 0 4px 12px var(--primary-glow);
 }
 
-.share-modal { max-width: 480px; }
+.share-modal { max-width: 450px; }
 .share-url {
   background: var(--surface2);
-  padding: 12px;
+  padding: 10px;
   border-radius: var(--radius-sm);
-  font-size: 12px;
+  font-size: 11px;
   word-break: break-all;
-  margin: 16px 0;
-  border: 1px solid var(--border);
+  margin: 12px 0;
 }
 .copy-btn {
   width: 100%;
-  padding: 10px;
+  padding: 8px;
   background: var(--primary);
   border: none;
   border-radius: var(--radius-sm);
   color: #fff;
   cursor: pointer;
   font-weight: 600;
+  font-size: 12px;
 }
 
-@media (max-width: 900px) {
+/* =============================================
+   RESPONSIVIDADE
+   ============================================= */
+
+/* TABLET (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  :root {
+    --sidebar-w: 320px;
+  }
+  
   .events-list {
     grid-template-columns: 1fr;
+    gap: 8px;
   }
+  
+  .ev-card {
+    padding: 8px;
+  }
+  
+  .ev-date-badge {
+    width: 32px;
+    height: 32px;
+  }
+  .ev-date-badge .day { font-size: 12px; }
+  .ev-info { margin-left: 40px; }
+  
+  .ev-title { font-size: 10px; }
+  .ev-time { font-size: 8px; }
+  .ev-tag, .ev-location-tag { font-size: 7px; }
+  .ev-obs-preview { font-size: 7px; }
+  
+  .header-right .action-btn span:not(.icon) {
+    display: none;
+  }
+  .action-btn { padding: 5px 8px; }
 }
 
+/* MOBILE (até 768px) */
 @media (max-width: 768px) {
-  body { overflow: auto; height: auto; }
-  .app { display: flex; flex-direction: column; height: auto; min-height: 100vh; }
-  .header { position: sticky; top: 0; z-index: 100; padding: 0 12px; }
-  .header .add-btn, .header .action-btn { display: none; }
-  .month-display { font-size: 12px; min-width: 120px; }
-  .nav-btn { width: 32px; height: 32px; font-size: 12px; }
-  .btn-today { padding: 4px 10px; font-size: 10px; }
-  .brand-sub { display: none; }
-  .main { display: none; }
-  .sidebar { width: 100%; border-left: none; border-top: 1px solid var(--border); height: auto; }
-  .sidebar-header { position: sticky; top: 0; background: var(--surface); z-index: 10; }
-  .events-list { grid-template-columns: 1fr; padding-bottom: 80px; }
-  .fab-mobile { display: flex; align-items: center; justify-content: center; }
-  .locations-grid { grid-template-columns: 1fr; }
+  body {
+    overflow: auto;
+    height: auto;
+  }
+  
+  .app {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0 12px;
+  }
+  
+  .header .add-btn {
+    display: none;
+  }
+  
+  .header .action-btn span:not(.icon) {
+    display: none;
+  }
+  
+  .action-btn {
+    padding: 5px 8px;
+  }
+  
+  .brand-sub {
+    display: none;
+  }
+  
+  .month-display {
+    font-size: 12px;
+    min-width: 100px;
+  }
+  
+  .nav-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  
+  .btn-today {
+    padding: 4px 8px;
+    font-size: 9px;
+  }
+  
+  /* ESCONDE CALENDÁRIO NO MOBILE */
+  .main {
+    display: none;
+  }
+  
+  /* SIDEBAR OCUPA TELA INTEIRA */
+  .sidebar {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid var(--border);
+    height: auto;
+    min-height: 60vh;
+  }
+  
+  .events-list {
+    grid-template-columns: 1fr;
+    padding: 12px;
+    padding-bottom: 80px;
+  }
+  
+  .ev-card {
+    padding: 12px;
+  }
+  
+  .ev-date-badge {
+    width: 40px;
+    height: 40px;
+  }
+  .ev-date-badge .day { font-size: 16px; }
+  .ev-info { margin-left: 48px; }
+  
+  .ev-title { font-size: 12px; }
+  .ev-time { font-size: 10px; }
+  .ev-tag, .ev-location-tag { font-size: 9px; }
+  .ev-obs-preview { font-size: 9px; white-space: normal; }
+  
+  .fab-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .locations-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal-box {
+    width: 95%;
+    max-width: none;
+  }
+  
+  .toast-stack {
+    bottom: 80px;
+    right: 16px;
+    left: 16px;
+  }
+  .toast-item {
+    max-width: 100%;
+  }
 }
 </style>
 </head>
@@ -852,9 +886,9 @@ body.light-mode::before {
       <button class="btn-today" id="todayBtn">Hoje</button>
     </div>
     <div class="header-right">
-      <button class="action-btn" id="themeToggleBtn">🌓 Tema</button>
-      <button class="action-btn" id="shareBtn">🔗 Compartilhar</button>
-      <button class="add-btn" id="addBtn">➕ Novo Evento</button>
+      <button class="action-btn" id="themeToggleBtn">🌓</button>
+      <button class="action-btn" id="shareBtn">🔗</button>
+      <button class="add-btn" id="addBtn">➕ Novo</button>
     </div>
   </header>
 
@@ -893,8 +927,8 @@ body.light-mode::before {
       <div class="field"><label class="field-label">📝 Título *</label><input type="text" id="titleInput" class="field-input" placeholder="Nome do compromisso…"></div>
       <div class="field"><div class="date-row"><div><label style="font-size:10px">Início *</label><input type="date" id="startInput" class="field-input"></div><div><label style="font-size:10px">Fim</label><input type="date" id="endInput" class="field-input"></div></div></div>
       <div class="field"><div class="time-row"><div><label style="font-size:10px">Hora</label><input type="time" id="timeInput" class="field-input"></div><div><label style="font-size:10px">Duração</label><select id="durationInput" class="duration-select"><option>Dia inteiro</option><option>30 min</option><option>1 hora</option><option>2 horas</option><option>3 horas</option><option>4 horas</option><option>5 horas</option><option>6 horas</option><option>8 horas</option></select></div></div></div>
-      <div class="field"><label class="field-label">📍 Locais</label><div class="locations-grid" id="locationsGrid"><div class="location-checkbox" data-location="workvivo"><input type="checkbox" id="loc_workvivo" value="Workvivo"><label for="loc_workvivo">💻 Workvivo</label></div><div class="location-checkbox" data-location="teams"><input type="checkbox" id="loc_teams" value="Microsoft Teams"><label for="loc_teams">🎥 Microsoft Teams</label></div><div class="location-checkbox" data-location="auditorio_berrini"><input type="checkbox" id="loc_berrini" value="Auditório Berrini"><label for="loc_berrini">🏢 Auditório Berrini</label></div><div class="location-checkbox" data-location="auditorio_chucri"><input type="checkbox" id="loc_chucri" value="Auditório Chucri"><label for="loc_chucri">🏛️ Auditório Chucri</label></div></div></div>
-      <div class="field"><label class="field-label">📝 Observações</label><textarea id="obsInput" class="field-input" rows="3" placeholder="Detalhes importantes..."></textarea></div>
+      <div class="field"><label class="field-label">📍 Locais</label><div class="locations-grid" id="locationsGrid"><div class="location-checkbox" data-location="workvivo"><input type="checkbox" id="loc_workvivo" value="Workvivo"><label for="loc_workvivo">💻 Workvivo</label></div><div class="location-checkbox" data-location="teams"><input type="checkbox" id="loc_teams" value="Microsoft Teams"><label for="loc_teams">🎥 Teams</label></div><div class="location-checkbox" data-location="auditorio_berrini"><input type="checkbox" id="loc_berrini" value="Auditório Berrini"><label for="loc_berrini">🏢 Auditório Berrini</label></div><div class="location-checkbox" data-location="auditorio_chucri"><input type="checkbox" id="loc_chucri" value="Auditório Chucri"><label for="loc_chucri">🏛️ Auditório Chucri</label></div></div></div>
+      <div class="field"><label class="field-label">📝 Observações</label><textarea id="obsInput" class="field-input" rows="2" placeholder="Detalhes importantes..."></textarea></div>
       <div class="modal-actions"><button class="btn-save" id="saveBtn">💾 Salvar</button><div class="btn-row"><button class="btn-del" id="deleteBtn" style="display:none">🗑 Excluir</button><button class="btn-cancel" id="cancelBtn">Fechar</button></div></div>
     </div>
   </div>
@@ -902,9 +936,8 @@ body.light-mode::before {
 
 <div class="modal-overlay" id="shareModalOverlay">
   <div class="modal-box share-modal">
-    <div class="modal-header"><div class="modal-title">🔗 Compartilhar Agenda</div><button class="modal-close" id="shareModalCloseBtn">✕</button></div>
+    <div class="modal-header"><div class="modal-title">🔗 Compartilhar</div><button class="modal-close" id="shareModalCloseBtn">✕</button></div>
     <div class="modal-body">
-      <p style="font-size:12px; margin-bottom:12px; color:var(--text2)">Compartilhe este link com sua equipe. Todos verão os mesmos eventos em tempo real!</p>
       <div class="share-url" id="shareUrlDisplay">Carregando...</div>
       <button class="copy-btn" id="copyShareBtn">📋 Copiar Link</button>
     </div>
@@ -974,11 +1007,10 @@ async function saveEvent(ev) {
       r = await fetch(`${SUPABASE_URL}/rest/v1/eventos`, { method: "POST", headers, body: JSON.stringify(ev) });
     }
     if (!r.ok) throw new Error();
-    toast(editId ? "Atualizado! 🎉" : "Criado! 🎉", "success");
+    toast(editId ? "Atualizado!" : "Criado!", "success");
     await loadEvents();
     closeModal();
   } catch (err) {
-    console.error(err);
     toast("Erro ao salvar", "error");
   }
 }
@@ -994,16 +1026,12 @@ async function deleteEvent() {
   } catch { toast("Erro", "error"); }
 }
 
-// ================================================================
-//  NOTIFICAÇÃO DE 15 MINUTOS
-// ================================================================
 function isWithin15Minutes(ev) {
   const now = new Date();
   const today = toLocalStr(now);
   if (!occursOn(ev, today)) return false;
   if (ev.duration === "Dia inteiro") return false;
   if (!ev.time) return false;
-  
   const [hour, minute] = ev.time.split(':');
   const evTime = new Date(now);
   evTime.setHours(parseInt(hour), parseInt(minute), 0);
@@ -1014,12 +1042,11 @@ function isWithin15Minutes(ev) {
 function startReminderCheck() {
   if (reminderCheckInterval) clearInterval(reminderCheckInterval);
   reminderCheckInterval = setInterval(() => {
-    const now = new Date();
     const eventsToRemind = allEvents.filter(ev => isWithin15Minutes(ev));
     eventsToRemind.forEach(ev => {
       if (!ev._reminded) {
         ev._reminded = true;
-        toast(`🔔 Em até 15 minutos: ${ev.title}`, "info");
+        toast(`🔔 Em até 15min: ${ev.title}`, "info");
         setTimeout(() => { ev._reminded = false; }, 60000);
       }
     });
@@ -1091,11 +1118,11 @@ function renderList() {
     const isReminder = isWithin15Minutes(ev);
     const dateRange = ev.start === (ev.end||ev.start) ? `${day}/${MONTH_SHORT[parseInt(ev.start.split("-")[1])-1]}` : `${ev.start.split("-")[2]}/${MONTH_SHORT[parseInt(ev.start.split("-")[1])-1]} → ${(ev.end||ev.start).split("-")[2]}/${MONTH_SHORT[parseInt((ev.end||ev.start).split("-")[1])-1]}`;
     const card = document.createElement("div");
-    card.className = `ev-card${isNow ? " happening-now" : ""}${isReminder ? " reminder-15" : ""}`;
+    card.className = `ev-card${isNow ? " happening-now" : ""}`;
     
     let badgeHtml = '';
-    if (isNow) badgeHtml = '<div class="happening-badge">🔴 ACONTECENDO AGORA</div>';
-    else if (isReminder) badgeHtml = '<div class="reminder-badge">⏰ EM ATÉ 15MIN</div>';
+    if (isNow) badgeHtml = '<div class="happening-badge">🔴 AGORA</div>';
+    else if (isReminder) badgeHtml = '<div class="reminder-badge">⏰ 15MIN</div>';
     
     let locationsHtml = '';
     if (ev.locations) {
@@ -1103,7 +1130,7 @@ function renderList() {
       locationsHtml = `<div class="ev-meta">${locs.map(loc => `<span class="ev-location-tag">📍 ${loc}</span>`).join('')}</div>`;
     }
     
-    card.innerHTML = `${badgeHtml}<div class="ev-date-badge" style="background:${cfg.soft};color:${cfg.color}"><div class="day">${day}</div><div class="month">${mon}</div></div><div class="ev-info"><div class="ev-title">${escapeHtml(ev.title)}</div><div class="ev-time">${dateRange} ${ev.time&&ev.duration!=="Dia inteiro"?" • "+ev.time:""}</div><div class="ev-meta"><span class="ev-tag" style="background:${cfg.soft};color:${cfg.color}">${cfg.icon} ${cfg.label}</span>${ev.duration ? `<span class="ev-tag" style="background:rgba(255,255,255,0.05)">⏱ ${ev.duration}</span>` : ""}</div>${locationsHtml}${ev.obs ? `<div class="ev-obs-preview">📝 ${escapeHtml(ev.obs.substring(0,80))}${ev.obs.length>80?"…":""}</div>` : ""}</div>`;
+    card.innerHTML = `${badgeHtml}<div class="ev-date-badge" style="background:${cfg.soft};color:${cfg.color}"><div class="day">${day}</div><div class="month">${mon}</div></div><div class="ev-info"><div class="ev-title">${escapeHtml(ev.title)}</div><div class="ev-time">${dateRange} ${ev.time&&ev.duration!=="Dia inteiro"?" • "+ev.time:""}</div><div class="ev-meta"><span class="ev-tag" style="background:${cfg.soft};color:${cfg.color}">${cfg.icon} ${cfg.label}</span>${ev.duration ? `<span class="ev-tag" style="background:rgba(255,255,255,0.05)">⏱ ${ev.duration}</span>` : ""}</div>${locationsHtml}${ev.obs ? `<div class="ev-obs-preview">📝 ${escapeHtml(ev.obs.substring(0,70))}${ev.obs.length>70?"…":""}</div>` : ""}</div>`;
     card.addEventListener("click", () => openEdit(ev.id));
     list.appendChild(card);
   });
