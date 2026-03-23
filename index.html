@@ -49,8 +49,8 @@
   --shadow:        0 4px 16px rgba(0,0,0,0.4);
   
   --transition:    all 0.2s ease;
-  --sidebar-w:     380px;
-  --header-h:      64px;
+  --sidebar-w:     420px;
+  --header-h:      60px;
 }
 
 /* MODO CLARO */
@@ -74,20 +74,17 @@ body {
   background: linear-gradient(135deg, #0a0a0f 0%, #12121a 50%, #1a1a2a 100%);
   color: var(--text);
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.4;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
   height: 100vh;
-  transition: var(--transition);
 }
 
 body.light-mode {
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
-/* =============================================
-   LAYOUT RESPONSIVO
-   ============================================= */
+/* LAYOUT */
 .app {
   display: grid;
   grid-template-rows: var(--header-h) 1fr;
@@ -103,14 +100,14 @@ body.light-mode {
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  background: rgba(22,22,31,0.8);
+  background: rgba(22,22,31,0.9);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   z-index: 50;
 }
 
 body.light-mode .header {
-  background: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.9);
 }
 
 .header-brand {
@@ -238,26 +235,26 @@ body.light-mode .header {
   box-shadow: 0 4px 12px var(--primary-glow);
 }
 
-/* CALENDÁRIO */
+/* CALENDÁRIO REDUZIDO - 6 LINHAS */
 .main {
   display: flex;
   flex-direction: column;
   overflow: hidden;
   padding: 12px;
-  gap: 8px;
+  gap: 6px;
   height: 100%;
 }
 
 .weekdays-row {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+  gap: 3px;
 }
 
 .weekday-label {
   text-align: center;
   padding: 4px;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--text3);
@@ -266,7 +263,8 @@ body.light-mode .header {
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+  grid-template-rows: repeat(6, 1fr);
+  gap: 3px;
   flex: 1;
   min-height: 0;
 }
@@ -275,12 +273,12 @@ body.light-mode .header {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  padding: 5px 4px;
+  padding: 4px 3px;
   cursor: pointer;
   transition: var(--transition);
   display: flex;
   flex-direction: column;
-  min-height: 0;
+  overflow: hidden;
 }
 
 .day-cell:hover {
@@ -298,10 +296,10 @@ body.light-mode .header {
 }
 
 .day-num {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   color: var(--text2);
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 
 .day-cell.today .day-num {
@@ -311,22 +309,22 @@ body.light-mode .header {
 .cell-events {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
   overflow: hidden;
 }
 
 .ev-pill {
-  font-size: 8px;
+  font-size: 7px;
   font-weight: 500;
-  padding: 1px 3px;
-  border-radius: 3px;
+  padding: 1px 2px;
+  border-radius: 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer;
 }
 
-/* SIDEBAR */
+/* SIDEBAR FIXO - SEM SCROLL */
 .sidebar {
   background: var(--surface);
   border-left: 1px solid var(--border);
@@ -343,7 +341,7 @@ body.light-mode .header {
 }
 
 .sidebar-title {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--primary-light);
   display: flex;
@@ -355,54 +353,44 @@ body.light-mode .header {
   background: var(--primary-soft);
   padding: 2px 8px;
   border-radius: var(--radius-full);
-  font-size: 11px;
+  font-size: 12px;
 }
 
-/* LISTA EM 2 COLUNAS - COMPACTA */
+/* LISTA DE COMPROMISSOS - SEM SCROLL, TUDO VISÍVEL */
 .events-list {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: visible;
   padding: 12px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   min-height: 0;
-}
-
-.events-list::-webkit-scrollbar {
-  width: 5px;
-}
-.events-list::-webkit-scrollbar-track {
-  background: var(--surface2);
-  border-radius: 3px;
-}
-.events-list::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 3px;
 }
 
 .ev-card {
   background: var(--surface2);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 10px;
+  padding: 12px;
   cursor: pointer;
   transition: var(--transition);
   position: relative;
+  flex-shrink: 0;
 }
 
 .ev-card:hover {
   border-color: var(--primary);
-  transform: translateY(-1px);
+  transform: translateX(2px);
 }
 
+/* Badges */
 .reminder-badge, .happening-badge {
   position: absolute;
   top: -8px;
   right: -8px;
-  font-size: 7px;
+  font-size: 8px;
   font-weight: 800;
-  padding: 2px 6px;
+  padding: 2px 8px;
   border-radius: 20px;
   white-space: nowrap;
   z-index: 10;
@@ -419,47 +407,46 @@ body.light-mode .header {
 }
 
 .ev-date-badge {
-  width: 36px; height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-sm);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   float: left;
-  margin-right: 8px;
+  margin-right: 12px;
 }
-.ev-date-badge .day { font-size: 14px; font-weight: 800; }
-.ev-date-badge .month { font-size: 7px; font-weight: 600; text-transform: uppercase; }
+.ev-date-badge .day { font-size: 18px; font-weight: 800; }
+.ev-date-badge .month { font-size: 8px; font-weight: 600; text-transform: uppercase; }
 
 .ev-info {
-  margin-left: 44px;
+  margin-left: 56px;
 }
 
 .ev-title {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
-  margin-bottom: 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin-bottom: 4px;
+  line-height: 1.3;
 }
 
 .ev-time {
-  font-size: 9px;
+  font-size: 10px;
   color: var(--text3);
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 
 .ev-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 3px;
+  gap: 6px;
+  margin-top: 6px;
 }
 
 .ev-tag {
-  font-size: 8px;
-  padding: 1px 5px;
+  font-size: 9px;
+  padding: 2px 8px;
   border-radius: var(--radius-full);
   font-weight: 600;
 }
@@ -467,33 +454,33 @@ body.light-mode .header {
 .ev-location-tag {
   background: var(--primary-soft);
   color: var(--primary-light);
-  font-size: 8px;
-  padding: 1px 5px;
+  font-size: 9px;
+  padding: 2px 8px;
   border-radius: var(--radius-full);
   display: inline-flex;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
 }
 
 .ev-obs-preview {
-  font-size: 8px;
+  font-size: 10px;
   color: var(--text2);
-  margin-top: 4px;
-  padding-top: 3px;
+  margin-top: 8px;
+  padding-top: 6px;
   border-top: 1px solid var(--border);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.4;
 }
 
 .empty-state {
-  grid-column: span 2;
   text-align: center;
   padding: 30px;
   color: var(--text3);
 }
 
-/* MODAL (simplificado) */
+.empty-icon { font-size: 40px; margin-bottom: 10px; opacity: 0.5; }
+.empty-text { font-size: 12px; font-weight: 500; }
+
+/* MODAL */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -715,155 +702,33 @@ body.light-mode .header {
   font-size: 12px;
 }
 
-/* =============================================
-   RESPONSIVIDADE
-   ============================================= */
-
-/* TABLET (768px - 1024px) */
-@media (min-width: 768px) and (max-width: 1024px) {
-  :root {
-    --sidebar-w: 320px;
-  }
-  
-  .events-list {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-  
-  .ev-card {
-    padding: 8px;
-  }
-  
-  .ev-date-badge {
-    width: 32px;
-    height: 32px;
-  }
-  .ev-date-badge .day { font-size: 12px; }
-  .ev-info { margin-left: 40px; }
-  
-  .ev-title { font-size: 10px; }
-  .ev-time { font-size: 8px; }
-  .ev-tag, .ev-location-tag { font-size: 7px; }
-  .ev-obs-preview { font-size: 7px; }
-  
-  .header-right .action-btn span:not(.icon) {
-    display: none;
-  }
-  .action-btn { padding: 5px 8px; }
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+  body { overflow: auto; height: auto; }
+  .app { display: flex; flex-direction: column; height: auto; min-height: 100vh; }
+  .header { position: sticky; top: 0; z-index: 100; padding: 0 12px; }
+  .header .add-btn, .header .action-btn { display: none; }
+  .month-display { font-size: 12px; min-width: 100px; }
+  .nav-btn { width: 28px; height: 28px; font-size: 12px; }
+  .btn-today { padding: 4px 8px; font-size: 9px; }
+  .brand-sub { display: none; }
+  .main { display: none; }
+  .sidebar { width: 100%; border-left: none; border-top: 1px solid var(--border); height: auto; }
+  .events-list { padding-bottom: 80px; }
+  .fab-mobile { display: flex; align-items: center; justify-content: center; }
+  .locations-grid { grid-template-columns: 1fr; }
 }
 
-/* MOBILE (até 768px) */
-@media (max-width: 768px) {
-  body {
-    overflow: auto;
-    height: auto;
+@media (min-width: 769px) and (max-width: 1024px) {
+  :root {
+    --sidebar-w: 360px;
   }
-  
-  .app {
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    min-height: 100vh;
-  }
-  
-  .header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    padding: 0 12px;
-  }
-  
-  .header .add-btn {
-    display: none;
-  }
-  
-  .header .action-btn span:not(.icon) {
-    display: none;
-  }
-  
-  .action-btn {
-    padding: 5px 8px;
-  }
-  
-  .brand-sub {
-    display: none;
-  }
-  
-  .month-display {
-    font-size: 12px;
-    min-width: 100px;
-  }
-  
-  .nav-btn {
-    width: 28px;
-    height: 28px;
-    font-size: 12px;
-  }
-  
-  .btn-today {
-    padding: 4px 8px;
-    font-size: 9px;
-  }
-  
-  /* ESCONDE CALENDÁRIO NO MOBILE */
-  .main {
-    display: none;
-  }
-  
-  /* SIDEBAR OCUPA TELA INTEIRA */
-  .sidebar {
-    width: 100%;
-    border-left: none;
-    border-top: 1px solid var(--border);
-    height: auto;
-    min-height: 60vh;
-  }
-  
-  .events-list {
-    grid-template-columns: 1fr;
-    padding: 12px;
-    padding-bottom: 80px;
-  }
-  
-  .ev-card {
-    padding: 12px;
-  }
-  
-  .ev-date-badge {
-    width: 40px;
-    height: 40px;
-  }
-  .ev-date-badge .day { font-size: 16px; }
-  .ev-info { margin-left: 48px; }
-  
+  .ev-date-badge { width: 38px; height: 38px; }
+  .ev-date-badge .day { font-size: 14px; }
+  .ev-info { margin-left: 50px; }
   .ev-title { font-size: 12px; }
-  .ev-time { font-size: 10px; }
-  .ev-tag, .ev-location-tag { font-size: 9px; }
-  .ev-obs-preview { font-size: 9px; white-space: normal; }
-  
-  .fab-mobile {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .locations-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .modal-box {
-    width: 95%;
-    max-width: none;
-  }
-  
-  .toast-stack {
-    bottom: 80px;
-    right: 16px;
-    left: 16px;
-  }
-  .toast-item {
-    max-width: 100%;
-  }
+  .ev-time { font-size: 9px; }
+  .ev-tag, .ev-location-tag { font-size: 8px; }
 }
 </style>
 </head>
@@ -1010,9 +875,7 @@ async function saveEvent(ev) {
     toast(editId ? "Atualizado!" : "Criado!", "success");
     await loadEvents();
     closeModal();
-  } catch (err) {
-    toast("Erro ao salvar", "error");
-  }
+  } catch { toast("Erro ao salvar", "error"); }
 }
 
 async function deleteEvent() {
@@ -1075,28 +938,32 @@ function renderCalendar() {
   $("yearNum").textContent = year;
   if (wr) wr.innerHTML = WEEK_DAYS.map((d,i) => `<div class="weekday-label${i===0||i===6?" weekend":""}">${d}</div>`).join("");
   grid.innerHTML = "";
-  const firstDay = new Date(year, month, 1), startDate = new Date(year, month, 1 - firstDay.getDay());
+  const firstDay = new Date(year, month, 1);
+  const startDate = new Date(year, month, 1 - firstDay.getDay());
+  
+  // 6 linhas = 42 células, mantemos 42 mas com grid-template-rows: repeat(6, 1fr)
   for (let i=0; i<42; i++) {
-    const date = new Date(startDate); date.setDate(startDate.getDate() + i);
+    const date = new Date(startDate);
+    date.setDate(startDate.getDate() + i);
     const dateStr = toLocalStr(date), isCur = date.getMonth() === month, isToday = dateStr === today;
     const dayEvs = allEvents.filter(ev => occursOn(ev, dateStr));
     const cell = document.createElement("div");
     cell.className = `day-cell${!isCur ? " other-month" : ""}${isToday ? " today" : ""}`;
     cell.innerHTML = `<div class="day-num">${date.getDate()}</div><div class="cell-events"></div>`;
     const evContainer = cell.querySelector(".cell-events");
-    dayEvs.slice(0,2).forEach(ev => {
+    dayEvs.slice(0, 1).forEach(ev => {
       const cfg = CONFIG[ev.tipo] || CONFIG.outro;
       const pill = document.createElement("div");
       pill.className = "ev-pill";
       pill.style.cssText = `background:${cfg.soft};color:${cfg.color}`;
-      pill.textContent = ev.duration==="Dia inteiro" ? ev.title.substring(0,12) : `${ev.time||"00:00"} ${ev.title.substring(0,10)}`;
+      pill.textContent = ev.title.substring(0, 10);
       pill.addEventListener("click", e => { e.stopPropagation(); openEdit(ev.id); });
       evContainer.appendChild(pill);
     });
-    if (dayEvs.length > 2) {
+    if (dayEvs.length > 1) {
       const more = document.createElement("div");
       more.className = "ev-more";
-      more.textContent = `+${dayEvs.length-2}`;
+      more.textContent = `+${dayEvs.length-1}`;
       more.addEventListener("click", e => { e.stopPropagation(); toast(`${dayEvs.length} eventos`, "info"); });
       evContainer.appendChild(more);
     }
@@ -1118,7 +985,7 @@ function renderList() {
     const isReminder = isWithin15Minutes(ev);
     const dateRange = ev.start === (ev.end||ev.start) ? `${day}/${MONTH_SHORT[parseInt(ev.start.split("-")[1])-1]}` : `${ev.start.split("-")[2]}/${MONTH_SHORT[parseInt(ev.start.split("-")[1])-1]} → ${(ev.end||ev.start).split("-")[2]}/${MONTH_SHORT[parseInt((ev.end||ev.start).split("-")[1])-1]}`;
     const card = document.createElement("div");
-    card.className = `ev-card${isNow ? " happening-now" : ""}`;
+    card.className = `ev-card`;
     
     let badgeHtml = '';
     if (isNow) badgeHtml = '<div class="happening-badge">🔴 AGORA</div>';
@@ -1130,7 +997,7 @@ function renderList() {
       locationsHtml = `<div class="ev-meta">${locs.map(loc => `<span class="ev-location-tag">📍 ${loc}</span>`).join('')}</div>`;
     }
     
-    card.innerHTML = `${badgeHtml}<div class="ev-date-badge" style="background:${cfg.soft};color:${cfg.color}"><div class="day">${day}</div><div class="month">${mon}</div></div><div class="ev-info"><div class="ev-title">${escapeHtml(ev.title)}</div><div class="ev-time">${dateRange} ${ev.time&&ev.duration!=="Dia inteiro"?" • "+ev.time:""}</div><div class="ev-meta"><span class="ev-tag" style="background:${cfg.soft};color:${cfg.color}">${cfg.icon} ${cfg.label}</span>${ev.duration ? `<span class="ev-tag" style="background:rgba(255,255,255,0.05)">⏱ ${ev.duration}</span>` : ""}</div>${locationsHtml}${ev.obs ? `<div class="ev-obs-preview">📝 ${escapeHtml(ev.obs.substring(0,70))}${ev.obs.length>70?"…":""}</div>` : ""}</div>`;
+    card.innerHTML = `${badgeHtml}<div class="ev-date-badge" style="background:${cfg.soft};color:${cfg.color}"><div class="day">${day}</div><div class="month">${mon}</div></div><div class="ev-info"><div class="ev-title">${escapeHtml(ev.title)}</div><div class="ev-time">${dateRange} ${ev.time&&ev.duration!=="Dia inteiro"?" • "+ev.time:""}</div><div class="ev-meta"><span class="ev-tag" style="background:${cfg.soft};color:${cfg.color}">${cfg.icon} ${cfg.label}</span>${ev.duration ? `<span class="ev-tag" style="background:rgba(255,255,255,0.05)">⏱ ${ev.duration}</span>` : ""}</div>${locationsHtml}${ev.obs ? `<div class="ev-obs-preview">📝 ${escapeHtml(ev.obs.substring(0,100))}${ev.obs.length>100?"…":""}</div>` : ""}</div>`;
     card.addEventListener("click", () => openEdit(ev.id));
     list.appendChild(card);
   });
