@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
 <title>Agenda Workplace - Focus</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -467,12 +467,187 @@ body.light-mode {
   to { opacity: 1; transform: translateX(0); }
 }
 
-@media (max-width: 1000px) {
-  .compromissos-grid { grid-template-columns: repeat(2, 1fr); }
+/* =============================================
+   MOBILE - AJUSTES PARA NÃO QUEBRAR
+   ============================================= */
+@media (max-width: 768px) {
+  body {
+    overflow: auto;
+    height: auto;
+  }
+  
+  .top-bar {
+    padding: 8px 12px;
+    height: auto;
+    flex-wrap: wrap;
+    gap: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .top-left {
+    flex: 1;
+  }
+  
+  .logo {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  
+  .title {
+    font-size: 12px;
+  }
+  
+  .mini-calendar {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 4px;
+  }
+  
+  .mini-calendar .month-year {
+    font-size: 11px;
+  }
+  
+  .top-right {
+    gap: 6px;
+  }
+  
+  .theme-btn, .share-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+  
+  .add-button {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+  
+  .compromissos-container {
+    padding: 12px;
+    overflow-y: visible;
+  }
+  
+  .compromissos-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .event-card {
+    padding: 12px;
+    margin: 0;
+  }
+  
+  .card-day {
+    font-size: 18px;
+  }
+  
+  .card-title {
+    font-size: 13px;
+    white-space: normal;
+    line-height: 1.4;
+  }
+  
+  .card-meta {
+    gap: 6px;
+  }
+  
+  .meta-tag {
+    font-size: 9px;
+    padding: 3px 8px;
+  }
+  
+  .location-tag {
+    font-size: 9px;
+  }
+  
+  .card-obs {
+    font-size: 10px;
+    white-space: normal;
+    line-height: 1.4;
+  }
+  
+  .badge-now {
+    font-size: 9px;
+    padding: 3px 10px;
+    top: -8px;
+    right: 8px;
+  }
+  
+  .badge-reminder {
+    font-size: 7px;
+    padding: 2px 6px;
+  }
+  
+  .modal-box {
+    width: 95%;
+    margin: 0 auto;
+  }
+  
+  .type-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .locations-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .toast-stack {
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+  }
+  
+  .toast-item {
+    max-width: 100%;
+  }
 }
-@media (max-width: 650px) {
-  .compromissos-grid { grid-template-columns: 1fr; }
-  .mini-calendar { display: none; }
+
+@media (max-width: 480px) {
+  .top-bar {
+    padding: 8px 10px;
+  }
+  
+  .top-left {
+    gap: 6px;
+  }
+  
+  .title {
+    font-size: 11px;
+  }
+  
+  .compromissos-container {
+    padding: 10px;
+  }
+  
+  .event-card {
+    padding: 10px;
+  }
+  
+  .card-day {
+    font-size: 16px;
+  }
+  
+  .card-title {
+    font-size: 12px;
+  }
+  
+  .card-date-range {
+    font-size: 8px;
+  }
+  
+  .meta-tag {
+    font-size: 8px;
+    padding: 2px 6px;
+  }
+  
+  .card-obs {
+    font-size: 9px;
+  }
 }
 </style>
 </head>
