@@ -9,89 +9,297 @@
 
 <style>
 :root {
-  --primary:       #8b5cf6;
-  --primary-dark:  #7c3aed;
-  --primary-light: #a78bfa;
-  --primary-soft:  rgba(139,92,246,0.12);
+  --primary:           #8b5cf6;
+  --primary-dark:      #7c3aed;
+  --primary-light:     #a78bfa;
+  --primary-soft:      rgba(139, 92, 246, 0.12);
+  --primary-glow:      rgba(139, 92, 246, 0.2);
   
-  --reuniao:       #3b82f6;
-  --reuniao-soft:  rgba(59,130,246,0.1);
-  --evento:        #10b981;
-  --evento-soft:   rgba(16,185,129,0.1);
-  --chg:           #f43f5e;
-  --chg-soft:      rgba(244,63,94,0.1);
-  --outro:         #f59e0b;
-  --outro-soft:    rgba(245,158,11,0.1);
+  --reuniao:           #3b82f6;
+  --reuniao-soft:      rgba(59, 130, 246, 0.1);
+  --reuniao-glow:      rgba(59, 130, 246, 0.2);
   
-  --bg:            #0a0a0f;
-  --surface:       #12121a;
-  --card-bg:       #1a1a2a;
-  --border:        rgba(255,255,255,0.06);
+  --evento:            #10b981;
+  --evento-soft:       rgba(16, 185, 129, 0.1);
+  --evento-glow:       rgba(16, 185, 129, 0.2);
   
-  --text:          #f0f0ff;
-  --text2:         #a0a0c0;
-  --text3:         #6a6a8a;
+  --chg:               #ef4444;
+  --chg-soft:          rgba(239, 68, 68, 0.1);
+  --chg-glow:          rgba(239, 68, 68, 0.2);
   
-  --radius:        12px;
-  --radius-sm:     8px;
-  --radius-full:   9999px;
+  --outro:             #f97316;
+  --outro-soft:        rgba(249, 115, 22, 0.1);
+  --outro-glow:        rgba(249, 115, 22, 0.2);
+  
+  --bg:                #0f172a;
+  --bg-secondary:      #1a1f3a;
+  --surface:           #1e293b;
+  --surface-hover:     #334155;
+  --card-bg:           #1e293b;
+  --card-bg-hover:     #334155;
+  --border:            rgba(255, 255, 255, 0.08);
+  --border-light:      rgba(255, 255, 255, 0.12);
+  
+  --text:              #f1f5f9;
+  --text-secondary:    #cbd5e1;
+  --text-tertiary:     #94a3b8;
+  
+  --radius:            14px;
+  --radius-sm:         10px;
+  --radius-full:       9999px;
+  
+  --shadow-sm:         0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md:         0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-lg:         0 12px 24px rgba(0, 0, 0, 0.2);
+  --shadow-xl:         0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
 
 body {
   font-family: 'Inter', sans-serif;
   background: var(--bg);
   color: var(--text);
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
 
 body.light-mode {
-  --bg: #f5f5f7;
+  --bg: #f8fafc;
+  --bg-secondary: #f1f5f9;
   --surface: #ffffff;
-  --card-bg: #f8f8fc;
-  --border: rgba(0,0,0,0.08);
-  --text: #1a1a2e;
-  --text2: #4a4a6a;
-  --text3: #6a6a8a;
+  --surface-hover: #f1f5f9;
+  --card-bg: #ffffff;
+  --card-bg-hover: #f8fafc;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-light: rgba(0, 0, 0, 0.12);
+  --text: #0f172a;
+  --text-secondary: #334155;
+  --text-tertiary: #64748b;
 }
 
-/* TOPO */
+/* =============================================
+   LAYOUT PRINCIPAL
+   ============================================= */
+.app-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* =============================================
+   SIDEBAR
+   ============================================= */
+.sidebar {
+  width: 280px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar.collapsed {
+  width: 0;
+  border-right: none;
+}
+
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.sidebar-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 18px;
+  display: none;
+}
+
+.sidebar-section {
+  padding: 16px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 10px;
+  padding: 0 8px;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-secondary);
+  font-size: 13px;
+  border: 1px solid transparent;
+}
+
+.filter-item:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+.filter-item.active {
+  background: var(--primary-soft);
+  color: var(--primary-light);
+  border-color: var(--primary-glow);
+}
+
+.filter-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* =============================================
+   TOPO
+   ============================================= */
 .top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 24px;
-  background: var(--surface);
+  padding: 12px 24px;
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
-  height: 56px;
+  height: 64px;
+  box-shadow: var(--shadow-sm);
 }
 
 .top-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
+}
+
+.sidebar-toggle {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 20px;
+  display: none;
+  transition: all 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+  color: var(--text);
 }
 
 .logo {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 20px;
+  box-shadow: var(--shadow-md);
 }
 
 .title {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
   background: linear-gradient(135deg, var(--primary-light), var(--primary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.top-center {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  margin: 0 24px;
+}
+
+.view-selector {
+  display: flex;
+  gap: 4px;
+  background: var(--card-bg);
+  padding: 4px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+}
+
+.view-btn {
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+.view-btn:hover {
+  color: var(--text);
+}
+
+.view-btn.active {
+  background: var(--primary-soft);
+  color: var(--primary-light);
+}
+
+.search-box {
+  flex: 1;
+  max-width: 300px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 8px 14px;
+  color: var(--text);
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.search-box:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .mini-calendar {
@@ -99,7 +307,7 @@ body.light-mode {
   align-items: center;
   gap: 8px;
   background: var(--card-bg);
-  padding: 5px 12px;
+  padding: 6px 12px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border);
 }
@@ -113,104 +321,183 @@ body.light-mode {
 .mini-calendar .nav-mini {
   background: none;
   border: none;
-  color: var(--text2);
+  color: var(--text-secondary);
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;
   padding: 0 4px;
+  transition: all 0.2s ease;
+}
+
+.mini-calendar .nav-mini:hover {
+  color: var(--primary-light);
+}
+
+.icon-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+  border-color: var(--border-light);
 }
 
 .add-button {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border: none;
   color: white;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-full);
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-md);
 }
 
-.top-right {
+.add-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.add-button:active {
+  transform: translateY(0);
+}
+
+/* =============================================
+   CONTEÚDO PRINCIPAL
+   ============================================= */
+.main-content {
+  flex: 1;
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-.theme-btn, .share-btn {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  color: var(--text2);
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-full);
-  cursor: pointer;
-  font-size: 16px;
+.view-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: none;
 }
 
-/* GRADE DE COMPROMISSOS */
+.view-container.active {
+  display: flex;
+  flex-direction: column;
+}
+
+/* =============================================
+   GRADE DE COMPROMISSOS
+   ============================================= */
 .compromissos-container {
   flex: 1;
   overflow-y: auto;
-  padding: 16px 20px;
 }
 
 .compromissos-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
 }
 
 .event-card {
-  background: var(--card-bg);
+  background: linear-gradient(135deg, var(--card-bg) 0%, var(--card-bg-hover) 100%);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 12px;
-  transition: all 0.2s;
+  padding: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.event-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .event-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--primary);
+  transform: translateY(-6px);
+  border-color: var(--primary-glow);
+  box-shadow: var(--shadow-lg);
+}
+
+.event-card:hover::before {
+  opacity: 1;
+}
+
+.event-card[data-type="reuniao"] { --card-accent: var(--reuniao); }
+.event-card[data-type="evento"] { --card-accent: var(--evento); }
+.event-card[data-type="chg"] { --card-accent: var(--chg); }
+.event-card[data-type="outro"] { --card-accent: var(--outro); }
+
+.event-card::before {
+  background: var(--card-accent);
 }
 
 .badge-now {
   position: absolute;
-  top: -10px;
-  right: 10px;
+  top: 12px;
+  right: 12px;
   background: linear-gradient(135deg, #10b981, #059669);
   color: white;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 800;
-  padding: 4px 12px;
+  padding: 6px 12px;
   border-radius: 20px;
   z-index: 5;
-  animation: pulse-now 1.5s infinite;
+  animation: pulse-now 2s infinite;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
 }
 
 @keyframes pulse-now {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%, 100% { transform: scale(1); box-shadow: 0 0 12px rgba(16, 185, 129, 0.4); }
+  50% { transform: scale(1.08); box-shadow: 0 0 20px rgba(16, 185, 129, 0.6); }
 }
 
 .badge-reminder {
   position: absolute;
-  top: -8px;
-  right: 10px;
-  background: linear-gradient(135deg, #f97316, #ef4444);
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, #f97316, #ea580c);
   color: white;
-  font-size: 8px;
+  font-size: 9px;
   font-weight: 700;
-  padding: 2px 8px;
+  padding: 4px 10px;
   border-radius: 20px;
   z-index: 5;
+  animation: pulse-reminder 1.5s infinite;
+  box-shadow: 0 0 10px rgba(249, 115, 22, 0.3);
+}
+
+@keyframes pulse-reminder {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
 }
 
 .card-header {
@@ -218,42 +505,51 @@ body.light-mode {
   justify-content: space-between;
   align-items: baseline;
   border-bottom: 1px solid var(--border);
-  padding-bottom: 5px;
+  padding-bottom: 8px;
 }
 
 .card-day {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 800;
   color: var(--primary-light);
 }
 
 .card-date-range {
-  font-size: 9px;
-  color: var(--text3);
+  font-size: 10px;
+  color: var(--text-tertiary);
 }
 
 .card-title {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
+  color: var(--text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.3;
 }
 
 .card-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 6px;
 }
 
 .meta-tag {
-  font-size: 8px;
-  padding: 2px 6px;
+  font-size: 10px;
+  padding: 4px 8px;
   border-radius: var(--radius-full);
   font-weight: 600;
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
+  background: var(--primary-soft);
+  color: var(--primary-light);
+  transition: all 0.2s ease;
+}
+
+.meta-tag:hover {
+  background: var(--primary-glow);
 }
 
 .location-tag {
@@ -262,274 +558,531 @@ body.light-mode {
 }
 
 .card-obs {
-  font-size: 9px;
-  color: var(--text2);
-  margin-top: 4px;
-  padding-top: 4px;
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  padding-top: 6px;
   border-top: 1px solid var(--border);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.4;
 }
 
 .empty-state {
   grid-column: 1 / -1;
   text-align: center;
-  padding: 60px;
-  color: var(--text3);
+  padding: 80px 40px;
+  color: var(--text-tertiary);
 }
 
 .empty-icon {
-  font-size: 48px;
+  font-size: 56px;
   margin-bottom: 16px;
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
-/* MODAL */
+.empty-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* =============================================
+   VISUALIZAÇÃO DE CALENDÁRIO
+   ============================================= */
+.calendar-view {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.calendar-day:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--primary-glow);
+}
+
+.calendar-day-number {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.calendar-day-events {
+  font-size: 8px;
+  color: var(--text-tertiary);
+  flex: 1;
+  overflow: hidden;
+}
+
+.calendar-event-dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  margin-right: 2px;
+}
+
+/* =============================================
+   MODAL
+   ============================================= */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0, 0, 0, 0.6);
   display: none;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease;
 }
-.modal-overlay.open { display: flex; }
+
+.modal-overlay.open { 
+  display: flex; 
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 .modal-box {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 16px;
   width: 90%;
-  max-width: 500px;
+  max-width: 520px;
   max-height: 85vh;
   overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+  animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
 .modal-header {
   display: flex;
   justify-content: space-between;
-  padding: 16px 20px 0;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
 }
+
 .modal-title {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   background: linear-gradient(135deg, var(--primary-light), var(--primary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .modal-close {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: var(--card-bg);
-  color: var(--text3);
+  color: var(--text-secondary);
   cursor: pointer;
+  font-size: 18px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.modal-body { padding: 16px 20px 20px; }
+
+.modal-close:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+  border-color: var(--border-light);
+}
+
+.modal-body { 
+  padding: 24px; 
+}
 
 .type-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
-  margin-bottom: 16px;
+  gap: 8px;
+  margin-bottom: 20px;
 }
+
 .type-btn {
-  padding: 8px 4px;
+  padding: 12px 8px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: var(--card-bg);
-  color: var(--text2);
+  color: var(--text-secondary);
   cursor: pointer;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  transition: all 0.2s ease;
 }
-.type-btn .t-icon { font-size: 14px; }
-.type-btn.active[data-type="reuniao"] { background: var(--reuniao-soft); border-color: var(--reuniao); color: var(--reuniao); }
-.type-btn.active[data-type="evento"] { background: var(--evento-soft); border-color: var(--evento); color: var(--evento); }
-.type-btn.active[data-type="chg"] { background: var(--chg-soft); border-color: var(--chg); color: var(--chg); }
-.type-btn.active[data-type="outro"] { background: var(--outro-soft); border-color: var(--outro); color: var(--outro); }
+
+.type-btn:hover {
+  border-color: var(--border-light);
+  background: var(--surface-hover);
+}
+
+.type-btn .t-icon { 
+  font-size: 16px; 
+}
+
+.type-btn.active[data-type="reuniao"] { 
+  background: var(--reuniao-soft); 
+  border-color: var(--reuniao); 
+  color: var(--reuniao); 
+}
+
+.type-btn.active[data-type="evento"] { 
+  background: var(--evento-soft); 
+  border-color: var(--evento); 
+  color: var(--evento); 
+}
+
+.type-btn.active[data-type="chg"] { 
+  background: var(--chg-soft); 
+  border-color: var(--chg); 
+  color: var(--chg); 
+}
+
+.type-btn.active[data-type="outro"] { 
+  background: var(--outro-soft); 
+  border-color: var(--outro); 
+  color: var(--outro); 
+}
 
 .locations-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 6px;
-  margin-bottom: 12px;
+  gap: 8px;
+  margin-bottom: 16px;
 }
+
 .location-checkbox {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
+  gap: 8px;
+  padding: 10px 12px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   cursor: pointer;
+  transition: all 0.2s ease;
 }
-.location-checkbox.selected { border-color: var(--primary); background: var(--primary-soft); }
-.location-checkbox input { width: 14px; height: 14px; cursor: pointer; }
-.location-checkbox label { flex: 1; cursor: pointer; font-size: 11px; }
 
-.field { margin-bottom: 12px; }
+.location-checkbox:hover {
+  border-color: var(--border-light);
+}
+
+.location-checkbox.selected { 
+  border-color: var(--primary); 
+  background: var(--primary-soft); 
+}
+
+.location-checkbox input { 
+  width: 16px; 
+  height: 16px; 
+  cursor: pointer; 
+  accent-color: var(--primary);
+}
+
+.location-checkbox label { 
+  flex: 1; 
+  cursor: pointer; 
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.field { 
+  margin-bottom: 16px; 
+}
+
 .field-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 5px;
+  color: var(--text-tertiary);
+  margin-bottom: 6px;
+  display: block;
 }
+
 .field-input {
   width: 100%;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  padding: 8px 10px;
+  padding: 10px 12px;
   color: var(--text);
-  font-size: 12px;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  font-family: inherit;
 }
-.date-row, .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.field-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+
+.field-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.date-row, .time-row { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 12px; 
+}
+
 .duration-select {
   width: 100%;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  padding: 8px 10px;
+  padding: 10px 12px;
   color: var(--text);
-  font-size: 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
 }
-.modal-actions { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }
+
+.duration-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+
+.modal-actions { 
+  margin-top: 20px; 
+  padding-top: 16px; 
+  border-top: 1px solid var(--border); 
+}
+
 .btn-save {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border: none;
   border-radius: var(--radius-sm);
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-md);
 }
-.btn-row { display: flex; gap: 8px; margin-top: 8px; }
+
+.btn-save:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-save:active {
+  transform: translateY(0);
+}
+
+.btn-save:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-row { 
+  display: flex; 
+  gap: 10px; 
+  margin-top: 10px; 
+}
+
 .btn-del, .btn-cancel {
   flex: 1;
-  padding: 8px;
+  padding: 10px;
   border-radius: var(--radius-sm);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid;
 }
-.btn-del { background: var(--chg-soft); border: 1px solid var(--chg); color: var(--chg); }
-.btn-cancel { background: var(--card-bg); border: 1px solid var(--border); color: var(--text2); }
 
+.btn-del { 
+  background: var(--chg-soft); 
+  border-color: var(--chg); 
+  color: var(--chg); 
+}
+
+.btn-del:hover {
+  background: var(--chg);
+  color: white;
+}
+
+.btn-cancel { 
+  background: var(--card-bg); 
+  border-color: var(--border); 
+  color: var(--text-secondary); 
+}
+
+.btn-cancel:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+/* =============================================
+   TOAST NOTIFICATIONS
+   ============================================= */
 .toast-stack {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 24px;
+  right: 24px;
   z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
+
 .toast-item {
-  padding: 8px 14px;
+  padding: 12px 16px;
   border-radius: var(--radius);
   color: #fff;
-  font-size: 11px;
-  margin-top: 6px;
-  animation: fadeIn 0.3s;
+  font-size: 12px;
+  font-weight: 500;
+  animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 200px;
 }
-.toast-success { background: var(--evento); }
-.toast-error { background: var(--chg); }
-.toast-info { background: var(--primary); }
 
+@keyframes slideInRight {
+  from { 
+    opacity: 0; 
+    transform: translateX(100%); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+.toast-success { 
+  background: linear-gradient(135deg, var(--evento), #059669);
+}
+
+.toast-error { 
+  background: linear-gradient(135deg, var(--chg), #dc2626);
+}
+
+.toast-info { 
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+}
+
+/* =============================================
+   LOADING OVERLAY
+   ============================================= */
 .loading-overlay {
   position: fixed;
   inset: 0;
-  background: var(--bg);
+  background: rgba(15, 23, 42, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9000;
+  backdrop-filter: blur(4px);
 }
-.loading-overlay.hidden { display: none; }
+
+.loading-overlay.hidden { 
+  display: none; 
+}
+
 .spinner {
-  width: 36px; height: 36px;
+  width: 44px;
+  height: 44px;
   border: 3px solid var(--card-bg);
   border-top-color: var(--primary);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateX(100%); }
-  to { opacity: 1; transform: translateX(0); }
+
+@keyframes spin { 
+  to { transform: rotate(360deg); } 
 }
 
 /* =============================================
-   MOBILE - AJUSTES PARA NÃO QUEBRAR
+   RESPONSIVIDADE
    ============================================= */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 240px;
+  }
+  
+  .compromissos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
-  body {
-    overflow: auto;
-    height: auto;
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 64px;
+    height: calc(100% - 64px);
+    z-index: 500;
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .sidebar.collapsed {
+    transform: translateX(-100%);
+  }
+  
+  .sidebar-toggle {
+    display: block;
   }
   
   .top-bar {
-    padding: 8px 12px;
-    height: auto;
-    flex-wrap: wrap;
-    gap: 8px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    padding: 10px 16px;
+    height: 56px;
   }
   
-  .top-left {
-    flex: 1;
-  }
-  
-  .logo {
-    width: 28px;
-    height: 28px;
-    font-size: 14px;
-  }
-  
-  .title {
-    font-size: 12px;
+  .top-center {
+    display: none;
   }
   
   .mini-calendar {
-    order: 3;
-    width: 100%;
-    justify-content: center;
-    margin-top: 4px;
+    display: none;
   }
   
-  .mini-calendar .month-year {
-    font-size: 11px;
-  }
-  
-  .top-right {
-    gap: 6px;
-  }
-  
-  .theme-btn, .share-btn {
-    width: 32px;
-    height: 32px;
+  .title {
     font-size: 14px;
-  }
-  
-  .add-button {
-    width: 32px;
-    height: 32px;
-    font-size: 18px;
-  }
-  
-  .compromissos-container {
-    padding: 12px;
-    overflow-y: visible;
   }
   
   .compromissos-grid {
@@ -539,11 +1092,10 @@ body.light-mode {
   
   .event-card {
     padding: 12px;
-    margin: 0;
   }
   
   .card-day {
-    font-size: 18px;
+    font-size: 20px;
   }
   
   .card-title {
@@ -552,40 +1104,9 @@ body.light-mode {
     line-height: 1.4;
   }
   
-  .card-meta {
-    gap: 6px;
-  }
-  
-  .meta-tag {
-    font-size: 9px;
-    padding: 3px 8px;
-  }
-  
-  .location-tag {
-    font-size: 9px;
-  }
-  
-  .card-obs {
-    font-size: 10px;
-    white-space: normal;
-    line-height: 1.4;
-  }
-  
-  .badge-now {
-    font-size: 9px;
-    padding: 3px 10px;
-    top: -8px;
-    right: 8px;
-  }
-  
-  .badge-reminder {
-    font-size: 7px;
-    padding: 2px 6px;
-  }
-  
   .modal-box {
     width: 95%;
-    margin: 0 auto;
+    max-width: 100%;
   }
   
   .type-grid {
@@ -603,25 +1124,38 @@ body.light-mode {
   }
   
   .toast-item {
-    max-width: 100%;
+    min-width: auto;
   }
 }
 
 @media (max-width: 480px) {
   .top-bar {
-    padding: 8px 10px;
+    padding: 8px 12px;
+    height: 52px;
   }
   
   .top-left {
-    gap: 6px;
+    gap: 10px;
+  }
+  
+  .logo {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
   }
   
   .title {
-    font-size: 11px;
+    font-size: 12px;
+  }
+  
+  .icon-btn, .add-button {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
   }
   
   .compromissos-container {
-    padding: 10px;
+    padding: 12px;
   }
   
   .event-card {
@@ -629,7 +1163,7 @@ body.light-mode {
   }
   
   .card-day {
-    font-size: 16px;
+    font-size: 18px;
   }
   
   .card-title {
@@ -637,18 +1171,39 @@ body.light-mode {
   }
   
   .card-date-range {
-    font-size: 8px;
+    font-size: 9px;
   }
   
   .meta-tag {
-    font-size: 8px;
-    padding: 2px 6px;
+    font-size: 9px;
+    padding: 3px 6px;
   }
   
   .card-obs {
     font-size: 9px;
   }
+  
+  .modal-box {
+    width: 98%;
+  }
+  
+  .modal-header {
+    padding: 16px 16px;
+  }
+  
+  .modal-body {
+    padding: 16px;
+  }
 }
+
+body.light-mode .event-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .event-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
 </style>
 </head>
 <body>
@@ -657,35 +1212,118 @@ body.light-mode {
   <div class="spinner"></div>
 </div>
 
-<div class="top-bar">
-  <div class="top-left">
-    <div class="logo">✨</div>
-    <div class="title">Agenda Workplace</div>
-  </div>
-  
-  <div class="mini-calendar" id="miniCalendar">
-    <button class="nav-mini" id="prevMonthMini">◀</button>
-    <span class="month-year" id="miniMonthYear">Março 2026</span>
-    <button class="nav-mini" id="nextMonthMini">▶</button>
-  </div>
-  
-  <div class="top-right">
-    <button class="theme-btn" id="themeToggleBtn">🌓</button>
-    <button class="share-btn" id="shareBtn">🔗</button>
-    <button class="add-button" id="addBtn">+</button>
-  </div>
-</div>
+<!-- SIDEBAR -->
+<div class="app-container">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-title">Filtros</span>
+      <button class="sidebar-toggle-btn" id="sidebarToggleBtn">✕</button>
+    </div>
+    
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Tipos</div>
+      <div class="filter-item active" data-filter="all">
+        <span class="filter-dot" style="background: var(--primary)"></span>
+        <span>Todos</span>
+      </div>
+      <div class="filter-item" data-filter="reuniao">
+        <span class="filter-dot" style="background: var(--reuniao)"></span>
+        <span>Reuniões</span>
+      </div>
+      <div class="filter-item" data-filter="evento">
+        <span class="filter-dot" style="background: var(--evento)"></span>
+        <span>Eventos</span>
+      </div>
+      <div class="filter-item" data-filter="chg">
+        <span class="filter-dot" style="background: var(--chg)"></span>
+        <span>CHG</span>
+      </div>
+      <div class="filter-item" data-filter="outro">
+        <span class="filter-dot" style="background: var(--outro)"></span>
+        <span>Outros</span>
+      </div>
+    </div>
+    
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Locais</div>
+      <div class="filter-item" data-filter-location="workvivo">
+        <span class="filter-dot" style="background: var(--primary)"></span>
+        <span>Workvivo</span>
+      </div>
+      <div class="filter-item" data-filter-location="teams">
+        <span class="filter-dot" style="background: var(--primary)"></span>
+        <span>Teams</span>
+      </div>
+      <div class="filter-item" data-filter-location="berrini">
+        <span class="filter-dot" style="background: var(--primary)"></span>
+        <span>Auditório Berrini</span>
+      </div>
+      <div class="filter-item" data-filter-location="chucri">
+        <span class="filter-dot" style="background: var(--primary)"></span>
+        <span>Auditório Chucri</span>
+      </div>
+    </div>
+  </aside>
 
-<div class="compromissos-container">
-  <div class="compromissos-grid" id="eventsGrid"></div>
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div class="main-content">
+    <div class="top-bar">
+      <div class="top-left">
+        <button class="sidebar-toggle" id="sidebarToggleMain">☰</button>
+        <div class="logo">✨</div>
+        <div class="title">Agenda Workplace</div>
+      </div>
+      
+      <div class="top-center">
+        <div class="view-selector">
+          <button class="view-btn active" data-view="grid">📊 Grade</button>
+          <button class="view-btn" data-view="calendar">📅 Calendário</button>
+          <button class="view-btn" data-view="list">📋 Lista</button>
+        </div>
+        <input type="text" class="search-box" id="searchBox" placeholder="Buscar compromissos...">
+      </div>
+      
+      <div class="top-right">
+        <div class="mini-calendar" id="miniCalendar">
+          <button class="nav-mini" id="prevMonthMini">◀</button>
+          <span class="month-year" id="miniMonthYear">Março 2026</span>
+          <button class="nav-mini" id="nextMonthMini">▶</button>
+        </div>
+        <button class="icon-btn" id="themeToggleBtn" title="Alternar tema">🌓</button>
+        <button class="icon-btn" id="shareBtn" title="Compartilhar">🔗</button>
+        <button class="add-button" id="addBtn" title="Novo compromisso">+</button>
+      </div>
+    </div>
+
+    <!-- VISUALIZAÇÕES -->
+    <div class="view-container active" id="gridView">
+      <div class="compromissos-container">
+        <div class="compromissos-grid" id="eventsGrid"></div>
+      </div>
+    </div>
+
+    <div class="view-container" id="calendarView">
+      <div class="calendar-view" id="calendarGrid"></div>
+    </div>
+
+    <div class="view-container" id="listView">
+      <div class="compromissos-container">
+        <div class="compromissos-grid" id="listGrid"></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-box">
-    <div class="modal-header"><div class="modal-title" id="modalTitle">Novo Compromisso</div><button class="modal-close" id="modalCloseBtn">✕</button></div>
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Novo Compromisso</div>
+      <button class="modal-close" id="modalCloseBtn">✕</button>
+    </div>
     <div class="modal-body">
-      <div class="field"><label class="field-label">📌 Tipo</label>
+      <div class="field">
+        <label class="field-label">📌 Tipo</label>
         <div class="type-grid" id="typeGrid">
           <button class="type-btn" data-type="reuniao"><span class="t-icon">🤝</span>Reunião</button>
           <button class="type-btn" data-type="evento"><span class="t-icon">🎯</span>Evento</button>
@@ -694,22 +1332,90 @@ body.light-mode {
         </div>
         <input type="hidden" id="tipoInput" value="reuniao">
       </div>
-      <div class="field"><label class="field-label">📝 Título *</label><input type="text" id="titleInput" class="field-input" placeholder="Nome do compromisso…"></div>
-      <div class="field"><div class="date-row"><div><label style="font-size:10px">Início *</label><input type="date" id="startInput" class="field-input"></div><div><label style="font-size:10px">Fim</label><input type="date" id="endInput" class="field-input"></div></div></div>
-      <div class="field"><div class="time-row"><div><label style="font-size:10px">Hora</label><input type="time" id="timeInput" class="field-input"></div><div><label style="font-size:10px">Duração</label><select id="durationInput" class="duration-select"><option>Dia inteiro</option><option>30 min</option><option>1 hora</option><option>2 horas</option><option>3 horas</option><option>4 horas</option><option>5 horas</option><option>6 horas</option><option>8 horas</option></select></div></div></div>
-      <div class="field"><label class="field-label">📍 Locais</label><div class="locations-grid" id="locationsGrid"><div class="location-checkbox" data-location="workvivo"><input type="checkbox" id="loc_workvivo" value="Workvivo"><label for="loc_workvivo">💻 Workvivo</label></div><div class="location-checkbox" data-location="teams"><input type="checkbox" id="loc_teams" value="Microsoft Teams"><label for="loc_teams">🎥 Teams</label></div><div class="location-checkbox" data-location="auditorio_berrini"><input type="checkbox" id="loc_berrini" value="Auditório Berrini"><label for="loc_berrini">🏢 Auditório Berrini</label></div><div class="location-checkbox" data-location="auditorio_chucri"><input type="checkbox" id="loc_chucri" value="Auditório Chucri"><label for="loc_chucri">🏛️ Auditório Chucri</label></div></div></div>
-      <div class="field"><label class="field-label">📝 Observações</label><textarea id="obsInput" class="field-input" rows="2" placeholder="Detalhes importantes..."></textarea></div>
-      <div class="modal-actions"><button class="btn-save" id="saveBtn">💾 Salvar</button><div class="btn-row"><button class="btn-del" id="deleteBtn" style="display:none">🗑 Excluir</button><button class="btn-cancel" id="cancelBtn">Fechar</button></div></div>
+      <div class="field">
+        <label class="field-label">📝 Título *</label>
+        <input type="text" id="titleInput" class="field-input" placeholder="Nome do compromisso…">
+      </div>
+      <div class="field">
+        <div class="date-row">
+          <div>
+            <label class="field-label">Início *</label>
+            <input type="date" id="startInput" class="field-input">
+          </div>
+          <div>
+            <label class="field-label">Fim</label>
+            <input type="date" id="endInput" class="field-input">
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="time-row">
+          <div>
+            <label class="field-label">Hora</label>
+            <input type="time" id="timeInput" class="field-input">
+          </div>
+          <div>
+            <label class="field-label">Duração</label>
+            <select id="durationInput" class="duration-select">
+              <option>Dia inteiro</option>
+              <option>30 min</option>
+              <option>1 hora</option>
+              <option>2 horas</option>
+              <option>3 horas</option>
+              <option>4 horas</option>
+              <option>5 horas</option>
+              <option>6 horas</option>
+              <option>8 horas</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">📍 Locais</label>
+        <div class="locations-grid" id="locationsGrid">
+          <div class="location-checkbox" data-location="workvivo">
+            <input type="checkbox" id="loc_workvivo" value="Workvivo">
+            <label for="loc_workvivo">Workvivo</label>
+          </div>
+          <div class="location-checkbox" data-location="teams">
+            <input type="checkbox" id="loc_teams" value="Microsoft Teams">
+            <label for="loc_teams">Teams</label>
+          </div>
+          <div class="location-checkbox" data-location="berrini">
+            <input type="checkbox" id="loc_berrini" value="Auditório Berrini">
+            <label for="loc_berrini">Auditório Berrini</label>
+          </div>
+          <div class="location-checkbox" data-location="chucri">
+            <input type="checkbox" id="loc_chucri" value="Auditório Chucri">
+            <label for="loc_chucri">Auditório Chucri</label>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">📝 Observações</label>
+        <textarea id="obsInput" class="field-input" rows="2" placeholder="Detalhes importantes..."></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-save" id="saveBtn">💾 Salvar</button>
+        <div class="btn-row">
+          <button class="btn-del" id="deleteBtn" style="display:none">🗑 Excluir</button>
+          <button class="btn-cancel" id="cancelBtn">Fechar</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- MODAL DE COMPARTILHAMENTO -->
 <div class="modal-overlay" id="shareModalOverlay">
-  <div class="modal-box share-modal">
-    <div class="modal-header"><div class="modal-title">🔗 Compartilhar</div><button class="modal-close" id="shareModalCloseBtn">✕</button></div>
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">🔗 Compartilhar</div>
+      <button class="modal-close" id="shareModalCloseBtn">✕</button>
+    </div>
     <div class="modal-body">
       <div class="share-url" id="shareUrlDisplay">Carregando...</div>
-      <button class="copy-btn" id="copyShareBtn">📋 Copiar Link</button>
+      <button class="btn-save" id="copyShareBtn" style="margin-top: 12px;">📋 Copiar Link</button>
     </div>
   </div>
 </div>
@@ -726,8 +1432,8 @@ const SUPABASE_ANON_KEY = "sb_publishable_7Ma1Z2nNPHPxKtdfasln_w_ptK2--lb";
 const CONFIG = {
   reuniao: { color: "#3b82f6", soft: "rgba(59,130,246,0.1)", icon: "🤝", label: "Reunião" },
   evento:  { color: "#10b981", soft: "rgba(16,185,129,0.1)", icon: "🎯", label: "Evento" },
-  chg:     { color: "#f43f5e", soft: "rgba(244,63,94,0.1)", icon: "⚙️", label: "CHG" },
-  outro:   { color: "#f59e0b", soft: "rgba(245,158,11,0.1)", icon: "📌", label: "Outro" }
+  chg:     { color: "#ef4444", soft: "rgba(239,68,68,0.1)", icon: "⚙️", label: "CHG" },
+  outro:   { color: "#f97316", soft: "rgba(249,115,22,0.1)", icon: "📌", label: "Outro" }
 };
 
 const MONTH_NAMES = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
@@ -735,6 +1441,9 @@ const MONTH_SHORT = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out"
 
 let allEvents = [], currentDate = new Date(), editId = null;
 let reminderCheckInterval = null;
+let activeFilters = { types: ["all"], locations: [] };
+let currentView = "grid";
+let searchQuery = "";
 
 const $ = id => document.getElementById(id);
 
@@ -764,7 +1473,10 @@ async function loadEvents() {
     allEvents = await r.json();
     render();
     startReminderCheck();
-  } catch { toast("Erro ao carregar", "error"); }
+  } catch(err) { 
+    console.error("Erro ao carregar:", err);
+    toast("Erro ao carregar eventos", "error"); 
+  }
   finally { $("loadingOverlay")?.classList.add("hidden"); }
 }
 
@@ -783,21 +1495,27 @@ async function saveEvent(ev) {
       r = await fetch(`${SUPABASE_URL}/rest/v1/eventos`, { method: "POST", headers, body: JSON.stringify(ev) });
     }
     if (!r.ok) throw new Error();
-    toast(editId ? "Atualizado!" : "Criado!", "success");
+    toast(editId ? "✅ Atualizado!" : "✅ Criado!", "success");
     await loadEvents();
     closeModal();
-  } catch { toast("Erro ao salvar", "error"); }
+  } catch(err) { 
+    console.error("Erro ao salvar:", err);
+    toast("Erro ao salvar evento", "error"); 
+  }
 }
 
 async function deleteEvent() {
   if (!editId) return;
-  if (!confirm("Excluir?")) return;
+  if (!confirm("Tem certeza que deseja excluir este evento?")) return;
   try {
     await fetch(`${SUPABASE_URL}/rest/v1/eventos?id=eq.${editId}`, { method:"DELETE", headers });
-    toast("Removido", "info");
+    toast("🗑 Evento removido", "info");
     await loadEvents();
     closeModal();
-  } catch { toast("Erro", "error"); }
+  } catch(err) { 
+    console.error("Erro ao deletar:", err);
+    toast("Erro ao remover evento", "error"); 
+  }
 }
 
 function isWithin15Minutes(ev) {
@@ -820,7 +1538,7 @@ function startReminderCheck() {
     eventsToRemind.forEach(ev => {
       if (!ev._reminded) {
         ev._reminded = true;
-        toast(`🔔 Em até 15min: ${ev.title}`, "info");
+        toast(`⏰ Em até 15min: ${ev.title}`, "info");
         setTimeout(() => { ev._reminded = false; }, 60000);
       }
     });
@@ -865,30 +1583,65 @@ function formatEventDate(ev) {
   }
 }
 
+function filterEvents(events) {
+  let filtered = events;
+  
+  // Filtro por tipo
+  if (!activeFilters.types.includes("all")) {
+    filtered = filtered.filter(ev => activeFilters.types.includes(ev.tipo));
+  }
+  
+  // Filtro por localização
+  if (activeFilters.locations.length > 0) {
+    filtered = filtered.filter(ev => {
+      if (!ev.locations) return false;
+      const locs = ev.locations.split(',').map(l => l.trim().toLowerCase());
+      return activeFilters.locations.some(loc => locs.some(l => l.includes(loc.toLowerCase())));
+    });
+  }
+  
+  // Filtro por busca
+  if (searchQuery) {
+    filtered = filtered.filter(ev => 
+      ev.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (ev.obs && ev.obs.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+  }
+  
+  return filtered;
+}
+
 function renderList() {
   const grid = $("eventsGrid");
   if (!grid) return;
-  let filtered = [...allEvents].sort((a,b) => a.start.localeCompare(b.start));
+  
+  let filtered = [...filterEvents(allEvents)].sort((a,b) => a.start.localeCompare(b.start));
+  
   if (!filtered.length) {
-    grid.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">Nenhum compromisso agendado</div></div>`;
+    grid.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">Nenhum compromisso encontrado</div></div>`;
     return;
   }
+  
   grid.innerHTML = "";
   filtered.forEach(ev => {
     const cfg = CONFIG[ev.tipo] || CONFIG.outro;
     const { day, month, range } = formatEventDate(ev);
     const isNow = isHappeningNow(ev);
     const isReminder = isWithin15Minutes(ev);
+    
     let badgeHtml = '';
-    if (isNow) badgeHtml = '<div class="badge-now">🔴 ACONTECENDO AGORA</div>';
-    else if (isReminder) badgeHtml = '<div class="badge-reminder">⏰ EM ATÉ 15MIN</div>';
+    if (isNow) badgeHtml = '<div class="badge-now">🔴 AGORA</div>';
+    else if (isReminder) badgeHtml = '<div class="badge-reminder">⏰ 15MIN</div>';
+    
     let locationsHtml = '';
     if (ev.locations) {
       const locs = ev.locations.split(',').map(l => l.trim());
       locationsHtml = `<div class="card-meta">${locs.map(loc => `<span class="meta-tag location-tag">📍 ${loc}</span>`).join('')}</div>`;
     }
+    
     const card = document.createElement("div");
     card.className = "event-card";
+    card.setAttribute("data-type", ev.tipo);
     card.innerHTML = `
       ${badgeHtml}
       <div class="card-header">
@@ -909,8 +1662,58 @@ function renderList() {
   });
 }
 
+function renderCalendar() {
+  const calendarGrid = $("calendarGrid");
+  if (!calendarGrid) return;
+  
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const daysInMonth = lastDay.getDate();
+  const startingDayOfWeek = firstDay.getDay();
+  
+  calendarGrid.innerHTML = "";
+  
+  // Adicionar dias vazios do mês anterior
+  for (let i = 0; i < startingDayOfWeek; i++) {
+    const emptyDay = document.createElement("div");
+    emptyDay.className = "calendar-day";
+    emptyDay.style.opacity = "0.3";
+    calendarGrid.appendChild(emptyDay);
+  }
+  
+  // Adicionar dias do mês
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateStr = toLocalStr(new Date(year, month, day));
+    const dayEvents = filterEvents(allEvents).filter(ev => occursOn(ev, dateStr));
+    
+    const dayElement = document.createElement("div");
+    dayElement.className = "calendar-day";
+    
+    let eventsHtml = '';
+    dayEvents.forEach(ev => {
+      const cfg = CONFIG[ev.tipo] || CONFIG.outro;
+      eventsHtml += `<div style="color: ${cfg.color}; margin: 2px 0;">● ${ev.title.substring(0, 10)}</div>`;
+    });
+    
+    dayElement.innerHTML = `
+      <div class="calendar-day-number">${day}</div>
+      <div class="calendar-day-events">${eventsHtml || '<span style="opacity: 0.5;">—</span>'}</div>
+    `;
+    
+    dayElement.addEventListener("click", () => openModal(dateStr));
+    calendarGrid.appendChild(dayElement);
+  }
+}
+
 function escapeHtml(str) { if (!str) return ""; return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
-function render() { renderList(); updateMiniCalendar(); }
+
+function render() { 
+  renderList();
+  renderCalendar();
+  updateMiniCalendar(); 
+}
 
 let selectedType = "reuniao", selectedLocations = [];
 
@@ -938,6 +1741,7 @@ function initLocationCheckboxes() {
 }
 
 function resetLocations() { selectedLocations = []; document.querySelectorAll('.location-checkbox input').forEach(cb => { cb.checked = false; cb.closest('.location-checkbox').classList.remove('selected'); }); }
+
 function setLocationsFromEvent(locations) {
   resetLocations();
   if (locations) {
@@ -949,8 +1753,16 @@ function setLocationsFromEvent(locations) {
 }
 
 function openModal(date = null) {
-  editId = null; $("modalTitle").textContent = "Novo Compromisso"; $("deleteBtn").style.display = "none"; $("saveBtn").textContent = "💾 Salvar";
-  $("titleInput").value = ""; $("startInput").value = date || ""; $("endInput").value = date || ""; $("timeInput").value = ""; $("durationInput").value = "30 min"; $("obsInput").value = "";
+  editId = null; 
+  $("modalTitle").textContent = "Novo Compromisso"; 
+  $("deleteBtn").style.display = "none"; 
+  $("saveBtn").textContent = "💾 Salvar";
+  $("titleInput").value = ""; 
+  $("startInput").value = date || ""; 
+  $("endInput").value = date || ""; 
+  $("timeInput").value = ""; 
+  $("durationInput").value = "30 min"; 
+  $("obsInput").value = "";
   selectedType = "reuniao";
   document.querySelectorAll('.type-btn').forEach(btn => btn.classList.remove('active'));
   document.querySelector('.type-btn[data-type="reuniao"]').classList.add('active');
@@ -960,10 +1772,18 @@ function openModal(date = null) {
 }
 
 function openEdit(id) {
-  const ev = allEvents.find(e => e.id === id); if (!ev) return;
-  editId = id; $("modalTitle").textContent = "Editar"; $("deleteBtn").style.display = "block"; $("saveBtn").textContent = "💾 Atualizar";
-  $("titleInput").value = ev.title; $("startInput").value = ev.start; $("endInput").value = ev.end || ev.start;
-  $("timeInput").value = ev.time || ""; $("durationInput").value = ev.duration || "30 min"; $("obsInput").value = ev.obs || "";
+  const ev = allEvents.find(e => e.id === id); 
+  if (!ev) return;
+  editId = id; 
+  $("modalTitle").textContent = "Editar"; 
+  $("deleteBtn").style.display = "block"; 
+  $("saveBtn").textContent = "💾 Atualizar";
+  $("titleInput").value = ev.title; 
+  $("startInput").value = ev.start; 
+  $("endInput").value = ev.end || ev.start;
+  $("timeInput").value = ev.time || ""; 
+  $("durationInput").value = ev.duration || "30 min"; 
+  $("obsInput").value = ev.obs || "";
   const tipo = ev.tipo || "reuniao";
   selectedType = tipo;
   document.querySelectorAll('.type-btn').forEach(btn => btn.classList.remove('active'));
@@ -972,13 +1792,16 @@ function openEdit(id) {
   setLocationsFromEvent(ev.locations);
   $("modalOverlay").classList.add("open");
 }
+
 function closeModal() { $("modalOverlay").classList.remove("open"); editId = null; }
 
+// Event Listeners
 $("saveBtn")?.addEventListener("click", () => {
   const title = $("titleInput")?.value.trim(), start = $("startInput")?.value;
-  if (!title || !start) { toast("Título e data obrigatórios", "error"); return; }
+  if (!title || !start) { toast("❌ Título e data obrigatórios", "error"); return; }
   saveEvent({ id: editId || Date.now(), title, tipo: $("tipoInput").value, start, end: $("endInput").value || start, time: $("durationInput").value === "Dia inteiro" ? "" : $("timeInput").value, duration: $("durationInput").value, obs: $("obsInput").value.trim(), locations: selectedLocations.length ? selectedLocations.join(", ") : null });
 });
+
 $("deleteBtn")?.addEventListener("click", deleteEvent);
 $("cancelBtn")?.addEventListener("click", closeModal);
 $("modalCloseBtn")?.addEventListener("click", closeModal);
@@ -987,25 +1810,100 @@ $("modalOverlay")?.addEventListener("click", e => { if (e.target === $("modalOve
 $("prevMonthMini")?.addEventListener("click", () => {
   currentDate.setMonth(currentDate.getMonth() - 1);
   updateMiniCalendar();
+  renderCalendar();
 });
+
 $("nextMonthMini")?.addEventListener("click", () => {
   currentDate.setMonth(currentDate.getMonth() + 1);
   updateMiniCalendar();
+  renderCalendar();
 });
+
 $("addBtn")?.addEventListener("click", () => openModal());
 
+// Tema
 function initTheme() { if (localStorage.getItem('agendaTheme') === 'light') document.body.classList.add('light-mode'); }
-function toggleTheme() { document.body.classList.toggle('light-mode'); localStorage.setItem('agendaTheme', document.body.classList.contains('light-mode') ? 'light' : 'dark'); toast(document.body.classList.contains('light-mode') ? 'Modo claro' : 'Modo escuro', 'info'); }
-function openShareModal() { $("shareUrlDisplay").textContent = window.location.href; $("shareModalOverlay").classList.add("open"); }
-function closeShareModal() { $("shareModalOverlay").classList.remove("open"); }
-function copyShareLink() { navigator.clipboard.writeText($("shareUrlDisplay").textContent).then(() => { toast("Link copiado! 📋", "success"); closeShareModal(); }).catch(() => toast("Erro", "error")); }
+function toggleTheme() { document.body.classList.toggle('light-mode'); localStorage.setItem('agendaTheme', document.body.classList.contains('light-mode') ? 'light' : 'dark'); toast(document.body.classList.contains('light-mode') ? '☀️ Modo claro' : '🌙 Modo escuro', 'info'); }
 
 $("themeToggleBtn")?.addEventListener("click", toggleTheme);
+
+// Compartilhamento
+function openShareModal() { $("shareUrlDisplay").textContent = window.location.href; $("shareModalOverlay").classList.add("open"); }
+function closeShareModal() { $("shareModalOverlay").classList.remove("open"); }
+function copyShareLink() { navigator.clipboard.writeText($("shareUrlDisplay").textContent).then(() => { toast("✅ Link copiado!", "success"); closeShareModal(); }).catch(() => toast("❌ Erro ao copiar", "error")); }
+
 $("shareBtn")?.addEventListener("click", openShareModal);
 $("shareModalCloseBtn")?.addEventListener("click", closeShareModal);
 $("copyShareBtn")?.addEventListener("click", copyShareLink);
 $("shareModalOverlay")?.addEventListener("click", e => { if (e.target === $("shareModalOverlay")) closeShareModal(); });
 
+// Visualizações
+document.querySelectorAll('.view-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentView = btn.dataset.view;
+    
+    document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active'));
+    if (currentView === 'grid') $("gridView").classList.add('active');
+    else if (currentView === 'calendar') $("calendarView").classList.add('active');
+    else if (currentView === 'list') $("listView").classList.add('active');
+  });
+});
+
+// Busca
+$("searchBox")?.addEventListener('input', (e) => {
+  searchQuery = e.target.value;
+  renderList();
+});
+
+// Filtros Sidebar
+document.querySelectorAll('.filter-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const filter = item.dataset.filter;
+    const filterLocation = item.dataset.filterLocation;
+    
+    if (filter) {
+      if (filter === 'all') {
+        activeFilters.types = ['all'];
+        document.querySelectorAll('.filter-item[data-filter]').forEach(f => {
+          f.classList.toggle('active', f.dataset.filter === 'all');
+        });
+      } else {
+        if (activeFilters.types.includes('all')) activeFilters.types = [];
+        if (activeFilters.types.includes(filter)) {
+          activeFilters.types = activeFilters.types.filter(t => t !== filter);
+          if (activeFilters.types.length === 0) activeFilters.types = ['all'];
+        } else {
+          activeFilters.types.push(filter);
+        }
+        document.querySelectorAll('.filter-item[data-filter]').forEach(f => {
+          f.classList.toggle('active', activeFilters.types.includes(f.dataset.filter) || activeFilters.types.includes('all'));
+        });
+      }
+    } else if (filterLocation) {
+      item.classList.toggle('active');
+      if (item.classList.contains('active')) {
+        if (!activeFilters.locations.includes(filterLocation)) activeFilters.locations.push(filterLocation);
+      } else {
+        activeFilters.locations = activeFilters.locations.filter(l => l !== filterLocation);
+      }
+    }
+    
+    renderList();
+  });
+});
+
+// Sidebar Toggle
+$("sidebarToggleMain")?.addEventListener('click', () => {
+  $("sidebar").classList.toggle('collapsed');
+});
+
+$("sidebarToggleBtn")?.addEventListener('click', () => {
+  $("sidebar").classList.add('collapsed');
+});
+
+// Inicialização
 initTypeButtons();
 initLocationCheckboxes();
 initTheme();
