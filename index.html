@@ -57,23 +57,22 @@ body.light-mode {
   --text3: #6a6a8a;
 }
 
-/* =============================================
-   TOPO MINIMAL
-   ============================================= */
+/* TOPO MINIMAL */
 .top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 24px;
+  padding: 10px 24px;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
+  height: 56px;
 }
 
 .top-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .logo {
@@ -95,13 +94,13 @@ body.light-mode {
   -webkit-text-fill-color: transparent;
 }
 
-/* Mini calendário - opcional, fácil de remover */
+/* Mini calendário */
 .mini-calendar {
   display: flex;
   align-items: center;
   gap: 8px;
   background: var(--card-bg);
-  padding: 6px 12px;
+  padding: 5px 12px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border);
 }
@@ -138,16 +137,12 @@ body.light-mode {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s;
-}
-.add-button:hover {
-  transform: scale(1.05);
 }
 
 .top-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .theme-btn, .share-btn {
@@ -159,120 +154,112 @@ body.light-mode {
   border-radius: var(--radius-full);
   cursor: pointer;
   font-size: 16px;
-  transition: all 0.2s;
-}
-.theme-btn:hover, .share-btn:hover {
-  background: var(--primary-soft);
-  border-color: var(--primary);
-  color: var(--primary-light);
 }
 
-/* =============================================
-   GRADE DE COMPROMISSOS - 3 COLUNAS
-   ============================================= */
+/* GRADE DE COMPROMISSOS - 3 COLUNAS, AJUSTADA PARA 12 CARDS */
 .compromissos-container {
   flex: 1;
   overflow-y: auto;
-  padding: 20px 24px;
+  padding: 16px 20px;
 }
 
 .compromissos-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 14px;
 }
 
-/* CARD DE COMPROMISSO - COMPACTO E INFORMATIVO */
+/* CARD COMPACTO - AJUSTADO PARA CABER 12 CARDS */
 .event-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 12px;
   transition: all 0.2s;
   cursor: pointer;
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+  height: auto;
+  min-height: 0;
 }
 
 .event-card:hover {
   transform: translateY(-2px);
   border-color: var(--primary);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-/* Badges */
+/* Badges menores */
 .badge-now, .badge-reminder {
   position: absolute;
   top: -8px;
-  right: 12px;
-  font-size: 8px;
+  right: 10px;
+  font-size: 7px;
   font-weight: 700;
-  padding: 3px 8px;
+  padding: 2px 6px;
   border-radius: 20px;
   color: white;
   z-index: 5;
 }
-.badge-now {
-  background: linear-gradient(135deg, #10b981, #059669);
-}
-.badge-reminder {
-  background: linear-gradient(135deg, #f97316, #ef4444);
-}
+.badge-now { background: linear-gradient(135deg, #10b981, #059669); }
+.badge-reminder { background: linear-gradient(135deg, #f97316, #ef4444); }
 
-/* Cabeçalho do card */
+/* Cabeçalho compacto */
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   border-bottom: 1px solid var(--border);
-  padding-bottom: 8px;
-  margin-bottom: 4px;
+  padding-bottom: 5px;
+  margin-bottom: 2px;
 }
 
 .card-day {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 800;
   color: var(--primary-light);
   line-height: 1;
 }
 
 .card-month {
-  font-size: 11px;
+  font-size: 9px;
   color: var(--text3);
   text-transform: uppercase;
 }
 
 .card-date-range {
-  font-size: 10px;
+  font-size: 9px;
   color: var(--text3);
 }
 
-/* Título */
+/* Título compacto */
 .card-title {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   line-height: 1.3;
-  margin: 4px 0;
+  margin: 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Metadados */
+/* Metadados compactos */
 .card-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin: 6px 0;
+  gap: 4px;
+  margin: 2px 0;
 }
 
 .meta-tag {
-  font-size: 9px;
-  padding: 3px 8px;
+  font-size: 8px;
+  padding: 2px 6px;
   border-radius: var(--radius-full);
   font-weight: 600;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
 }
 
 .location-tag {
@@ -280,18 +267,17 @@ body.light-mode {
   color: var(--primary-light);
 }
 
-/* Observações */
+/* Observações compactas - 1 linha apenas */
 .card-obs {
-  font-size: 10px;
+  font-size: 9px;
   color: var(--text2);
-  line-height: 1.4;
-  margin-top: 8px;
-  padding-top: 8px;
+  line-height: 1.3;
+  margin-top: 4px;
+  padding-top: 4px;
   border-top: 1px solid var(--border);
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .empty-state {
@@ -488,17 +474,14 @@ body.light-mode {
   to { opacity: 1; transform: translateX(0); }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .compromissos-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .compromissos-grid {
     grid-template-columns: 1fr;
-  }
-  .top-bar {
-    padding: 10px 16px;
   }
   .mini-calendar {
     display: none;
@@ -518,7 +501,6 @@ body.light-mode {
     <div class="title">Agenda Workplace</div>
   </div>
   
-  <!-- Mini calendário - fácil de remover se quiser -->
   <div class="mini-calendar" id="miniCalendar">
     <button class="nav-mini" id="prevMonthMini">◀</button>
     <span class="month-year" id="miniMonthYear">Março 2026</span>
@@ -697,6 +679,22 @@ function updateMiniCalendar() {
   }
 }
 
+function formatEventDate(ev) {
+  const start = new Date(ev.start);
+  const end = ev.end ? new Date(ev.end) : start;
+  
+  const startDay = start.getDate();
+  const startMonth = MONTH_SHORT[start.getMonth()];
+  const endDay = end.getDate();
+  const endMonth = MONTH_SHORT[end.getMonth()];
+  
+  if (start.toDateString() === end.toDateString()) {
+    return { day: startDay, month: startMonth, range: `${startDay} ${startMonth}` };
+  } else {
+    return { day: startDay, month: startMonth, range: `${startDay}/${startMonth} → ${endDay}/${endMonth}` };
+  }
+}
+
 function renderList() {
   const grid = $("eventsGrid");
   if (!grid) return;
@@ -711,16 +709,9 @@ function renderList() {
   grid.innerHTML = "";
   filtered.forEach(ev => {
     const cfg = CONFIG[ev.tipo] || CONFIG.outro;
-    const startDate = new Date(ev.start);
-    const day = startDate.getDate();
-    const mon = MONTH_SHORT[startDate.getMonth()];
+    const { day, month, range } = formatEventDate(ev);
     const isNow = isHappeningNow(ev);
     const isReminder = isWithin15Minutes(ev);
-    
-    const endDate = ev.end ? new Date(ev.end) : startDate;
-    const dateRange = startDate.toDateString() === endDate.toDateString() 
-      ? `${day} ${mon}`
-      : `${day}/${MONTH_SHORT[startDate.getMonth()]} → ${endDate.getDate()}/${MONTH_SHORT[endDate.getMonth()]}`;
     
     let badgeHtml = '';
     if (isNow) badgeHtml = '<div class="badge-now">🔴 AGORA</div>';
@@ -738,7 +729,7 @@ function renderList() {
       ${badgeHtml}
       <div class="card-header">
         <span class="card-day">${day}</span>
-        <span class="card-date-range">${dateRange}</span>
+        <span class="card-date-range">${range}</span>
       </div>
       <div class="card-title">${escapeHtml(ev.title)}</div>
       <div class="card-meta">
@@ -747,7 +738,7 @@ function renderList() {
         ${ev.duration && ev.duration !== "Dia inteiro" ? `<span class="meta-tag">⏱ ${ev.duration}</span>` : ev.duration === "Dia inteiro" ? `<span class="meta-tag">📅 Dia inteiro</span>` : ''}
       </div>
       ${locationsHtml}
-      ${ev.obs ? `<div class="card-obs">📝 ${escapeHtml(ev.obs.substring(0,100))}${ev.obs.length>100?"…":""}</div>` : ''}
+      ${ev.obs ? `<div class="card-obs">📝 ${escapeHtml(ev.obs.substring(0,80))}${ev.obs.length>80?"…":""}</div>` : ''}
     `;
     card.addEventListener("click", () => openEdit(ev.id));
     grid.appendChild(card);
@@ -832,19 +823,15 @@ $("cancelBtn")?.addEventListener("click", closeModal);
 $("modalCloseBtn")?.addEventListener("click", closeModal);
 $("modalOverlay")?.addEventListener("click", e => { if (e.target === $("modalOverlay")) closeModal(); });
 
-// Navegação do mini calendário
 $("prevMonthMini")?.addEventListener("click", () => {
   currentDate.setMonth(currentDate.getMonth() - 1);
   updateMiniCalendar();
-  renderList();
 });
 $("nextMonthMini")?.addEventListener("click", () => {
   currentDate.setMonth(currentDate.getMonth() + 1);
   updateMiniCalendar();
-  renderList();
 });
 $("addBtn")?.addEventListener("click", () => openModal());
-$("fabMobileBtn")?.addEventListener("click", () => openModal());
 
 function initTheme() { if (localStorage.getItem('agendaTheme') === 'light') document.body.classList.add('light-mode'); }
 function toggleTheme() { document.body.classList.toggle('light-mode'); localStorage.setItem('agendaTheme', document.body.classList.contains('light-mode') ? 'light' : 'dark'); toast(document.body.classList.contains('light-mode') ? 'Modo claro' : 'Modo escuro', 'info'); }
